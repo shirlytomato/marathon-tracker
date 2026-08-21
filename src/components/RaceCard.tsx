@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import type { Race, RegStatus } from "@/types/race";
 import { deriveStatus } from "@/lib/status";
 
@@ -28,6 +31,7 @@ function Field({ label, value }: { label: string; value?: string }) {
 }
 
 export default function RaceCard({ race, now }: { race: Race; now: Date }) {
+  const [expanded, setExpanded] = useState(false);
   const status = deriveStatus(race, now);
   const st = STATUS_STYLE[status];
   const cat = CATEGORY_STYLE[race.category];
@@ -37,9 +41,14 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
     status === "open" && race.regEnd &&
     (new Date(race.regEnd + "T23:59:59+08:00").getTime() - now.getTime()) <= 7 * 86400000;
 
-  const daysLeft = urgent && race.regEnd
+  const daysLeft = race.regEnd
     ? Math.max(0, Math.ceil((new Date(race.regEnd + "T23:59:59+08:00").getTime() - now.getTime()) / 86400000))
     : null;
+
+  // 次要字段有值才提供展开入口
+  const hasDetail = Boolean(race.location || race.scale || race.fee || race.lotteryDate || race.events.length);
+
+  const dateLabel = `${race.raceDate.slice(5, 7)}月${race.raceDate.slice(8)}日`;
 
   return (
     <div className={`rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md ${
@@ -51,43 +60,61 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
         {race.needLottery && (
           <span className="rounded-md bg-violet-50 px-2 py-0.5 text-xs font-medium text-violet-700">需抽签</span>
         )}
-        {urgent && (
+        {urgent && daysLeft !== null && (
           <span className="ml-auto rounded-md bg-red-50 px-2 py-0.5 text-xs font-bold text-red-600">
             ⏰ {daysLeft === 0 ? "今天截止" : `${daysLeft} 天后截止`}
           </span>
         )}
       </div>
 
+      {/* 主信息行：赛事名 + 官网 */}
       <div className="mt-2 flex items-center gap-3">
         <h3 className="truncate text-xl font-bold tracking-tight text-slate-900">{race.name}</h3>
         {race.officialSite && (
           <a href={race.officialSite} target="_blank" rel="noreferrer"
-             className="inline-flex shrink-0 items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+             className="inline-flex shrink-0 items-center text-sm font-medium text-orange-500 hover:text-orange-600">
             赛事官网 ↗
           </a>
         )}
       </div>
 
-      <div className="mt-1 text-sm text-slate-500">
-        {[race.country === "中国" ? race.province : race.country, race.city].filter(Boolean).join(" · ")}
+      {/* 关键行：比赛日期 · 地点 · 报名截止（跑者最关心的三件事） */}
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
+        <span className="font-semibold text-slate-800">
+          {race.raceDate.slice(0, 4)}年{dateLabel}
+        </span>
+        <span>{[race.country === "中国" ? race.province : race.country, race.city].filter(Boolean).join(" · ")}</span>
+        {status === "open" && race.regEnd && daysLeft !== null ? (
+          <span className={urgent ? "font-bold text-red-600" : "font-semibold text-emerald-600"}>
+            报名 {daysLeft === 0 ? "今天截止" : `还剩 ${daysLeft} 天`}
+          </span>
+        ) : race.regStart && race.regEnd ? (
+          <span>报名 {race.regStart.slice(5)} 至 {race.regEnd.slice(5)}</span>
+        ) : status !== "finished" ? (
+          <span>报名时间暂未公布</span>
+        ) : null}
       </div>
 
-      <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3">
-        <Field label="比赛时间" value={race.raceDate} />
-        <Field label="比赛地点" value={race.location} />
-        <Field label="报名时间" value={
-          race.regStart && race.regEnd
-            ? `${race.regStart} 至 ${race.regEnd}`
-            // 已完赛的不显示“暂未公布”（无意义）；仅未来赛事显示待公布
-            : status === "finished"
-              ? undefined
-              : "暂未公布"
-        } />
-        <Field label="参赛规模" value={race.scale} />
-        <Field label="竞赛项目" value={race.events.join(" / ")} />
-        <Field label="费用" value={race.fee} />
-        <Field label="抽签时间" value={race.lotteryDate} />
-      </div>
+      {/* 次要字段默认收起，点击展开 */}
+      {hasDetail && (
+        <>
+          {expanded && (
+            <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-slate-100 pt-3 sm:grid-cols-3">
+              <Field label="比赛地点" value={race.location} />
+              <Field label="参赛规模" value={race.scale} />
+              <Field label="竞赛项目" value={race.events.join(" / ")} />
+              <Field label="费用" value={race.fee} />
+              <Field label="抽签时间" value={race.lotteryDate} />
+            </div>
+          )}
+          <button
+            onClick={() => setExpanded(v => !v)}
+            className="mt-2 text-xs font-medium text-orange-500 hover:text-orange-600"
+          >
+            {expanded ? "收起详情 ▲" : "查看详情 ▼"}
+          </button>
+        </>
+      )}
     </div>
   );
 }

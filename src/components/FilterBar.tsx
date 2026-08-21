@@ -8,7 +8,7 @@ export interface Filters {
   quick: "unfinished" | "finished" | "all";
 }
 
-const selectCls = "rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 focus:border-blue-500 focus:outline-none";
+const selectCls = "rounded-lg border border-orange-200 bg-white px-3 py-1.5 text-sm text-slate-700 focus:border-orange-400 focus:outline-none";
 
 export default function FilterBar({ filters, regions, onChange }: {
   filters: Filters;
@@ -38,7 +38,7 @@ export default function FilterBar({ filters, regions, onChange }: {
         <input
           type="search" placeholder="搜索赛事名称…" value={filters.keyword}
           onChange={e => onChange({ keyword: e.target.value })}
-          className="min-w-40 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none"
+          className="min-w-40 flex-1 rounded-lg border border-orange-200 bg-white px-3 py-1.5 text-sm focus:border-orange-400 focus:outline-none"
         />
       </div>
       <div className="flex gap-2">
@@ -48,8 +48,8 @@ export default function FilterBar({ filters, regions, onChange }: {
             onClick={() => onChange({ quick: k })}
             className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
               filters.quick === k
-                ? "bg-blue-600 text-white"
-                : "border border-slate-300 bg-white text-slate-600 hover:bg-slate-50"
+                ? "bg-orange-500 text-white"
+                : "border border-orange-200 bg-white text-slate-600 hover:bg-orange-50"
             }`}
           >
             {label}
