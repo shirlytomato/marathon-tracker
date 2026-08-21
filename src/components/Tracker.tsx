@@ -113,18 +113,24 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
   }, [upcoming]);
 
   return (
-    <div className="min-h-screen bg-orange-50/60">
-      {/* 品牌头图：珊瑚橙 × 日出金 */}
-      <header className="bg-gradient-to-br from-orange-500 via-orange-400 to-amber-400 pb-16 pt-10 text-center text-white">
-        <div className="mx-auto max-w-5xl px-4">
-          <div className="text-xs font-bold uppercase tracking-[0.35em] opacity-80">Marathon Tracker</div>
-          <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl">pbrun.run</h1>
-          <p className="mt-3 text-lg font-semibold sm:text-xl">愿你每一次奔跑，都是 Personal Best</p>
-          <p className="mt-2 text-sm opacity-90">为爱发电 · 免费无广 · AI 每日更新报名动态 · 收录 {races.length} 场赛事</p>
+    <div className="min-h-screen bg-orange-50">
+      {/* 品牌头图：朋友圈宣传主图融入，沿用主图暖橙×金配色，底部渐隐到页面底色 */}
+      <header className="relative overflow-hidden bg-gradient-to-b from-orange-500 via-orange-400 via-70% to-orange-50 pb-10 pt-8 text-center">
+        {/* 日出光晕：与主图金光呼应 */}
+        <div className="pointer-events-none absolute left-1/2 top-[-6rem] h-56 w-[30rem] -translate-x-1/2 rounded-full bg-amber-200/30 blur-3xl" />
+        <div className="relative mx-auto max-w-5xl px-4">
+          <h1 className="sr-only">pbrun.run — 马拉松赛事追踪，愿你每一次奔跑，都是 Personal Best</h1>
+          {/* 主图自带品牌字标与 PB 标语，直接作为视觉主体 */}
+          <img
+            src="/hero.jpg"
+            alt="pbrun.run — Run Your Personal Best，愿你每一次奔跑都是自己的 PB"
+            className="mx-auto w-full max-w-md rounded-2xl shadow-xl ring-1 ring-white/50 sm:max-w-lg"
+          />
+          <p className="mt-4 text-xs font-medium text-white sm:text-sm">为爱发电 · AI 每日更新报名动态</p>
         </div>
       </header>
 
-      <main className="mx-auto -mt-8 max-w-5xl px-4 pb-10">
+      <main className="mx-auto mt-6 max-w-5xl px-4 pb-10">
         <StatsBar open={stats.open} drawing={stats.drawing} countdown={stats.countdown} updatedAt={updatedAt} />
 
         {/* 国内 / 国际切换 */}
@@ -143,10 +149,6 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
           ))}
         </div>
 
-        <div className="mt-4">
-          <FilterBar filters={filters} regions={regions} onChange={patch => setFilters(f => ({ ...f, ...patch }))} />
-        </div>
-
         {/* 报名雷达：正在报名的赛事置顶 */}
         {openRaces.length > 0 && (
           <section className="mt-8">
@@ -159,6 +161,10 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
             </div>
           </section>
         )}
+
+        <div className="mt-6">
+          <FilterBar filters={filters} regions={regions} onChange={patch => setFilters(f => ({ ...f, ...patch }))} />
+        </div>
 
         {/* 月份快速导航 */}
         {months.length > 1 && (
@@ -181,7 +187,7 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
         {months.map(m => (
           <section key={m} id={`month-${m}`} className="mt-8 scroll-mt-14">
             <h2 className="text-xl font-bold text-slate-900">
-              {Number(m.slice(5))}月
+              🗓️ {Number(m.slice(5))}月
               <span className="ml-2 text-sm font-normal text-slate-400">{byMonth.get(m)?.length} 场赛事</span>
             </h2>
             <div className="mt-3 space-y-3">
@@ -193,7 +199,7 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
         {/* 已结束赛事：沉底弱展示 */}
         {finished.length > 0 && (
           <section className="mt-10">
-            <h2 className="text-base font-semibold text-slate-400">已结束 · {finished.length} 场</h2>
+            <h2 className="text-base font-semibold text-slate-400">🏁 已结束 · {finished.length} 场</h2>
             <div className="mt-3 space-y-2">
               {finished.map(r => <RaceCard key={r.id} race={r} now={now} />)}
             </div>
@@ -202,7 +208,7 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
 
         {filtered.length === 0 && (
           <div className="mt-8 rounded-2xl border border-dashed border-orange-200 bg-white p-12 text-center text-slate-400">
-            没有符合条件的赛事
+            🔍 没有符合条件的赛事
           </div>
         )}
 
