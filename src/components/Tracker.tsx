@@ -123,9 +123,8 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
           alt="pbrun.run — Run Your Personal Best，愿你每一次奔跑都是自己的 PB"
           className="block w-full"
         />
-        {/* 底部渐隐：与页面底色自然衔接 */}
+        {/* 底部渐隐：与页面底色自然衔接（标语已内置于横幅图中） */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-orange-50" />
-        <p className="mt-3 text-center text-xs font-medium text-orange-400 sm:text-sm">为爱发电 · AI 每日更新报名动态</p>
       </header>
 
       <main className="mx-auto mt-6 max-w-5xl px-4 pb-10">
