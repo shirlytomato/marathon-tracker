@@ -1966,10 +1966,11 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-08-21T09:48:05.931Z",
+    "updatedAt": "2026-08-21T12:46:49Z",
     "regStart": "2026-08-14",
-    "regEnd": "2026-09-14",
-    "needLottery": true
+    "regEnd": "2026-08-31",
+    "needLottery": true,
+    "lotteryDate": "2026-09-02"
   },
   {
     "id": "粤港澳大湾区女子半程马拉松",

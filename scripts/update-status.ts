@@ -20,10 +20,11 @@ function dueToUpdate(r: Race): boolean {
 
 const PROMPT = (r: Race) =>
   `请联网搜索"${r.name}"（${r.country}${r.province ?? ""}${r.city ?? ""}，比赛时间 ${r.raceDate}）的最新报名信息。` +
-  `只返回一个 JSON 对象，不要包含其他文字：` +
-  `{"regStart":"报名开始日期 YYYY-MM-DD，未知则为空字符串","regEnd":"报名截止日期 YYYY-MM-DD，未知则为空字符串",` +
+  `重要要求：日期必须来自组委会官方公告或权威报道（官网、官方公众号、本地宝/最酷等汇总），禁止根据往年经验推测或估算；` +
+  `如果找不到确切的官方报名日期，对应字段必须返回空字符串。只返回一个 JSON 对象，不要包含其他文字：` +
+  `{"regStart":"报名开始日期 YYYY-MM-DD，非官方确切信息则为空字符串","regEnd":"报名截止日期 YYYY-MM-DD，非官方确切信息则为空字符串",` +
   `"regStatus":"pending|open|drawing|closed|finished 之一","lotteryDate":"抽签日期 YYYY-MM-DD，无则为空字符串",` +
-  `"raceDate":"核实后的比赛日期 YYYY-MM-DD","officialSite":"赛事官网URL，未知则为空字符串","note":"一句话摘要"}`;
+  `"raceDate":"核实后的比赛日期 YYYY-MM-DD","officialSite":"赛事官网URL，未知则为空字符串","note":"一句话摘要，注明来源"}`;
 
 // 日期年份防护：AI 可能返回往年数据（如给 2026 赛事填 2025 报名窗口），与赛事年份不符则丢弃
 const validYear = (v: string, race: Race) =>
@@ -60,7 +61,8 @@ async function main() {
       const parsed = JSON.parse(await qwenSearch(PROMPT(r)));
       for (const k of ["regStart", "regEnd", "lotteryDate", "raceDate"] as const) {
         const v = parsed[k];
-        if (typeof v === "string" && validYear(v, r)) (r as unknown as Record<string, unknown>)[k] = v;
+        if (typeof v === "string" && v && validYear(v, r)) (r as unknown as Record<string, unknown>)[k] = v;
+        // AI 返回空字符串：保留原值，不用空值覆盖已有数据
       }
       const status = parsed.regStatus;
       if (typeof status === "string" && VALID_STATUS.has(status)) r.regStatus = status as Race["regStatus"];
