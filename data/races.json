@@ -37,7 +37,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "platinum",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "https://www.xmim.org",
@@ -54,7 +54,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "scale": "30000人"
   },
@@ -151,7 +151,7 @@
     "events": [
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00"
   },
   {
@@ -259,7 +259,7 @@
     "events": [
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "platinum",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true
   },
@@ -315,7 +315,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "https://wuxi.marathon.org.cn",
@@ -499,7 +499,7 @@
     "events": [
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "platinum",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "https://www.yzmls.com"
@@ -1288,7 +1288,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "http://www.lzmarathon.com",
@@ -1634,7 +1634,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "http://www.tymarathon.org",
@@ -1732,7 +1732,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "http://www.beijing-marathon.com",
@@ -1842,7 +1842,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "regStart": "2026-06-23",
     "regEnd": "2026-07-15",
@@ -1862,7 +1862,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "platinum",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "regStart": "2026-04-29",
     "regEnd": "2026-05-29",
@@ -1883,7 +1883,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "http://www.shenzhenmarathon.org.cn",
@@ -1900,7 +1900,7 @@
       "全程马拉松",
       "半程马拉松"
     ],
-    "category": "A",
+    "category": "gold",
     "updatedAt": "2026-08-21T16:00:00+08:00",
     "needLottery": true,
     "officialSite": "http://www.guangzhou-marathon.com",
@@ -2866,6 +2866,228 @@
       "半程马拉松"
     ],
     "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "tokyo-marathon",
+    "name": "东京马拉松",
+    "country": "日本",
+    "city": "东京",
+    "raceDate": "2026-03-01",
+    "location": "东京都厅（起点）",
+    "regStatus": "finished",
+    "needLottery": true,
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.marathon.tokyo",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "boston-marathon",
+    "name": "波士顿马拉松",
+    "country": "美国",
+    "city": "波士顿",
+    "raceDate": "2026-04-20",
+    "location": "霍普金顿（起点）",
+    "regStatus": "finished",
+    "needLottery": false,
+    "fee": "需达到 BQ 资格成绩",
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.baa.org",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "london-marathon",
+    "name": "伦敦马拉松",
+    "country": "英国",
+    "city": "伦敦",
+    "raceDate": "2026-04-26",
+    "location": "格林威治公园（起点）",
+    "regStatus": "finished",
+    "needLottery": true,
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.tcslondonmarathon.com",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "sydney-marathon",
+    "name": "悉尼马拉松",
+    "country": "澳大利亚",
+    "city": "悉尼",
+    "raceDate": "2026-08-30",
+    "location": "悉尼歌剧院（终点）",
+    "regStatus": "closed",
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.syneymarathon.com",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "berlin-marathon",
+    "name": "柏林马拉松",
+    "country": "德国",
+    "city": "柏林",
+    "raceDate": "2026-09-27",
+    "location": "勃兰登堡门",
+    "regStatus": "closed",
+    "regStart": "2025-10-16",
+    "regEnd": "2025-11-13",
+    "needLottery": true,
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.bmw-berlin-marathon.com",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "chicago-marathon",
+    "name": "芝加哥马拉松",
+    "country": "美国",
+    "city": "芝加哥",
+    "raceDate": "2026-10-11",
+    "location": "格兰特公园",
+    "regStatus": "closed",
+    "needLottery": true,
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.chicagomarathon.com",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "nyc-marathon",
+    "name": "纽约马拉松",
+    "country": "美国",
+    "city": "纽约",
+    "raceDate": "2026-11-01",
+    "location": "中央公园（终点）",
+    "regStatus": "closed",
+    "needLottery": true,
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.nyrr.org/tcsnycmarathon",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "tokyo-marathon-2027",
+    "name": "东京马拉松（2027·20周年）",
+    "country": "日本",
+    "city": "东京",
+    "raceDate": "2027-03-07",
+    "location": "东京都厅（起点）",
+    "regStart": "2026-08-05",
+    "regEnd": "2026-09-30",
+    "regStatus": "open",
+    "needLottery": true,
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.marathon.tokyo",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "london-marathon-2027",
+    "name": "伦敦马拉松（2027）",
+    "country": "英国",
+    "city": "伦敦",
+    "raceDate": "2027-04-25",
+    "regStart": "2026-04-27",
+    "regEnd": "2026-12-31",
+    "regStatus": "open",
+    "needLottery": true,
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "major",
+    "officialSite": "https://www.tcslondonmarathon.com",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "valencia-marathon",
+    "name": "瓦伦西亚马拉松",
+    "country": "西班牙",
+    "city": "瓦伦西亚",
+    "raceDate": "2026-12-06",
+    "location": "艺术科学城（终点）",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "platinum",
+    "officialSite": "https://valenciaciudaddelrunning.com",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "dubai-marathon",
+    "name": "迪拜马拉松",
+    "country": "阿联酋",
+    "city": "迪拜",
+    "raceDate": "2027-01-24",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "platinum",
+    "officialSite": "https://www.dubaimarathon.org",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "rotterdam-marathon",
+    "name": "鹿特丹马拉松",
+    "country": "荷兰",
+    "city": "鹿特丹",
+    "raceDate": "2027-04-11",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "platinum",
+    "officialSite": "https://www.nnmarathonrotterdam.org",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "sevilla-marathon",
+    "name": "塞维利亚马拉松",
+    "country": "西班牙",
+    "city": "塞维利亚",
+    "raceDate": "2027-02-14",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "platinum",
+    "officialSite": "https://www.zurichmaratonsevilla.es",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "osaka-womens-marathon",
+    "name": "大阪女子马拉松",
+    "country": "日本",
+    "city": "大阪",
+    "raceDate": "2027-01-31",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "platinum",
+    "officialSite": "https://www.osaka-marathon.com",
     "updatedAt": "2026-08-21T16:00:00+08:00"
   }
 ]
