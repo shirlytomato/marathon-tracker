@@ -78,7 +78,10 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
         <Field label="报名时间" value={
           race.regStart && race.regEnd
             ? `${race.regStart} 至 ${race.regEnd}`
-            : "暂未公布"
+            // 已完赛的不显示“暂未公布”（无意义）；仅未来赛事显示待公布
+            : status === "finished"
+              ? undefined
+              : "暂未公布"
         } />
         <Field label="参赛规模" value={race.scale} />
         <Field label="竞赛项目" value={race.events.join(" / ")} />
