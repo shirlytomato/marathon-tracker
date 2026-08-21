@@ -2,6 +2,7 @@
 // 成本策略：近 90 天赛事/报名中 → 每日查询；远场 → 每周约一天；已结束 → 跳过
 import { readFileSync, writeFileSync } from "fs";
 import type { Race } from "../src/types/race";
+import { deriveStatus } from "../src/lib/status";
 import { qwenSearch } from "./lib/qwen";
 
 const DRY = process.argv.includes("--dry-run");
@@ -24,6 +25,10 @@ const PROMPT = (r: Race) =>
   `"regStatus":"pending|open|drawing|closed|finished 之一","lotteryDate":"抽签日期 YYYY-MM-DD，无则为空字符串",` +
   `"raceDate":"核实后的比赛日期 YYYY-MM-DD","officialSite":"赛事官网URL，未知则为空字符串","note":"一句话摘要"}`;
 
+// 日期年份防护：AI 可能返回往年数据（如给 2026 赛事填 2025 报名窗口），与赛事年份不符则丢弃
+const validYear = (v: string, race: Race) =>
+  /^\d{4}-\d{2}-\d{2}$/.test(v) && v.slice(0, 4) === race.raceDate.slice(0, 4);
+
 async function main() {
   const path = "data/races.json";
   const races = JSON.parse(readFileSync(path, "utf8")) as Race[];
@@ -33,10 +38,16 @@ async function main() {
   for (const r of targets) {
     try {
       const parsed = JSON.parse(await qwenSearch(PROMPT(r)));
-      for (const k of ["regStart", "regEnd", "regStatus", "lotteryDate", "raceDate", "officialSite"] as const) {
+      for (const k of ["regStart", "regEnd", "lotteryDate", "raceDate"] as const) {
+        const v = parsed[k];
+        if (typeof v === "string" && validYear(v, r)) (r as unknown as Record<string, unknown>)[k] = v;
+      }
+      for (const k of ["regStatus", "officialSite"] as const) {
         const v = parsed[k];
         if (typeof v === "string" && v) (r as unknown as Record<string, unknown>)[k] = v;
       }
+      // 状态与本地推导冲突时（如日期未变却报 pending），以本地推导为准，防止好数据被降级
+      if (parsed.regStatus === "pending") r.regStatus = deriveStatus(r, new Date(now));
       r.updatedAt = new Date().toISOString();
       ok++;
       console.log(`✓ ${r.name}`);

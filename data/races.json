@@ -1778,7 +1778,7 @@
     "country": "中国",
     "province": "湖南",
     "raceDate": "2026-11-15",
-    "regStatus": "pending",
+    "regStatus": "drawing",
     "events": [
       "全程马拉松",
       "半程马拉松"
@@ -1798,7 +1798,7 @@
     "country": "中国",
     "province": "江西",
     "raceDate": "2026-11-15",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "全程马拉松",
       "半程马拉松"
@@ -1817,7 +1817,7 @@
     "country": "中国",
     "province": "河北",
     "raceDate": "2026-09-27",
-    "regStatus": "pending",
+    "regStatus": "drawing",
     "events": [
       "全程马拉松",
       "半程马拉松"
@@ -1837,7 +1837,7 @@
     "country": "中国",
     "province": "浙江",
     "raceDate": "2026-11-01",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松",
       "半程马拉松"
@@ -1956,7 +1956,7 @@
     "country": "中国",
     "province": "四川",
     "raceDate": "2026-11-29",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "全程马拉松",
       "半程马拉松"
@@ -2815,7 +2815,7 @@
     "country": "中国",
     "province": "上海",
     "raceDate": "2026-11-29",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "半程马拉松"
     ],
@@ -2924,7 +2924,7 @@
     "city": "悉尼",
     "raceDate": "2026-08-30",
     "location": "悉尼歌剧院（终点）",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松"
     ],
@@ -2939,17 +2939,16 @@
     "city": "柏林",
     "raceDate": "2026-09-27",
     "location": "勃兰登堡门",
-    "regStatus": "pending",
-    "regStart": "2025-04-01",
-    "regEnd": "2025-04-30",
+    "regStatus": "closed",
+    "regStart": "2025-10-16",
+    "regEnd": "2025-11-13",
     "needLottery": true,
     "events": [
       "全程马拉松"
     ],
     "category": "major",
     "officialSite": "https://www.bmw-berlin-marathon.com",
-    "updatedAt": "2026-08-21T09:49:05.585Z",
-    "lotteryDate": "2025-05-15"
+    "updatedAt": "2026-08-21T09:49:05.585Z"
   },
   {
     "id": "chicago-marathon",
@@ -2958,17 +2957,14 @@
     "city": "芝加哥",
     "raceDate": "2026-10-11",
     "location": "格兰特公园",
-    "regStatus": "drawing",
+    "regStatus": "closed",
     "needLottery": true,
     "events": [
       "全程马拉松"
     ],
     "category": "major",
     "officialSite": "https://www.chicagomarathon.com",
-    "updatedAt": "2026-08-21T09:49:08.898Z",
-    "regStart": "2025-03-18",
-    "regEnd": "2025-04-08",
-    "lotteryDate": "2025-04-22"
+    "updatedAt": "2026-08-21T09:49:08.898Z"
   },
   {
     "id": "nyc-marathon",
@@ -2977,17 +2973,14 @@
     "city": "纽约",
     "raceDate": "2026-11-01",
     "location": "中央公园（终点）",
-    "regStatus": "drawing",
+    "regStatus": "closed",
     "needLottery": true,
     "events": [
       "全程马拉松"
     ],
     "category": "major",
     "officialSite": "https://www.nyrr.org/races/tcs-new-york-city-marathon",
-    "updatedAt": "2026-08-21T09:49:12.317Z",
-    "regStart": "2025-03-18",
-    "regEnd": "2025-03-25",
-    "lotteryDate": "2025-04-17"
+    "updatedAt": "2026-08-21T09:49:12.317Z"
   },
   {
     "id": "tokyo-marathon-2027",
@@ -2996,17 +2989,16 @@
     "city": "东京",
     "raceDate": "2027-03-07",
     "location": "东京都厅（起点）",
-    "regStart": "2025-09-01",
-    "regEnd": "2025-09-30",
-    "regStatus": "pending",
+    "regStart": "2026-08-05",
+    "regEnd": "2026-09-30",
+    "regStatus": "open",
     "needLottery": true,
     "events": [
       "全程马拉松"
     ],
     "category": "major",
     "officialSite": "https://www.tokyo-marathon.com/en/",
-    "updatedAt": "2026-08-21T09:49:15.669Z",
-    "lotteryDate": "2025-10-20"
+    "updatedAt": "2026-08-21T09:49:15.669Z"
   },
   {
     "id": "london-marathon-2027",
@@ -3015,16 +3007,15 @@
     "city": "伦敦",
     "raceDate": "2027-04-25",
     "regStart": "2026-04-27",
-    "regEnd": "2026-05-03",
-    "regStatus": "drawing",
+    "regEnd": "2026-12-31",
+    "regStatus": "open",
     "needLottery": true,
     "events": [
       "全程马拉松"
     ],
     "category": "major",
     "officialSite": "https://www.londonmarathon.com",
-    "updatedAt": "2026-08-21T09:49:18.902Z",
-    "lotteryDate": "2026-06-18"
+    "updatedAt": "2026-08-21T09:49:18.902Z"
   },
   {
     "id": "valencia-marathon",
