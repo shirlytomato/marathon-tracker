@@ -19,7 +19,7 @@ function OpenCard({ race, now }: { race: Race; now: Date }) {
     : null;
   const urgent = daysLeft !== null && daysLeft <= 7;
   return (
-    <div className={`w-60 shrink-0 snap-start rounded-2xl border bg-white p-4 shadow-sm ${
+    <div className={`w-60 shrink-0 snap-start rounded-2xl border bg-white p-4 shadow-sm lg:w-72 lg:p-5 ${
       urgent ? "border-red-200 ring-1 ring-red-100" : "border-orange-100"
     }`}>
       <div className="flex items-center gap-1.5">
@@ -32,8 +32,8 @@ function OpenCard({ race, now }: { race: Race; now: Date }) {
           </span>
         )}
       </div>
-      <h3 className="mt-2 truncate text-base font-bold text-slate-900">{race.name}</h3>
-      <p className="mt-0.5 text-sm text-slate-500">
+      <h3 className="mt-2 truncate text-base font-bold text-slate-900 lg:text-lg">{race.name}</h3>
+      <p className="mt-0.5 text-sm text-slate-500 lg:text-base">
         {race.raceDate.slice(5, 7)}月{race.raceDate.slice(8)}日 · {[race.country === "中国" ? race.province : race.country, race.city].filter(Boolean).join(" ")}
       </p>
       {race.officialSite && (
@@ -132,14 +132,14 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
         />
       </header>
 
-      <main className="mx-auto mt-6 max-w-5xl px-4 pb-10">
+      <main className="mx-auto mt-6 max-w-6xl px-4 pb-10">
         {/* 国内 / 国际切换：小按钮置于统计卡片上方 */}
         <div className="mb-2 flex gap-1.5">
           {([["domestic", "🇨🇳 全国赛事"], ["international", "🌍 国际赛事"]] as const).map(([k, label]) => (
             <button
               key={k}
               onClick={() => { setTab(k); setFilters(DEFAULT_FILTERS); }}
-              className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
+              className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors lg:px-4 lg:py-1.5 lg:text-sm ${
                 tab === k ? "bg-orange-500 text-white shadow-sm" : "border border-orange-200 bg-white text-slate-600 hover:bg-orange-50"
               }`}
             >
@@ -153,7 +153,7 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
         {/* 报名雷达：正在报名的赛事置顶 */}
         {openRaces.length > 0 && (
           <section className="mt-4">
-            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
+            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900 lg:text-xl">
               🔥 正在报名
               <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-600">{openRaces.length}</span>
             </h2>
@@ -177,7 +177,7 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
         {/* 月份分组列表 */}
         {months.map(m => (
           <section key={m} id={`month-${m}`} className="mt-8 scroll-mt-16">
-            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
+            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900 lg:text-xl">
               🗓️ {Number(m.slice(5))}月
               <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-600">{byMonth.get(m)?.length}</span>
             </h2>
@@ -190,7 +190,7 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
         {/* 已结束赛事：沉底弱展示 */}
         {finished.length > 0 && (
           <section className="mt-10">
-            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-400">
+            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-400 lg:text-xl">
               🏁 已结束
               <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-400">{finished.length}</span>
             </h2>

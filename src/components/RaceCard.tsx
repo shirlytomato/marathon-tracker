@@ -42,14 +42,14 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
   const dateLabel = `${race.raceDate.slice(5, 7)}月${race.raceDate.slice(8)}日`;
 
   return (
-    <div className={`rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md ${
+    <div className={`rounded-xl border bg-white p-5 shadow-sm transition-shadow hover:shadow-md lg:p-6 ${
       urgent ? "border-red-300 ring-1 ring-red-200" : "border-slate-200"
     }`}>
       <div className="flex flex-wrap items-center gap-2">
-        <span className={`rounded-md border px-2 py-0.5 text-xs font-semibold ${st.cls}`}>{st.label}</span>
-        <span className={`rounded px-1.5 py-0.5 text-xs font-medium ${cat.cls}`}>{cat.label}</span>
+        <span className={`rounded-md border px-2 py-0.5 text-xs font-semibold lg:text-sm ${st.cls}`}>{st.label}</span>
+        <span className={`rounded px-1.5 py-0.5 text-xs font-medium lg:text-sm ${cat.cls}`}>{cat.label}</span>
         {race.needLottery && (
-          <span className="rounded-md bg-violet-50 px-2 py-0.5 text-xs font-medium text-violet-700">需抽签</span>
+          <span className="rounded-md bg-violet-50 px-2 py-0.5 text-xs font-medium text-violet-700 lg:text-sm">需抽签</span>
         )}
         {urgent && daysLeft !== null && (
           <span className="ml-auto rounded-md bg-red-50 px-2 py-0.5 text-xs font-bold text-red-600">
@@ -60,17 +60,17 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
 
       {/* 主信息行：赛事名 + 官网 */}
       <div className="mt-2 flex items-center gap-3">
-        <h3 className="truncate text-xl font-bold tracking-tight text-slate-900">{race.name}</h3>
+        <h3 className="truncate text-xl font-bold tracking-tight text-slate-900 lg:text-2xl">{race.name}</h3>
         {race.officialSite && (
           <a href={race.officialSite} target="_blank" rel="noreferrer"
-             className="inline-flex shrink-0 items-center text-sm font-medium text-orange-500 hover:text-orange-600">
+             className="inline-flex shrink-0 items-center text-sm font-medium text-orange-500 hover:text-orange-600 lg:text-base">
             赛事官网 ↗
           </a>
         )}
       </div>
 
       {/* 关键行：比赛日期 · 地点 · 报名截止（跑者最关心的三件事） */}
-      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500 lg:text-base">
         <span className="font-semibold text-slate-800">
           {race.raceDate.slice(0, 4)}年{dateLabel}
         </span>
@@ -88,7 +88,7 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
 
       {/* 次要信息：弱化一行，无需交互 */}
       {details.length > 0 && (
-        <p className="mt-1.5 text-xs text-slate-400">{details.join(" · ")}</p>
+        <p className="mt-1.5 text-xs text-slate-400 lg:text-sm">{details.join(" · ")}</p>
       )}
     </div>
   );

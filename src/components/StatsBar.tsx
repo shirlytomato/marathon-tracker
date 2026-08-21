@@ -9,9 +9,9 @@ export default function StatsBar({ open, drawing, updatedAt }: {
     <div>
       <div className="grid grid-cols-2 gap-3 sm:gap-4">
         {items.map(i => (
-          <div key={i.label} className="rounded-xl border border-orange-100 bg-white p-3 text-center shadow-sm sm:p-4">
-            <div className={`text-2xl font-bold sm:text-3xl ${i.color}`}>{i.value}</div>
-            <div className="mt-1 text-xs text-slate-500 sm:text-sm">{i.label}</div>
+          <div key={i.label} className="rounded-xl border border-orange-100 bg-white p-3 text-center shadow-sm sm:p-4 lg:p-5">
+            <div className={`text-2xl font-bold sm:text-3xl lg:text-4xl ${i.color}`}>{i.value}</div>
+            <div className="mt-1 text-xs text-slate-500 sm:text-sm lg:text-base">{i.label}</div>
           </div>
         ))}
       </div>
