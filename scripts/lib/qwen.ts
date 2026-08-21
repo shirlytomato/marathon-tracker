@@ -1,5 +1,5 @@
 // scripts/lib/qwen.ts —— 阿里云百炼（DashScope）千问 API 客户端（OpenAI 兼容端点 + 联网搜索）
-const ENDPOINT = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+const ENDPOINT = "https://ws-o7d6fyz6u1qo5o8n.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions";
 
 export async function qwenSearch(prompt: string): Promise<string> {
   const key = process.env.DASHSCOPE_API_KEY;
