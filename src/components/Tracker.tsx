@@ -114,17 +114,14 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
 
   return (
     <div className="min-h-screen bg-orange-50">
-      {/* 品牌头图：21:9 宽幅 banner，暖橙×金，底部渐隐到页面底色 */}
-      <header className="relative">
+      {/* 品牌头图：21:9 宽幅 banner（源自朋友圈主图素材），底部淡出已做进图片本体 */}
+      <header>
         <h1 className="sr-only">pbrun.run — 马拉松赛事追踪，愿你每一次奔跑，都是 Personal Best</h1>
-        {/* 主视觉横幅：字标与标语已内置于图中 */}
         <img
           src="/hero.jpg"
           alt="pbrun.run — Run Your Personal Best，愿你每一次奔跑都是自己的 PB"
           className="block w-full"
         />
-        {/* 底部渐隐：与页面底色自然衔接（标语已内置于横幅图中） */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-orange-50" />
       </header>
 
       <main className="mx-auto mt-6 max-w-5xl px-4 pb-10">
