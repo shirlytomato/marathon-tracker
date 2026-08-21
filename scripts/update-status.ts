@@ -20,7 +20,9 @@ function dueToUpdate(r: Race): boolean {
 
 const PROMPT = (r: Race) =>
   `请联网搜索"${r.name}"（${r.country}${r.province ?? ""}${r.city ?? ""}，比赛时间 ${r.raceDate}）的最新报名信息。` +
-  `重要要求：日期必须来自组委会官方公告或权威报道（官网、官方公众号、本地宝/最酷等汇总），禁止根据往年经验推测或估算；` +
+  `信源优先级（必须按序采信）：1) 组委会官网/官方公众号的正式公告；2) 中国田径协会赛事目录；` +
+  `3) 权威聚合平台（最酷zuicool.com、数字心动、本地宝）转载的官方公告。其他自媒体/营销号内容仅作参考，不得作为日期依据。` +
+  `重要要求：日期必须来自上述官方公告，禁止根据往年经验推测或估算；` +
   `如果找不到确切的官方报名日期，对应字段必须返回空字符串。只返回一个 JSON 对象，不要包含其他文字：` +
   `{"regStart":"报名开始日期 YYYY-MM-DD，非官方确切信息则为空字符串","regEnd":"报名截止日期 YYYY-MM-DD，非官方确切信息则为空字符串",` +
   `"regStatus":"pending|open|drawing|closed|finished 之一","lotteryDate":"抽签日期 YYYY-MM-DD，无则为空字符串",` +
