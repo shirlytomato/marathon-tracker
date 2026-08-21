@@ -9,7 +9,8 @@ import type { Race, RegStatus } from "../src/types/race";
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const VALID_STATUS: RegStatus[] = ["pending", "open", "drawing", "closed", "finished"];
 // 大满贯等头部赛事官网带反爬/排队系统（302 到 waiting room），实测易误判，豁免 HTTP 检测
-const SITE_EXEMPT = ["nyrr.org"];
+// szns-marathon.com：深圳南山半马官网对脚本返回 403，本地宝确认其为官方报名地址
+const SITE_EXEMPT = ["nyrr.org", "szns-marathon.com"];
 
 async function siteReachable(url: string): Promise<boolean> {
   for (let i = 0; i < 3; i++) {
