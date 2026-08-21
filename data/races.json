@@ -1733,9 +1733,9 @@
       "半程马拉松"
     ],
     "category": "gold",
-    "updatedAt": "2026-08-21T09:47:49.159Z",
+    "updatedAt": "2026-08-21T12:10:30+00:00Z",
     "needLottery": true,
-    "officialSite": "https://www.bjmarathon.com",
+    "officialSite": "https://www.beijing-marathon.com",
     "scale": "30000人"
   },
   {
@@ -1744,16 +1744,19 @@
     "country": "中国",
     "province": "陕西",
     "raceDate": "2026-10-18",
-    "regStatus": "pending",
+    "regStatus": "drawing",
     "events": [
       "全程马拉松",
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-08-21T09:47:51.553Z",
+    "updatedAt": "2026-08-21T12:10:30+00:00Z",
     "needLottery": true,
-    "officialSite": "http://www.xianmarathon.com",
-    "scale": "38000人"
+    "officialSite": "https://xi-ma.com",
+    "scale": "38000人",
+    "regStart": "2026-08-04",
+    "regEnd": "2026-08-20",
+    "lotteryDate": "2026-08-31"
   },
   {
     "id": "南京马拉松",
@@ -1798,18 +1801,19 @@
     "country": "中国",
     "province": "江西",
     "raceDate": "2026-11-15",
-    "regStatus": "open",
+    "regStatus": "drawing",
     "events": [
       "全程马拉松",
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-08-21T09:47:55.695Z",
+    "updatedAt": "2026-08-21T12:10:30+00:00Z",
     "regStart": "2026-08-08",
-    "regEnd": "2026-09-20",
+    "regEnd": "2026-08-18",
     "needLottery": true,
     "scale": "32000人",
-    "officialSite": "http://www.nanchangmarathon.com"
+    "officialSite": "https://www.nanchangmarathon.cn",
+    "lotteryDate": "2026-09-01"
   },
   {
     "id": "衡水湖马拉松",
@@ -1823,13 +1827,13 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-08-21T09:47:57.482Z",
+    "updatedAt": "2026-08-21T12:10:30+00:00Z",
     "regStart": "2026-07-24",
     "regEnd": "2026-07-30",
     "lotteryDate": "2026-08-20",
     "needLottery": true,
     "scale": "12000人",
-    "officialSite": "http://www.hengshuimarathon.com"
+    "officialSite": "http://www.hengshuilakemarathon.com"
   },
   {
     "id": "杭州马拉松",
@@ -1884,9 +1888,9 @@
       "半程马拉松"
     ],
     "category": "gold",
-    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "updatedAt": "2026-08-21T12:10:30+00:00Z",
     "needLottery": true,
-    "officialSite": "http://www.shenzhenmarathon.org.cn",
+    "officialSite": "http://shenzhenmarathon.org.cn",
     "scale": "30000人"
   },
   {
@@ -2929,8 +2933,8 @@
       "全程马拉松"
     ],
     "category": "major",
-    "officialSite": "https://www.sydney-marathon.com/",
-    "updatedAt": "2026-08-21T09:49:01.805Z"
+    "officialSite": "https://sydneymarathon.com",
+    "updatedAt": "2026-08-21T12:10:30+00:00Z"
   },
   {
     "id": "berlin-marathon",
@@ -2997,8 +3001,8 @@
       "全程马拉松"
     ],
     "category": "major",
-    "officialSite": "https://www.tokyo-marathon.com/en/",
-    "updatedAt": "2026-08-21T09:49:15.669Z"
+    "officialSite": "https://www.marathon.tokyo",
+    "updatedAt": "2026-08-21T12:10:30+00:00Z"
   },
   {
     "id": "london-marathon-2027",
@@ -3087,7 +3091,6 @@
       "全程马拉松"
     ],
     "category": "platinum",
-    "officialSite": "https://www.osaka-marathon.com",
-    "updatedAt": "2026-08-21T16:00:00+08:00"
+    "updatedAt": "2026-08-21T12:10:30+00:00Z"
   }
 ]

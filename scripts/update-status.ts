@@ -29,6 +29,26 @@ const PROMPT = (r: Race) =>
 const validYear = (v: string, race: Race) =>
   /^\d{4}-\d{2}-\d{2}$/.test(v) && v.slice(0, 4) === race.raceDate.slice(0, 4);
 
+const VALID_STATUS = new Set(["pending", "open", "drawing", "closed", "finished"]);
+
+// 官网实测：AI 返回的域名经常是编造的，必须 HTTP 可达才允许写入（重试一次）
+async function siteReachable(url: string): Promise<boolean> {
+  for (let i = 0; i < 2; i++) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 15000);
+      const res = await fetch(url, {
+        signal: ctrl.signal,
+        redirect: "follow",
+        headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" },
+      });
+      clearTimeout(timer);
+      if (res.ok || res.status === 302) return true;
+    } catch { /* 重试或判为不可达 */ }
+  }
+  return false;
+}
+
 async function main() {
   const path = "data/races.json";
   const races = JSON.parse(readFileSync(path, "utf8")) as Race[];
@@ -42,9 +62,16 @@ async function main() {
         const v = parsed[k];
         if (typeof v === "string" && validYear(v, r)) (r as unknown as Record<string, unknown>)[k] = v;
       }
-      for (const k of ["regStatus", "officialSite"] as const) {
-        const v = parsed[k];
-        if (typeof v === "string" && v) (r as unknown as Record<string, unknown>)[k] = v;
+      const status = parsed.regStatus;
+      if (typeof status === "string" && VALID_STATUS.has(status)) r.regStatus = status as Race["regStatus"];
+      const site = parsed.officialSite;
+      if (typeof site === "string" && site && site !== r.officialSite) {
+        if (/^https?:\/\//.test(site) && (await siteReachable(site))) {
+          r.officialSite = site;
+          console.log(`  官网已实测通过: ${site}`);
+        } else {
+          console.log(`  官网不可达，已丢弃: ${site}`);
+        }
       }
       // 状态与本地推导冲突时（如日期未变却报 pending），以本地推导为准，防止好数据被降级
       if (parsed.regStatus === "pending") r.regStatus = deriveStatus(r, new Date(now));

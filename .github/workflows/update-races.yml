@@ -28,6 +28,9 @@ jobs:
         env:
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
 
+      - name: 发布前检测（日期一致性 + 官网实测，不通过则不提交）
+        run: npx tsx scripts/verify-data.ts
+
       - name: 提交数据更新
         run: |
           git config user.name "marathon-bot"
