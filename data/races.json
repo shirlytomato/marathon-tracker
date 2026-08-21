@@ -1,0 +1,2871 @@
+[
+  {
+    "id": "上海嘉定半程马拉松暨蒸蒸日上迎新跑",
+    "name": "上海嘉定半程马拉松暨蒸蒸日上迎新跑",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-01-01",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "顺德容桂环岛马拉松",
+    "name": "顺德容桂环岛马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-01-03",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "厦门马拉松",
+    "name": "厦门马拉松",
+    "country": "中国",
+    "province": "福建",
+    "raceDate": "2026-01-11",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "https://www.xmim.org",
+    "scale": "35000人"
+  },
+  {
+    "id": "重庆马拉松",
+    "name": "重庆马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-01-18",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "scale": "30000人"
+  },
+  {
+    "id": "普洱思茅马拉松",
+    "name": "普洱思茅马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-01-18",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "南京溧水半程马拉松",
+    "name": "南京溧水半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-01",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "江油马拉松",
+    "name": "江油马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-03-01",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "南京浦口马拉松",
+    "name": "南京浦口马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-08",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宁海马拉松",
+    "name": "宁海马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-08",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "永川马拉松",
+    "name": "永川马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-03-08",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "上海半程马拉松",
+    "name": "上海半程马拉松",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "南京半程马拉松",
+    "name": "南京半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宁波马拉松",
+    "name": "宁波马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "温州龙湾半程马拉松",
+    "name": "温州龙湾半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "孝感马拉松",
+    "name": "孝感马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "重庆女子半程马拉松",
+    "name": "重庆女子半程马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "重庆铜梁马拉松",
+    "name": "重庆铜梁马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "重庆万州环湖马拉松",
+    "name": "重庆万州环湖马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "眉山仁寿半程马拉松",
+    "name": "眉山仁寿半程马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true
+  },
+  {
+    "id": "曲靖罗平花海马拉松",
+    "name": "曲靖罗平花海马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "清远马拉松",
+    "name": "清远马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "上海长江半程马拉松",
+    "name": "上海长江半程马拉松",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "无锡马拉松",
+    "name": "无锡马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "https://wuxi.marathon.org.cn",
+    "scale": "35000人"
+  },
+  {
+    "id": "西湖半程马拉松",
+    "name": "西湖半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "奉化马拉松",
+    "name": "奉化马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "乐清半程马拉松",
+    "name": "乐清半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "丽水马拉松",
+    "name": "丽水马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "安阳马拉松",
+    "name": "安阳马拉松",
+    "country": "中国",
+    "province": "河南",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "武汉马拉松",
+    "name": "武汉马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.wuhanmarathon.org",
+    "scale": "30000人"
+  },
+  {
+    "id": "重庆垫江马拉松",
+    "name": "重庆垫江马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "成都世遗马拉松",
+    "name": "成都世遗马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "自贡恐龙半程马拉松",
+    "name": "自贡恐龙半程马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "广元半程马拉松",
+    "name": "广元半程马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "石家庄马拉松",
+    "name": "石家庄马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "scale": "35000人"
+  },
+  {
+    "id": "盐城马拉松",
+    "name": "盐城马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "扬州半程马拉松",
+    "name": "扬州半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "https://www.yzmls.com"
+  },
+  {
+    "id": "宿迁马拉松",
+    "name": "宿迁马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "杭州梦想小镇半程马拉松",
+    "name": "杭州梦想小镇半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "桐乡半程马拉松",
+    "name": "桐乡半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "郑州马拉松",
+    "name": "郑州马拉松",
+    "country": "中国",
+    "province": "河南",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "仙桃马拉松",
+    "name": "仙桃马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "咸宁马拉松",
+    "name": "咸宁马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "芜湖马拉松",
+    "name": "芜湖马拉松",
+    "country": "中国",
+    "province": "安徽",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "连南半程马拉松",
+    "name": "连南半程马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "柳州马拉松",
+    "name": "柳州马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "重庆长寿湖半程马拉松",
+    "name": "重庆长寿湖半程马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "乐山犍为茉莉之乡半程马拉松",
+    "name": "乐山犍为茉莉之乡半程马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "上虞半程马拉松",
+    "name": "上虞半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "岱山县海岬半程马拉松",
+    "name": "岱山县海岬半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "湘鄂龙凤马拉松",
+    "name": "湘鄂龙凤马拉松",
+    "country": "中国",
+    "province": "湖南",
+    "raceDate": "2026-04-11",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "北京半程马拉松",
+    "name": "北京半程马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "顺义后沙峪人才社区半程马拉松",
+    "name": "顺义后沙峪人才社区半程马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "雄安马拉松",
+    "name": "雄安马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "上海佘山半程马拉松",
+    "name": "上海佘山半程马拉松",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "南京仙林半程马拉松",
+    "name": "南京仙林半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "江阴半程马拉松",
+    "name": "江阴半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "淮安马拉松",
+    "name": "淮安马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "阜阳马拉松",
+    "name": "阜阳马拉松",
+    "country": "中国",
+    "province": "安徽",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "江西永修半程马拉松",
+    "name": "江西永修半程马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "新县半程马拉松",
+    "name": "新县半程马拉松",
+    "country": "中国",
+    "province": "河南",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "十堰马拉松",
+    "name": "十堰马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宜城半程马拉松",
+    "name": "宜城半程马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "黄姚古镇马拉松",
+    "name": "黄姚古镇马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "奉节半程马拉松",
+    "name": "奉节半程马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "杨凌农科城马拉松",
+    "name": "杨凌农科城马拉松",
+    "country": "中国",
+    "province": "陕西",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "遵义马拉松",
+    "name": "遵义马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "湖州马拉松",
+    "name": "湖州马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "北京城市副中心马拉松",
+    "name": "北京城市副中心马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "北京亦庄半程马拉松",
+    "name": "北京亦庄半程马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "定州半程马拉松",
+    "name": "定州半程马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "青岛马拉松",
+    "name": "青岛马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "scale": "25000人"
+  },
+  {
+    "id": "荣成滨海马拉松",
+    "name": "荣成滨海马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "老河口半程马拉松",
+    "name": "老河口半程马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宜宾长江首城马拉松",
+    "name": "宜宾长江首城马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "延安新区马拉松",
+    "name": "延安新区马拉松",
+    "country": "中国",
+    "province": "陕西",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "陇南康县青龙山半程马拉松",
+    "name": "陇南康县青龙山半程马拉松",
+    "country": "中国",
+    "province": "甘肃",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "密云马拉松",
+    "name": "密云马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "保定马拉松",
+    "name": "保定马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "大连马拉松",
+    "name": "大连马拉松",
+    "country": "中国",
+    "province": "辽宁",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "scale": "30000人"
+  },
+  {
+    "id": "蚌埠马拉松",
+    "name": "蚌埠马拉松",
+    "country": "中国",
+    "province": "安徽",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "湘江半程马拉松",
+    "name": "湘江半程马拉松",
+    "country": "中国",
+    "province": "湖南",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "昆明半程马拉松",
+    "name": "昆明半程马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "天津宁河七里海半程马拉松",
+    "name": "天津宁河七里海半程马拉松",
+    "country": "中国",
+    "province": "天津",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "临汾半程马拉松",
+    "name": "临汾半程马拉松",
+    "country": "中国",
+    "province": "山西",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "九江马拉松",
+    "name": "九江马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "梧州半程马拉松",
+    "name": "梧州半程马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "伊犁河马拉松",
+    "name": "伊犁河马拉松",
+    "country": "中国",
+    "province": "新疆",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "聊城半程马拉松",
+    "name": "聊城半程马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-05-01",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "北京大兴半程马拉松",
+    "name": "北京大兴半程马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-05-10",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "大觉山半程马拉松",
+    "name": "大觉山半程马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-05-10",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "长春马拉松",
+    "name": "长春马拉松",
+    "country": "中国",
+    "province": "吉林",
+    "raceDate": "2026-05-17",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "scale": "30000人"
+  },
+  {
+    "id": "弥勒半程马拉松",
+    "name": "弥勒半程马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-05-17",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "大理马拉松",
+    "name": "大理马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-05-17",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "兰州马拉松",
+    "name": "兰州马拉松",
+    "country": "中国",
+    "province": "甘肃",
+    "raceDate": "2026-05-24",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.lzmarathon.com",
+    "scale": "40000人"
+  },
+  {
+    "id": "吉林市马拉松",
+    "name": "吉林市马拉松",
+    "country": "中国",
+    "province": "吉林",
+    "raceDate": "2026-05-31",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "银川马拉松",
+    "name": "银川马拉松",
+    "country": "中国",
+    "province": "宁夏",
+    "raceDate": "2026-05-31",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "新疆奎屯兵地融合半程马拉松",
+    "name": "新疆奎屯兵地融合半程马拉松",
+    "country": "中国",
+    "province": "新疆",
+    "raceDate": "2026-05-31",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "贵阳马拉松",
+    "name": "贵阳马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-06-14",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "嘉峪关长城马拉松",
+    "name": "嘉峪关长城马拉松",
+    "country": "中国",
+    "province": "甘肃",
+    "raceDate": "2026-06-21",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "临泽马拉松",
+    "name": "临泽马拉松",
+    "country": "中国",
+    "province": "甘肃",
+    "raceDate": "2026-06-28",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宝鸡麟游夏季半程马拉松",
+    "name": "宝鸡麟游夏季半程马拉松",
+    "country": "中国",
+    "province": "陕西",
+    "raceDate": "2026-06-28",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "西宁半程马拉松",
+    "name": "西宁半程马拉松",
+    "country": "中国",
+    "province": "青海",
+    "raceDate": "2026-06-28",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "六盘水马拉松",
+    "name": "六盘水马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-07-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "镇宁黄果树半程马拉松",
+    "name": "镇宁黄果树半程马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-07-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "林芝半程马拉松",
+    "name": "林芝半程马拉松",
+    "country": "中国",
+    "province": "西藏",
+    "raceDate": "2026-07-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "楚雄马拉松",
+    "name": "楚雄马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-08-02",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "威宁半程马拉松",
+    "name": "威宁半程马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-08-23",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "哈尔滨马拉松",
+    "name": "哈尔滨马拉松",
+    "country": "中国",
+    "province": "黑龙江",
+    "raceDate": "2026-08-30",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "scale": "30000人"
+  },
+  {
+    "id": "拉萨半程马拉松",
+    "name": "拉萨半程马拉松",
+    "country": "中国",
+    "province": "西藏",
+    "raceDate": "2026-08-23",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "康保草原马拉松",
+    "name": "康保草原马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-08-23",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "兰州新区马拉松",
+    "name": "兰州新区马拉松",
+    "country": "中国",
+    "province": "甘肃",
+    "raceDate": "2026-08-30",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "吉木萨尔天山马拉松",
+    "name": "吉木萨尔天山马拉松",
+    "country": "中国",
+    "province": "新疆",
+    "raceDate": "2026-08-23",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "金昌半程马拉松",
+    "name": "金昌半程马拉松",
+    "country": "中国",
+    "province": "甘肃",
+    "raceDate": "2026-09-06",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "沈阳马拉松",
+    "name": "沈阳马拉松",
+    "country": "中国",
+    "province": "辽宁",
+    "raceDate": "2026-09-13",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "scale": "25000人"
+  },
+  {
+    "id": "庐山半程马拉松",
+    "name": "庐山半程马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-09-26",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "榆林马拉松",
+    "name": "榆林马拉松",
+    "country": "中国",
+    "province": "陕西",
+    "raceDate": "2026-09-26",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "北京房山良乡大学城半程马拉松",
+    "name": "北京房山良乡大学城半程马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-09-27",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "天津团泊湖半程马拉松",
+    "name": "天津团泊湖半程马拉松",
+    "country": "中国",
+    "province": "天津",
+    "raceDate": "2026-09-27",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "太原马拉松",
+    "name": "太原马拉松",
+    "country": "中国",
+    "province": "山西",
+    "raceDate": "2026-09-27",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.tymarathon.org",
+    "scale": "35000人"
+  },
+  {
+    "id": "延安红色半程马拉松",
+    "name": "延安红色半程马拉松",
+    "country": "中国",
+    "province": "陕西",
+    "raceDate": "2026-09-27",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "官厅湖马拉松",
+    "name": "官厅湖马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-09-20",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "铁岭莲花湿地半程马拉松",
+    "name": "铁岭莲花湿地半程马拉松",
+    "country": "中国",
+    "province": "辽宁",
+    "raceDate": "2026-09-13",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "盘锦红海滩马拉松",
+    "name": "盘锦红海滩马拉松",
+    "country": "中国",
+    "province": "辽宁",
+    "raceDate": "2026-09-20",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "查干湖马拉松",
+    "name": "查干湖马拉松",
+    "country": "中国",
+    "province": "吉林",
+    "raceDate": "2026-09-20",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "大理小河淌水半程马拉松",
+    "name": "大理小河淌水半程马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-09-13",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "北京马拉松",
+    "name": "北京马拉松",
+    "country": "中国",
+    "province": "北京",
+    "raceDate": "2026-10-18",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.beijing-marathon.com",
+    "scale": "30000人"
+  },
+  {
+    "id": "西安马拉松",
+    "name": "西安马拉松",
+    "country": "中国",
+    "province": "陕西",
+    "raceDate": "2026-10-18",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.xianmarathon.com",
+    "scale": "38000人"
+  },
+  {
+    "id": "南京马拉松",
+    "name": "南京马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-11-22",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.njmls.com",
+    "scale": "30000人"
+  },
+  {
+    "id": "长沙马拉松",
+    "name": "长沙马拉松",
+    "country": "中国",
+    "province": "湖南",
+    "raceDate": "2026-11-15",
+    "regStatus": "drawing",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "regStart": "2026-08-04",
+    "regEnd": "2026-08-11",
+    "lotteryDate": "2026-08-25",
+    "needLottery": true,
+    "scale": "35000人",
+    "officialSite": "http://www.changsha-marathon.com"
+  },
+  {
+    "id": "南昌马拉松",
+    "name": "南昌马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-11-15",
+    "regStatus": "open",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "regStart": "2026-08-08",
+    "regEnd": "2026-09-20",
+    "needLottery": true,
+    "scale": "32000人",
+    "officialSite": "http://www.nanchangmarathon.com"
+  },
+  {
+    "id": "衡水湖马拉松",
+    "name": "衡水湖马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-09-27",
+    "regStatus": "drawing",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "regStart": "2026-07-24",
+    "regEnd": "2026-07-30",
+    "lotteryDate": "2026-08-20",
+    "needLottery": true,
+    "scale": "12000人",
+    "officialSite": "http://www.hengshuimarathon.com"
+  },
+  {
+    "id": "杭州马拉松",
+    "name": "杭州马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-11-01",
+    "regStatus": "closed",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "regStart": "2026-06-23",
+    "regEnd": "2026-07-15",
+    "lotteryDate": "2026-07-31",
+    "needLottery": true,
+    "scale": "36000人",
+    "officialSite": "https://hm.zhetiyu.cn"
+  },
+  {
+    "id": "上海马拉松",
+    "name": "上海马拉松",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-12-06",
+    "regStatus": "closed",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "regStart": "2026-04-29",
+    "regEnd": "2026-05-29",
+    "lotteryDate": "2026-06-30",
+    "needLottery": true,
+    "scale": "30000人",
+    "officialSite": "https://www.shang-ma.com",
+    "location": "外滩金牛广场"
+  },
+  {
+    "id": "深圳马拉松",
+    "name": "深圳马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-12-06",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.shenzhenmarathon.org.cn",
+    "scale": "30000人"
+  },
+  {
+    "id": "广州马拉松",
+    "name": "广州马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-12-20",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "officialSite": "http://www.guangzhou-marathon.com",
+    "scale": "26000人"
+  },
+  {
+    "id": "福州马拉松",
+    "name": "福州马拉松",
+    "country": "中国",
+    "province": "福建",
+    "raceDate": "2026-12-27",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "合肥马拉松",
+    "name": "合肥马拉松",
+    "country": "中国",
+    "province": "安徽",
+    "raceDate": "2026-11-15",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "needLottery": true,
+    "scale": "30000人"
+  },
+  {
+    "id": "眉山马拉松",
+    "name": "眉山马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-11-15",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "乐山双遗马拉松",
+    "name": "乐山双遗马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-11-29",
+    "regStatus": "open",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "A",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "regStart": "2026-08-14",
+    "regEnd": "2026-09-14",
+    "needLottery": true
+  },
+  {
+    "id": "粤港澳大湾区女子半程马拉松",
+    "name": "粤港澳大湾区女子半程马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-01-01",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "徐闻马拉松",
+    "name": "徐闻马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-01-18",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "茂名马拉松",
+    "name": "茂名马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-01-18",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "南昌鄱阳湖半程马拉松",
+    "name": "南昌鄱阳湖半程马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "武汉空港国际商务新城半程马拉松",
+    "name": "武汉空港国际商务新城半程马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "远安马拉松",
+    "name": "远安马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "万峰林马拉松",
+    "name": "万峰林马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-03-15",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "苏州环金鸡湖半程马拉松",
+    "name": "苏州环金鸡湖半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "鄂州梁子湖半程马拉松",
+    "name": "鄂州梁子湖半程马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-03-29",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "钦州马拉松",
+    "name": "钦州马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "武宣半程马拉松",
+    "name": "武宣半程马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-03-22",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "中新天津生态城半程马拉松",
+    "name": "中新天津生态城半程马拉松",
+    "country": "中国",
+    "province": "天津",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "杭州富阳半程马拉松",
+    "name": "杭州富阳半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "合肥紫蓬山半程马拉松",
+    "name": "合肥紫蓬山半程马拉松",
+    "country": "中国",
+    "province": "安徽",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "三江半程马拉松",
+    "name": "三江半程马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "富平半程马拉松",
+    "name": "富平半程马拉松",
+    "country": "中国",
+    "province": "陕西",
+    "raceDate": "2026-04-12",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "和县半程马拉松",
+    "name": "和县半程马拉松",
+    "country": "中国",
+    "province": "安徽",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "曲阜半程马拉松",
+    "name": "曲阜半程马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "德州马拉松",
+    "name": "德州马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "民权马拉松",
+    "name": "民权马拉松",
+    "country": "中国",
+    "province": "河南",
+    "raceDate": "2026-04-19",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "济宁太白湖半程马拉松",
+    "name": "济宁太白湖半程马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "临朐半程马拉松",
+    "name": "临朐半程马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宁夏贺兰山东麓半程马拉松花季赛",
+    "name": "宁夏贺兰山东麓半程马拉松花季赛",
+    "country": "中国",
+    "province": "宁夏",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "怀宁马拉松",
+    "name": "怀宁马拉松",
+    "country": "中国",
+    "province": "安徽",
+    "raceDate": "2026-04-26",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "招远黄金马拉松",
+    "name": "招远黄金马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-05-02",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "于都半程马拉松",
+    "name": "于都半程马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-05-10",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "青岛西海岸半程马拉松",
+    "name": "青岛西海岸半程马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-05-17",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "乳山半程马拉松",
+    "name": "乳山半程马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-05-17",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "沈阳皇姑半程马拉松",
+    "name": "沈阳皇姑半程马拉松",
+    "country": "中国",
+    "province": "辽宁",
+    "raceDate": "2026-05-30",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宝清马拉松",
+    "name": "宝清马拉松",
+    "country": "中国",
+    "province": "黑龙江",
+    "raceDate": "2026-05-31",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "稷山马拉松",
+    "name": "稷山马拉松",
+    "country": "中国",
+    "province": "山西",
+    "raceDate": "2026-05-24",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "高平马拉松",
+    "name": "高平马拉松",
+    "country": "中国",
+    "province": "山西",
+    "raceDate": "2026-05-24",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "万峰林警察半程马拉松",
+    "name": "万峰林警察半程马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-05-17",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "普洱墨江半程马拉松",
+    "name": "普洱墨江半程马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-06-21",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "金秀半程马拉松",
+    "name": "金秀半程马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-06-28",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "巴东野三关半程马拉松",
+    "name": "巴东野三关半程马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-08-16",
+    "regStatus": "finished",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "沈阳康平卧龙湖马拉松",
+    "name": "沈阳康平卧龙湖马拉松",
+    "country": "中国",
+    "province": "辽宁",
+    "raceDate": "2026-08-23",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宁夏沙坡头半程马拉松",
+    "name": "宁夏沙坡头半程马拉松",
+    "country": "中国",
+    "province": "宁夏",
+    "raceDate": "2026-08-30",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "鹤庆半程马拉松",
+    "name": "鹤庆半程马拉松",
+    "country": "中国",
+    "province": "云南",
+    "raceDate": "2026-08-23",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "塔城马拉松",
+    "name": "塔城马拉松",
+    "country": "中国",
+    "province": "新疆",
+    "raceDate": "2026-08-23",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "贵州万峰林半程马拉松",
+    "name": "贵州万峰林半程马拉松",
+    "country": "中国",
+    "province": "贵州",
+    "raceDate": "2026-09-13",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "可克达拉半程马拉松",
+    "name": "可克达拉半程马拉松",
+    "country": "中国",
+    "province": "新疆",
+    "raceDate": "2026-09-05",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "长治马拉松",
+    "name": "长治马拉松",
+    "country": "中国",
+    "province": "山西",
+    "raceDate": "2026-09-13",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "长春莲花山半程马拉松",
+    "name": "长春莲花山半程马拉松",
+    "country": "中国",
+    "province": "吉林",
+    "raceDate": "2026-09-13",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "长宁蜀南竹海半程马拉松",
+    "name": "长宁蜀南竹海半程马拉松",
+    "country": "中国",
+    "province": "四川",
+    "raceDate": "2026-09-20",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宁夏贺兰山东麓半程马拉松金秋赛",
+    "name": "宁夏贺兰山东麓半程马拉松金秋赛",
+    "country": "中国",
+    "province": "宁夏",
+    "raceDate": "2026-09-20",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "丹东鸭绿江马拉松",
+    "name": "丹东鸭绿江马拉松",
+    "country": "中国",
+    "province": "辽宁",
+    "raceDate": "2026-09-27",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "潮白湿地半程马拉松",
+    "name": "潮白湿地半程马拉松",
+    "country": "中国",
+    "province": "河北",
+    "raceDate": "2026-10-01",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宜都半程马拉松",
+    "name": "宜都半程马拉松",
+    "country": "中国",
+    "province": "湖北",
+    "raceDate": "2026-10-11",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "重庆两江摇滚半程马拉松",
+    "name": "重庆两江摇滚半程马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-10-17",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "泰州马拉松",
+    "name": "泰州马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-10-18",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "连云港连岛半程马拉松",
+    "name": "连云港连岛半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-10-25",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "威海马拉松",
+    "name": "威海马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-10-25",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "重庆开州汉丰湖马拉松",
+    "name": "重庆开州汉丰湖马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-10-25",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "台州马拉松",
+    "name": "台州马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "raceDate": "2026-10-25",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "日照马拉松",
+    "name": "日照马拉松",
+    "country": "中国",
+    "province": "山东",
+    "raceDate": "2026-10-25",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "泰宁半程马拉松",
+    "name": "泰宁半程马拉松",
+    "country": "中国",
+    "province": "福建",
+    "raceDate": "2026-10-18",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "汤河国家湿地公园半程马拉松",
+    "name": "汤河国家湿地公园半程马拉松",
+    "country": "中国",
+    "province": "河南",
+    "raceDate": "2026-10-25",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "扬州高邮大运河半程马拉松",
+    "name": "扬州高邮大运河半程马拉松",
+    "country": "中国",
+    "province": "江苏",
+    "raceDate": "2026-11-01",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "金山平湖半程马拉松暨沪浙乡村半程马拉松",
+    "name": "金山平湖半程马拉松暨沪浙乡村半程马拉松",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-11-15",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "上海长滩半程马拉松",
+    "name": "上海长滩半程马拉松",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-11-15",
+    "regStatus": "pending",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "宁都红色马拉松",
+    "name": "宁都红色马拉松",
+    "country": "中国",
+    "province": "江西",
+    "raceDate": "2026-11-22",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "佛山市环两江稻田马拉松",
+    "name": "佛山市环两江稻田马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "raceDate": "2026-11-22",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "奉贤海湾森林半程马拉松",
+    "name": "奉贤海湾森林半程马拉松",
+    "country": "中国",
+    "province": "上海",
+    "raceDate": "2026-11-29",
+    "regStatus": "open",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00",
+    "regStart": "2026-08-18",
+    "regEnd": "2026-09-17",
+    "needLottery": true,
+    "scale": "约4000人"
+  },
+  {
+    "id": "富川马拉松",
+    "name": "富川马拉松",
+    "country": "中国",
+    "province": "广西",
+    "raceDate": "2026-11-08",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "珠海马拉松",
+    "name": "珠海马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-12-06",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  },
+  {
+    "id": "河源万绿湖马拉松",
+    "name": "河源万绿湖马拉松",
+    "country": "中国",
+    "province": "广东",
+    "raceDate": "2026-12-27",
+    "regStatus": "pending",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-21T16:00:00+08:00"
+  }
+]
