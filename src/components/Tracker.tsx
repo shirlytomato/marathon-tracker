@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Race } from "@/types/race";
 import { deriveStatus, sortRaces, computeStats } from "@/lib/status";
 import StatsBar from "./StatsBar";
@@ -50,6 +50,14 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
   const now = useMemo(() => new Date(nowIso), [nowIso]);
   const [tab, setTab] = useState<"domestic" | "international">("domestic");
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
+  // 返回顶部：滚动超过一屏后显示悬浮按钮
+  const [showTop, setShowTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 600);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const domestic = useMemo(() => races.filter(r => r.country === "中国"), [races]);
   const international = useMemo(() => races.filter(r => r.country !== "中国"), [races]);
@@ -116,32 +124,31 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
     <div className="min-h-screen bg-orange-50">
       {/* 品牌头图：21:9 宽幅 banner（源自朋友圈主图素材），底部淡出已做进图片本体 */}
       <header>
-        <h1 className="sr-only">pbrun.run — 马拉松赛事追踪，愿你每一次奔跑，都是 Personal Best</h1>
+        <h1 className="sr-only">国内外马拉松赛事追踪 — 愿你每一次奔跑，都是 Personal Best</h1>
         <img
           src="/hero.jpg"
-          alt="pbrun.run — Run Your Personal Best，愿你每一次奔跑都是自己的 PB"
+          alt="国内外马拉松赛事追踪 — Run Your Personal Best，愿你每一次奔跑都是自己的 PB"
           className="block w-full"
         />
       </header>
 
       <main className="mx-auto mt-6 max-w-5xl px-4 pb-10">
-        <StatsBar open={stats.open} drawing={stats.drawing} countdown={stats.countdown} updatedAt={updatedAt} />
-
-        {/* 国内 / 国际切换 */}
-        <div className="mt-6 flex gap-2">
+        {/* 国内 / 国际切换：小按钮置于统计卡片上方 */}
+        <div className="mb-2 flex gap-1.5">
           {([["domestic", "🇨🇳 全国赛事"], ["international", "🌍 国际赛事"]] as const).map(([k, label]) => (
             <button
               key={k}
               onClick={() => { setTab(k); setFilters(DEFAULT_FILTERS); }}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+              className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                 tab === k ? "bg-orange-500 text-white shadow-sm" : "border border-orange-200 bg-white text-slate-600 hover:bg-orange-50"
               }`}
             >
               {label}
-              <span className="ml-1.5 text-xs opacity-70">{k === "domestic" ? domestic.length : international.length}</span>
+              <span className="ml-1 opacity-70">{k === "domestic" ? domestic.length : international.length}</span>
             </button>
           ))}
         </div>
+        <StatsBar open={stats.open} drawing={stats.drawing} countdown={stats.countdown} updatedAt={updatedAt} />
 
         {/* 报名雷达：正在报名的赛事置顶 */}
         {openRaces.length > 0 && (
@@ -216,6 +223,17 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
           {ICP_NUMBER && <p className="mt-1 text-xs text-slate-400">{ICP_NUMBER}</p>}
         </footer>
       </main>
+
+      {/* 返回顶部：月份导航跳转后可一键回顶 */}
+      {showTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="返回顶部"
+          className="fixed bottom-6 right-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-orange-500 text-lg text-white shadow-lg transition-colors hover:bg-orange-600 sm:right-6"
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 }
