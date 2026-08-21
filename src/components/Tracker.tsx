@@ -114,20 +114,18 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
 
   return (
     <div className="min-h-screen bg-orange-50">
-      {/* 品牌头图：朋友圈宣传主图融入，沿用主图暖橙×金配色，底部渐隐到页面底色 */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-orange-500 via-orange-400 via-70% to-orange-50 pb-10 pt-8 text-center">
-        {/* 日出光晕：与主图金光呼应 */}
-        <div className="pointer-events-none absolute left-1/2 top-[-6rem] h-56 w-[30rem] -translate-x-1/2 rounded-full bg-amber-200/30 blur-3xl" />
-        <div className="relative mx-auto max-w-5xl px-4">
-          <h1 className="sr-only">pbrun.run — 马拉松赛事追踪，愿你每一次奔跑，都是 Personal Best</h1>
-          {/* 主图自带品牌字标与 PB 标语，直接作为视觉主体 */}
-          <img
-            src="/hero.jpg"
-            alt="pbrun.run — Run Your Personal Best，愿你每一次奔跑都是自己的 PB"
-            className="mx-auto w-full max-w-md rounded-2xl shadow-xl ring-1 ring-white/50 sm:max-w-lg"
-          />
-          <p className="mt-4 text-xs font-medium text-white sm:text-sm">为爱发电 · AI 每日更新报名动态</p>
-        </div>
+      {/* 品牌头图：21:9 宽幅 banner，暖橙×金，底部渐隐到页面底色 */}
+      <header className="relative">
+        <h1 className="sr-only">pbrun.run — 马拉松赛事追踪，愿你每一次奔跑，都是 Personal Best</h1>
+        {/* 主视觉横幅：字标与标语已内置于图中 */}
+        <img
+          src="/hero.jpg"
+          alt="pbrun.run — Run Your Personal Best，愿你每一次奔跑都是自己的 PB"
+          className="block w-full"
+        />
+        {/* 底部渐隐：与页面底色自然衔接 */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-b from-transparent to-orange-50" />
+        <p className="mt-3 text-center text-xs font-medium text-orange-400 sm:text-sm">为爱发电 · AI 每日更新报名动态</p>
       </header>
 
       <main className="mx-auto mt-6 max-w-5xl px-4 pb-10">
