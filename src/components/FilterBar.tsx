@@ -9,7 +9,7 @@ export interface Filters {
 }
 
 const selectCls =
-  "appearance-none rounded-full border border-orange-200 bg-white py-1.5 pl-3 pr-8 text-sm text-slate-600 focus:border-orange-400 focus:outline-none";
+  "appearance-none rounded-full border border-orange-200 bg-white py-1 pl-3 pr-7 text-xs font-semibold text-slate-600 focus:border-orange-400 focus:outline-none";
 
 function Chevron() {
   return (
@@ -71,7 +71,7 @@ export default function FilterBar({ filters, regions, onChange }: {
       <input
         type="search" placeholder="搜索赛事名称…" value={filters.keyword}
         onChange={e => onChange({ keyword: e.target.value })}
-        className="min-w-40 flex-1 rounded-full border border-orange-200 bg-white px-4 py-1.5 text-sm focus:border-orange-400 focus:outline-none"
+        className="min-w-40 flex-1 rounded-full border border-orange-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 focus:border-orange-400 focus:outline-none"
       />
     </div>
   );
