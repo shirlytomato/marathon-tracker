@@ -19,9 +19,11 @@ function Chevron() {
   );
 }
 
-export default function FilterBar({ filters, regions, onChange }: {
+export default function FilterBar({ filters, regions, months, monthCounts, onChange }: {
   filters: Filters;
   regions: string[];
+  months: string[];                  // 未来赛事的月份分组，用于月份跳转下拉
+  monthCounts: (m: string) => number | undefined;
   onChange: (patch: Partial<Filters>) => void;
 }) {
   // 状态下拉的当前值：处于"已结束"视图时显示已结束
@@ -66,6 +68,24 @@ export default function FilterBar({ filters, regions, onChange }: {
         </select>
         <Chevron />
       </div>
+
+      {/* 月份跳转：与筛选同排，选中即平滑滚动到对应月份 */}
+      {months.length > 1 && (
+        <div className="relative">
+          <select
+            className={selectCls}
+            value=""
+            aria-label="按月跳转"
+            onChange={e => { if (e.target.value) document.getElementById(`month-${e.target.value}`)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+          >
+            <option value="">按月跳转</option>
+            {months.map(m => (
+              <option key={m} value={m}>{Number(m.slice(5))}月 · {monthCounts(m)} 场</option>
+            ))}
+          </select>
+          <Chevron />
+        </div>
+      )}
 
       {/* 搜索 */}
       <input

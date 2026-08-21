@@ -148,11 +148,11 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
             </button>
           ))}
         </div>
-        <StatsBar open={stats.open} drawing={stats.drawing} countdown={stats.countdown} updatedAt={updatedAt} />
+        <StatsBar open={stats.open} drawing={stats.drawing} updatedAt={updatedAt} />
 
         {/* 报名雷达：正在报名的赛事置顶 */}
         {openRaces.length > 0 && (
-          <section className="mt-8">
+          <section className="mt-4">
             <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
               🔥 正在报名
               <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-600">{openRaces.length}</span>
@@ -163,33 +163,23 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
           </section>
         )}
 
-        <div className="mt-6">
-          <FilterBar filters={filters} regions={regions} onChange={patch => setFilters(f => ({ ...f, ...patch }))} />
+        {/* 筛选工具栏（吸顶）：地区/状态/项目/月份跳转/搜索一行收齐 */}
+        <div className="sticky top-0 z-10 -mx-4 mt-6 bg-orange-50/90 px-4 py-2.5 backdrop-blur">
+          <FilterBar
+            filters={filters}
+            regions={regions}
+            months={months}
+            monthCounts={m => byMonth.get(m)?.length}
+            onChange={patch => setFilters(f => ({ ...f, ...patch }))}
+          />
         </div>
-
-        {/* 月份快速导航 */}
-        {months.length > 1 && (
-          <nav className="sticky top-0 z-10 -mx-4 mt-6 bg-orange-50/90 px-4 py-2 backdrop-blur">
-            <div className="flex gap-2 overflow-x-auto">
-              {months.map(m => (
-                <button
-                  key={m}
-                  onClick={() => document.getElementById(`month-${m}`)?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  className="shrink-0 rounded-full border border-orange-200 bg-white px-3 py-1 text-sm font-medium text-slate-600 transition-colors hover:bg-orange-100"
-                >
-                  {Number(m.slice(5))}月 · {byMonth.get(m)?.length}
-                </button>
-              ))}
-            </div>
-          </nav>
-        )}
 
         {/* 月份分组列表 */}
         {months.map(m => (
-          <section key={m} id={`month-${m}`} className="mt-8 scroll-mt-14">
-            <h2 className="text-xl font-bold text-slate-900">
+          <section key={m} id={`month-${m}`} className="mt-8 scroll-mt-16">
+            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900">
               🗓️ {Number(m.slice(5))}月
-              <span className="ml-2 text-sm font-normal text-slate-400">{byMonth.get(m)?.length} 场赛事</span>
+              <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-600">{byMonth.get(m)?.length}</span>
             </h2>
             <div className="mt-3 space-y-3">
               {byMonth.get(m)?.map(r => <RaceCard key={r.id} race={r} now={now} />)}
@@ -200,7 +190,10 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
         {/* 已结束赛事：沉底弱展示 */}
         {finished.length > 0 && (
           <section className="mt-10">
-            <h2 className="text-base font-semibold text-slate-400">🏁 已结束 · {finished.length} 场</h2>
+            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-400">
+              🏁 已结束
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-400">{finished.length}</span>
+            </h2>
             <div className="mt-3 space-y-2">
               {finished.map(r => <RaceCard key={r.id} race={r} now={now} />)}
             </div>
