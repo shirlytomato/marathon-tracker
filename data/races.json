@@ -3126,19 +3126,6 @@
     "updatedAt": "2026-08-21T12:10:30+00:00Z"
   },
   {
-    "id": "沙坡头半程马拉松",
-    "name": "沙坡头半程马拉松",
-    "country": "中国",
-    "province": "宁夏",
-    "raceDate": "2026-08-30",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-08-21T22:49:45+08:00"
-  },
-  {
     "id": "乌鲁木齐马拉松",
     "name": "乌鲁木齐马拉松",
     "country": "中国",
@@ -3181,19 +3168,6 @@
     "officialSite": "https://klmymarathon.xempower.cn/"
   },
   {
-    "id": "团泊湖半程马拉松",
-    "name": "团泊湖半程马拉松",
-    "country": "中国",
-    "province": "天津",
-    "raceDate": "2026-09-27",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "A",
-    "updatedAt": "2026-08-21T22:49:45+08:00"
-  },
-  {
     "id": "怀柔长城马拉松",
     "name": "怀柔长城马拉松",
     "country": "中国",
@@ -3206,19 +3180,6 @@
     "category": "A",
     "updatedAt": "2026-08-21T22:49:45+08:00",
     "officialSite": "https://www.huairougreatwallmarathon.com/"
-  },
-  {
-    "id": "房山良乡大学城半程马拉松",
-    "name": "房山良乡大学城半程马拉松",
-    "country": "中国",
-    "province": "北京",
-    "raceDate": "2026-09-27",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "A",
-    "updatedAt": "2026-08-21T22:49:45+08:00"
   },
   {
     "id": "玉溪马拉松",
@@ -3249,19 +3210,6 @@
     "officialSite": "http://haidian-marathon.com/",
     "regStart": "2026-07-15",
     "regEnd": "2026-08-08"
-  },
-  {
-    "id": "两江摇滚半程马拉松",
-    "name": "两江摇滚半程马拉松",
-    "country": "中国",
-    "province": "重庆",
-    "raceDate": "2026-10-17",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-08-21T22:49:45+08:00"
   },
   {
     "id": "东营马拉松",
@@ -3468,19 +3416,6 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-08-21T22:49:45+08:00"
-  },
-  {
-    "id": "开州汉丰湖马拉松",
-    "name": "开州汉丰湖马拉松",
-    "country": "中国",
-    "province": "重庆",
-    "raceDate": "2026-10-25",
-    "regStatus": "pending",
-    "events": [
-      "全程马拉松"
-    ],
-    "category": "B",
     "updatedAt": "2026-08-21T22:49:45+08:00"
   },
   {
@@ -3987,32 +3922,6 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-08-21T22:49:45+08:00"
-  },
-  {
-    "id": "沪浙乡村半程马拉松",
-    "name": "沪浙乡村半程马拉松",
-    "country": "中国",
-    "province": "浙江",
-    "raceDate": "2026-11-15",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-08-21T22:49:45+08:00"
-  },
-  {
-    "id": "长滩半程马拉松",
-    "name": "长滩半程马拉松",
-    "country": "中国",
-    "province": "上海",
-    "raceDate": "2026-11-15",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "B",
     "updatedAt": "2026-08-21T22:49:45+08:00"
   },
   {

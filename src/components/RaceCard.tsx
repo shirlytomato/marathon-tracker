@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import type { Race, RegStatus } from "@/types/race";
 import { deriveStatus } from "@/lib/status";
 
@@ -20,18 +17,7 @@ const CATEGORY_STYLE: Record<Race["category"], { label: string; cls: string }> =
   major: { label: "大满贯", cls: "bg-indigo-600 text-white" },
 };
 
-function Field({ label, value }: { label: string; value?: string }) {
-  if (!value) return null;
-  return (
-    <div className="min-w-0">
-      <div className="text-xs text-slate-400">{label}</div>
-      <div className="mt-0.5 text-sm font-medium text-slate-800">{value}</div>
-    </div>
-  );
-}
-
 export default function RaceCard({ race, now }: { race: Race; now: Date }) {
-  const [expanded, setExpanded] = useState(false);
   const status = deriveStatus(race, now);
   const st = STATUS_STYLE[status];
   const cat = CATEGORY_STYLE[race.category];
@@ -45,8 +31,13 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
     ? Math.max(0, Math.ceil((new Date(race.regEnd + "T23:59:59+08:00").getTime() - now.getTime()) / 86400000))
     : null;
 
-  // 次要字段有值才提供展开入口
-  const hasDetail = Boolean(race.location || race.scale || race.fee || race.lotteryDate || race.events.length);
+  // 次要信息：只展示有值的字段，一行带过
+  const details = [
+    race.events.join(" / "),
+    race.scale && `规模 ${race.scale}`,
+    race.lotteryDate && `抽签 ${race.lotteryDate.slice(5)}`,
+    race.fee,
+  ].filter(Boolean);
 
   const dateLabel = `${race.raceDate.slice(5, 7)}月${race.raceDate.slice(8)}日`;
 
@@ -95,25 +86,9 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
         ) : null}
       </div>
 
-      {/* 次要字段默认收起，点击展开 */}
-      {hasDetail && (
-        <>
-          {expanded && (
-            <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-slate-100 pt-3 sm:grid-cols-3">
-              <Field label="比赛地点" value={race.location} />
-              <Field label="参赛规模" value={race.scale} />
-              <Field label="竞赛项目" value={race.events.join(" / ")} />
-              <Field label="费用" value={race.fee} />
-              <Field label="抽签时间" value={race.lotteryDate} />
-            </div>
-          )}
-          <button
-            onClick={() => setExpanded(v => !v)}
-            className="mt-2 text-xs font-medium text-orange-500 hover:text-orange-600"
-          >
-            {expanded ? "收起详情 ▲" : "查看详情 ▼"}
-          </button>
-        </>
+      {/* 次要信息：弱化一行，无需交互 */}
+      {details.length > 0 && (
+        <p className="mt-1.5 text-xs text-slate-400">{details.join(" · ")}</p>
       )}
     </div>
   );
