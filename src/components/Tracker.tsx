@@ -64,10 +64,11 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
   const tabRaces = tab === "domestic" ? domestic : international;
 
   const stats = useMemo(() => computeStats(tabRaces, now), [tabRaces, now]);
+  // 显示口径：网站最近一次部署时间（静态构建时间），而非单条赛事的核对时间
   const updatedAt = useMemo(() => {
-    const max = races.reduce((m, r) => (r.updatedAt > m ? r.updatedAt : m), "");
-    return max ? max.slice(0, 16).replace("T", " ") : "—";
-  }, [races]);
+    const s = new Date(now.getTime() + 8 * 3600000).toISOString();
+    return s.slice(0, 16).replace("T", " ");
+  }, [now]);
 
   const regions = useMemo(() => {
     const set = new Set<string>();
