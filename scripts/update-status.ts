@@ -1,5 +1,5 @@
 // scripts/update-status.ts —— 每日赛事进展更新（GitHub Actions 调用，支持 --dry-run）
-// 成本策略：近 90 天赛事/报名中 → 每日查询；远场 → 每周约一天；已结束 → 跳过
+// 成本策略：近 90 天赛事/报名中 → 每日查询；远场 → 每周约一天；已完赛 → 不再更新
 import { readFileSync, writeFileSync } from "fs";
 import type { Race } from "../src/types/race";
 import { deriveStatus } from "../src/lib/status";
@@ -12,7 +12,7 @@ const now = Date.now();
 function dueToUpdate(r: Race): boolean {
   if (r.regStatus === "finished") return false;
   const raceT = new Date(r.raceDate + "T00:00:00+08:00").getTime();
-  if (raceT < now) return true;                        // 刚结束，收尾更新一次
+  if (raceT < now) return false;                       // 已完赛的赛事不再更新（页面状态由日期自动推导为已结束）
   const within90 = raceT - now <= 90 * day;
   const weeklySlot = Math.floor(now / day) % 7 === 0;  // 每 7 天中 1 天跑远场
   return within90 || r.regStatus === "open" || weeklySlot;
