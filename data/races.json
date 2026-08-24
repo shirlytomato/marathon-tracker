@@ -4427,5 +4427,142 @@
     ],
     "category": "A",
     "updatedAt": "2026-08-21T22:49:45+08:00"
+  },
+  {
+    "id": "seoul-marathon",
+    "name": "首尔马拉松",
+    "country": "韩国",
+    "city": "首尔",
+    "raceDate": "2026-03-15",
+    "location": "光化门广场（起点）",
+    "regStatus": "finished",
+    "events": [
+      "全程马拉松"
+    ],
+    "scale": "40000人",
+    "category": "platinum",
+    "officialSite": "https://seoulmarathon.org",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "jtbc-seoul-marathon",
+    "name": "JTBC首尔马拉松",
+    "country": "韩国",
+    "city": "首尔",
+    "raceDate": "2026-11-01",
+    "location": "桑格姆世界杯公园（起点）",
+    "regStatus": "open",
+    "events": [
+      "全程马拉松"
+    ],
+    "scale": "30000人",
+    "category": "B",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "bangkok-marathon",
+    "name": "神奇泰国曼谷马拉松",
+    "country": "泰国",
+    "city": "曼谷",
+    "raceDate": "2026-11-29",
+    "location": "皇家田广场",
+    "regStart": "2026-07-01",
+    "regStatus": "open",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "scale": "48000人",
+    "category": "B",
+    "officialSite": "https://www.atmbkk.com",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "chiangmai-marathon",
+    "name": "清迈马拉松",
+    "country": "泰国",
+    "city": "清迈",
+    "raceDate": "2026-12-20",
+    "location": "塔佩门",
+    "regEnd": "2026-08-31",
+    "regStatus": "open",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "singapore-marathon",
+    "name": "新加坡马拉松",
+    "country": "新加坡",
+    "city": "新加坡",
+    "raceDate": "2026-12-06",
+    "location": "F1 Pit Building（起点）",
+    "regEnd": "2026-10-25",
+    "regStatus": "open",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "gold",
+    "officialSite": "https://singaporeinternationalmarathon.com",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "kuala-lumpur-marathon",
+    "name": "渣打吉隆坡马拉松",
+    "country": "马来西亚",
+    "city": "吉隆坡",
+    "raceDate": "2026-10-04",
+    "location": "拉惹劳特路（起点）",
+    "regEnd": "2026-05-30",
+    "regStatus": "closed",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "scale": "40000人",
+    "category": "B",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "dunhuang-half-marathon",
+    "name": "敦煌半程马拉松",
+    "country": "中国",
+    "province": "甘肃",
+    "city": "敦煌",
+    "raceDate": "2026-09-13",
+    "location": "敦煌市花雨中路",
+    "regStart": "2026-07-25",
+    "regEnd": "2026-08-20",
+    "regStatus": "closed",
+    "events": [
+      "半程马拉松"
+    ],
+    "scale": "4000人",
+    "fee": "120元",
+    "category": "B",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "korla-half-marathon",
+    "name": "库尔勒半程马拉松",
+    "country": "中国",
+    "province": "新疆",
+    "city": "库尔勒",
+    "raceDate": "2026-10-25",
+    "location": "鸿雁广场",
+    "regStart": "2026-08-01",
+    "regEnd": "2026-09-09",
+    "regStatus": "open",
+    "events": [
+      "半程马拉松"
+    ],
+    "scale": "4000人",
+    "fee": "120元",
+    "category": "B",
+    "updatedAt": "2026-08-24T10:30:00+08:00"
   }
 ]
