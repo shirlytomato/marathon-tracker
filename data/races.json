@@ -4564,5 +4564,55 @@
     "fee": "120元",
     "category": "B",
     "updatedAt": "2026-08-24T10:30:00+08:00"
+  },
+  {
+    "id": "2026重庆(长嘉汇)半程马拉松-2026",
+    "name": "2026重庆(长嘉汇)半程马拉松",
+    "country": "中国",
+    "province": "重庆",
+    "city": "重庆",
+    "raceDate": "2026-11-01",
+    "regStart": "2026-07-15",
+    "regEnd": "2026-07-22",
+    "regStatus": "closed",
+    "scale": "16000人",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-24T03:05:27.343Z"
+  },
+  {
+    "id": "2026广州番禺大夫山·城市山径赛-2026",
+    "name": "2026广州番禺大夫山·城市山径赛",
+    "country": "中国",
+    "province": "广东",
+    "city": "广州",
+    "raceDate": "2026-09-19",
+    "regStart": "2026-08-12",
+    "regEnd": "2026-09-01",
+    "regStatus": "open",
+    "events": [
+      "骏行组·15km",
+      "驹乐组·5km"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-24T03:05:27.343Z"
+  },
+  {
+    "id": "2027名古屋女子马拉松-2027",
+    "name": "2027名古屋女子马拉松",
+    "country": "日本",
+    "city": "名古屋",
+    "raceDate": "2027-03-14",
+    "regStart": "2026-08-11",
+    "regEnd": "2026-08-24",
+    "regStatus": "open",
+    "scale": "22000人",
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-08-24T03:05:27.343Z"
   }
 ]
