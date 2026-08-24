@@ -1,0 +1,40 @@
+name: 新赛事巡检（每周一/三/六）
+
+on:
+  schedule:
+    # UTC 周日/二/五 22:30 = 北京时间周一/三/六 06:30，先于 07:30 每日更新任务，新赛事当天即被覆盖
+    - cron: "30 22 * * 0,2,5"
+  workflow_dispatch: # 支持手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 联网搜索新官宣赛事（千问 API）
+        run: npx tsx scripts/discover-races.ts
+        env:
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+
+      - name: 发布前检测（日期一致性 + 官网实测，不通过则不提交）
+        run: npx tsx scripts/verify-data.ts
+
+      - name: 提交新赛事数据
+        run: |
+          git config user.name "marathon-bot"
+          git config user.email "marathon-bot@users.noreply.github.com"
+          git add data/races.json data/todaySites.json
+          git diff --cached --quiet || git commit -m "feat: 新赛事巡检入库 $(date -u +%F)"
+          git push
