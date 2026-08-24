@@ -9,10 +9,14 @@ import { qwenSearch } from "./lib/qwen";
 const DRY = process.argv.includes("--dry-run");
 const MAX_ADD = 12; // 单次入库上限，防 AI 失控批量污染
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+// 动态日期窗口：明天 → 6 个月后（提示词不能写死日期，否则过期后巡检会全部失效）
+const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+const halfYearLater = new Date(Date.now() + 183 * 86400000).toISOString().slice(0, 10);
 
 const SEARCH_PROMPT = (scope: string) =>
-  `请联网搜索最近一个月内官方正式宣布（组委会公告/官方公众号/权威跑步媒体报道）的${scope}新增马拉松赛事，` +
-  `比赛日期在今天之后 6 个月内。只收录有明确官方公告的赛事，禁止推测或编造。` +
+  `请联网搜索${scope}即将举办的马拉松赛事。搜索方法：在搜索结果中查找赛事报名公告、竞赛规程发布等新闻，` +
+  `例如搜索“马拉松 报名开启”“马拉松 定档”“马拉松 竞赛规程”等关键词。` +
+  `只收录比赛日期在 ${tomorrow} 至 ${halfYearLater} 之间、且能找到公开报道的赛事，最多返回 15 场，禁止推测或编造。` +
   `只返回一个 JSON 对象，不要包含其他文字：` +
   `{"races":[{"name":"赛事全称","country":"国家","province":"国内赛事填省份，海外填空字符串","city":"城市",` +
   `"raceDate":"比赛日期 YYYY-MM-DD","regStart":"报名开始日期，不确定则空字符串","regEnd":"报名截止日期，不确定则空字符串",` +
@@ -48,8 +52,11 @@ interface Candidate {
 
 async function fetchCandidates(scope: string): Promise<Candidate[]> {
   try {
-    const parsed = JSON.parse(await qwenSearch(SEARCH_PROMPT(scope)));
-    return Array.isArray(parsed.races) ? parsed.races : [];
+    const raw = await qwenSearch(SEARCH_PROMPT(scope));
+    const parsed = JSON.parse(raw);
+    const list = Array.isArray(parsed.races) ? parsed.races : [];
+    console.log(`${scope}：返回 ${list.length} 场`);
+    return list;
   } catch (e) {
     console.error(`✗ ${scope}查询失败: ${(e as Error).message}`);
     return [];
@@ -120,8 +127,9 @@ async function main() {
   console.log(`完成：新入库 ${added.length} 场，总计 ${races.length} 场${DRY ? "（dry-run，不写文件）" : ""}`);
   if (!DRY) {
     if (added.length > 0) writeFileSync(path, JSON.stringify(races, null, 2));
-    // 本次新写入的官网交给 verify-data 严格把关
-    writeFileSync("data/todaySites.json", JSON.stringify([...aiSites], null, 2));
+    // 仅在有新写入时更新，避免无新赛事时产生无谓的数据文件变动提交；
+    // 新官网交给 verify-data 严格把关，每日更新任务会重写此文件不受影响
+    if (aiSites.size > 0) writeFileSync("data/todaySites.json", JSON.stringify([...aiSites], null, 2));
   }
 }
 
