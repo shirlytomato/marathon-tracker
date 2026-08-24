@@ -1,8 +1,9 @@
 // scripts/verify-data.ts —— 发布前检测关卡（本地 + GitHub Actions 提交前调用）
-// 任何一条不通过即退出码 1，坏数据不允许上线：
+// 硬错误（拦截发布）：
 //  1. 日期格式与逻辑：YYYY-MM-DD、报名窗口在赛事日期之前、字段年份与赛事一致
 //  2. 状态合法性：regStatus 必须属于枚举值
-//  3. 官网实测：officialSite 必须 HTTP 可达（重试 2 次，容忍瞬时抖动）
+//  3. 本次 AI 新写入的官网必须 HTTP 可达（防编造域名入库，重试 2 次）
+// 软警告（不拦截）：历史已核实的官网临时不可达——站点维护/反爬抖动不应阻断全量数据更新，仅打印警告待人工跟进
 import { readFileSync } from "fs";
 import type { Race, RegStatus } from "../src/types/race";
 
@@ -23,7 +24,8 @@ async function siteReachable(url: string): Promise<boolean> {
         headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" },
       });
       clearTimeout(timer);
-      if (res.ok || res.status === 302) return true;
+      // 3xx 由 fetch 自动跟随，未跟随的重定向视为可达；429/503 说明站点在线（限流/维护），不算死链
+      if (res.ok || (res.status >= 300 && res.status < 400) || res.status === 429 || res.status === 503) return true;
     } catch { /* 重试 */ }
   }
   return false;
@@ -63,14 +65,22 @@ async function main() {
   }
 
   // 2) 官网 HTTP 实测（并发 5，避免被目标站限流；反爬豁免名单除外）
+  // 本次 AI 新写入的官网 → 不可达即拦截；历史已核实官网 → 仅警告不阻断（防临时故障卡死整条流水线）
+  const aiSites = (() => {
+    try { return new Set(JSON.parse(readFileSync("data/todaySites.json", "utf8")) as string[]); }
+    catch { return new Set<string>(); }
+  })();
   const withSite = races.filter(r => r.officialSite && !SITE_EXEMPT.some(d => r.officialSite!.includes(d)));
-  console.log(`官网实测：${withSite.length} 个`);
+  console.log(`官网实测：${withSite.length} 个（其中本次 AI 新写入 ${aiSites.size} 个，严格把关）`);
   const queue = [...withSite];
+  const warnings: string[] = [];
   const workers = Array.from({ length: 5 }, async () => {
     for (let r = queue.shift(); r; r = queue.shift()) {
       const ok = await siteReachable(r.officialSite!);
       console.log(`${ok ? "✓" : "✗"} ${r.name} ${r.officialSite}`);
-      if (!ok) errors.push(`[官网] ${r.name}: 不可达 ${r.officialSite}`);
+      if (ok) continue;
+      if (aiSites.has(r.officialSite!)) errors.push(`[官网] ${r.name}: AI 新写入官网不可达 ${r.officialSite}`);
+      else warnings.push(`[官网] ${r.name}: 历史官网暂不可达（不阻断发布） ${r.officialSite}`);
     }
   });
   await Promise.all(workers);
@@ -78,9 +88,11 @@ async function main() {
   if (errors.length) {
     console.error(`\n❌ 检测未通过，禁止发布（${errors.length} 项）：`);
     for (const e of errors) console.error(`  - ${e}`);
+    if (warnings.length) for (const w of warnings) console.error(`  ⚠ ${w}`);
     process.exit(1);
   }
-  console.log(`\n✅ 全部通过：${races.length} 场赛事，${withSite.length} 个官网实测可达`);
+  for (const w of warnings) console.warn(`⚠ ${w}`);
+  console.log(`\n✅ 全部通过：${races.length} 场赛事，${withSite.length} 个官网实测${warnings.length ? `，${warnings.length} 个历史官网暂不可达（见警告）` : ""}`);
 }
 
 main();

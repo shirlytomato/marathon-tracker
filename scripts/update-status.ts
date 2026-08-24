@@ -58,6 +58,7 @@ async function main() {
   const targets = races.filter(dueToUpdate);
   console.log(`待更新 ${targets.length}/${races.length} 场${DRY ? "（dry-run，不写文件）" : ""}`);
   let ok = 0, fail = 0;
+  const aiSites = new Set<string>(); // 本次由 AI 新写入/替换的官网，发布前检测对其严格把关
   for (const r of targets) {
     try {
       const parsed = JSON.parse(await qwenSearch(PROMPT(r)));
@@ -72,6 +73,7 @@ async function main() {
       if (typeof site === "string" && site && site !== r.officialSite) {
         if (/^https?:\/\//.test(site) && (await siteReachable(site))) {
           r.officialSite = site;
+          aiSites.add(site);
           console.log(`  官网已实测通过: ${site}`);
         } else {
           console.log(`  官网不可达，已丢弃: ${site}`);
@@ -88,7 +90,11 @@ async function main() {
     }
   }
   console.log(`完成：成功 ${ok}，失败 ${fail}`);
-  if (!DRY && ok > 0) writeFileSync(path, JSON.stringify(races, null, 2));
+  if (!DRY) {
+    if (ok > 0) writeFileSync(path, JSON.stringify(races, null, 2));
+    // 告知发布前检测：哪些官网是本次 AI 新写入的（需严格把关），其余为历史已核实官网（故障仅警告）
+    writeFileSync("data/todaySites.json", JSON.stringify([...aiSites], null, 2));
+  }
   if (ok === 0 && fail > 0) process.exit(1); // 全部失败 → Actions 标记失败，不提交坏数据
 }
 
