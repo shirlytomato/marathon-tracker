@@ -4648,5 +4648,69 @@
     ],
     "category": "B",
     "updatedAt": "2026-09-01T02:04:42.909Z"
+  },
+  {
+    "id": "2026 “两园一河”·永定河半程马拉松-2026",
+    "name": "2026 “两园一河”·永定河半程马拉松",
+    "country": "中国",
+    "province": "北京",
+    "city": "北京",
+    "raceDate": "2026-09-26",
+    "regStatus": "pending",
+    "scale": "5000人",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-02T00:23:22.332Z"
+  },
+  {
+    "id": "2026千岛湖马拉松-2026",
+    "name": "2026千岛湖马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "city": "杭州",
+    "raceDate": "2026-11-29",
+    "regStart": "2026-08-26",
+    "regStatus": "pending",
+    "events": [
+      "马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-02T00:23:22.332Z"
+  },
+  {
+    "id": "2026象山半程马拉松-2026",
+    "name": "2026象山半程马拉松",
+    "country": "中国",
+    "province": "浙江",
+    "city": "宁波",
+    "raceDate": "2026-11-08",
+    "regStart": "2026-08-24",
+    "regEnd": "2026-09-13",
+    "regStatus": "open",
+    "events": [
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-02T00:23:22.332Z"
+  },
+  {
+    "id": "2026肇庆马拉松-2026",
+    "name": "2026肇庆马拉松",
+    "country": "中国",
+    "province": "广东",
+    "city": "肇庆",
+    "raceDate": "2026-11-29",
+    "regStart": "2026-08-25",
+    "regEnd": "2026-10-23",
+    "regStatus": "open",
+    "events": [
+      "马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-02T00:23:22.332Z"
   }
 ]
