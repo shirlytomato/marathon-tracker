@@ -4744,5 +4744,94 @@
     ],
     "category": "B",
     "updatedAt": "2026-09-05T00:15:28.567Z"
+  },
+  {
+    "id": "2026杭州—阿克苏同心杯马拉松-2026",
+    "name": "2026杭州—阿克苏同心杯马拉松",
+    "country": "中国",
+    "province": "新疆维吾尔自治区",
+    "city": "阿克苏市",
+    "raceDate": "2026-10-18",
+    "regStart": "2026-08-05",
+    "regEnd": "2026-09-10",
+    "regStatus": "open",
+    "scale": "空字符串",
+    "events": [
+      "马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-09T00:25:38.099Z"
+  },
+  {
+    "id": "2026光谷马拉松-2026",
+    "name": "2026光谷马拉松",
+    "country": "中国",
+    "province": "湖北省",
+    "city": "武汉市",
+    "raceDate": "2026-11-15",
+    "regStart": "2026-09-03",
+    "regEnd": "2026-09-10",
+    "regStatus": "open",
+    "scale": "空字符串",
+    "events": [
+      "马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-09T00:25:38.099Z"
+  },
+  {
+    "id": "2026汕头马拉松-2026",
+    "name": "2026汕头马拉松",
+    "country": "中国",
+    "province": "广东省",
+    "city": "汕头市",
+    "raceDate": "2026-12-20",
+    "regStart": "2026-09-10",
+    "regEnd": "2026-09-28",
+    "regStatus": "pending",
+    "scale": "20000人",
+    "events": [
+      "马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-09T00:25:38.099Z"
+  },
+  {
+    "id": "2026高淳马拉松-2026",
+    "name": "2026高淳马拉松",
+    "country": "中国",
+    "province": "江苏省",
+    "city": "南京市高淳区",
+    "raceDate": "2026-11-08",
+    "regStart": "2026-09-09",
+    "regEnd": "2026-09-21",
+    "regStatus": "open",
+    "scale": "12000人",
+    "events": [
+      "全程马拉松",
+      "半程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-09T00:25:38.099Z"
+  },
+  {
+    "id": "2027顺德容桂马拉松-2027",
+    "name": "2027顺德容桂马拉松",
+    "country": "中国",
+    "province": "广东省",
+    "city": "佛山市顺德区",
+    "raceDate": "2027-03-11",
+    "regStart": "2026-09-08",
+    "regEnd": "2026-09-30",
+    "regStatus": "open",
+    "scale": "空字符串",
+    "events": [
+      "空字符串"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-09T00:25:38.099Z"
   }
 ]
