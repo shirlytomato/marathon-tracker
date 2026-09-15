@@ -44,6 +44,11 @@ async function siteReachable(url: string): Promise<boolean> {
 // 名称归一化：去掉年份与空白后比较，避免"2026郑州马拉松"与"郑州马拉松"重复入库
 const norm = (s: string) => s.replace(/20\d{2}/g, "").replace(/\s+/g, "");
 
+// API 调用失败计数：全部 scope 都失败时必须让任务变红。
+// 否则密钥失效会被 catch 吞掉、脚本照常 exit 0，形成"假绿灯"——
+// 2026-09-10~09-15 事故中巡检任务连续显示 success，掩盖了每日更新已在报错的事实。
+let apiFailures = 0;
+
 interface Candidate {
   name: string; country?: string; province?: string; city?: string;
   raceDate?: string; regStart?: string; regEnd?: string;
@@ -58,6 +63,7 @@ async function fetchCandidates(scope: string): Promise<Candidate[]> {
     console.log(`${scope}：返回 ${list.length} 场`);
     return list;
   } catch (e) {
+    apiFailures++;
     console.error(`✗ ${scope}查询失败: ${(e as Error).message}`);
     return [];
   }
@@ -125,6 +131,11 @@ async function main() {
   }
 
   console.log(`完成：新入库 ${added.length} 场，总计 ${races.length} 场${DRY ? "（dry-run，不写文件）" : ""}`);
+  // 所有搜索 scope 均失败 → 判定为 API/密钥异常，标记任务失败，不再假装成功
+  if (apiFailures > 0 && candidates.length === 0) {
+    console.error(`✗ 全部 ${apiFailures} 轮巡检查询均失败（疑似千问 API 密钥失效或额度耗尽），标记任务失败以免形成假绿灯`);
+    process.exit(1);
+  }
   if (!DRY) {
     if (added.length > 0) writeFileSync(path, JSON.stringify(races, null, 2));
     // 仅在有新写入时更新，避免无新赛事时产生无谓的数据文件变动提交；
