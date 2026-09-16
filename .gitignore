@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 数据管道运行时产物：同一 job 内 update-status → email-digest 之间传递，不入库
+/data/dateChanges.json

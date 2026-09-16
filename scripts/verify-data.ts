@@ -70,8 +70,12 @@ async function main() {
     try { return new Set(JSON.parse(readFileSync("data/todaySites.json", "utf8")) as string[]); }
     catch { return new Set<string>(); }
   })();
-  const withSite = races.filter(r => r.officialSite && !SITE_EXEMPT.some(d => r.officialSite!.includes(d)));
-  console.log(`官网实测：${withSite.length} 个（其中本次 AI 新写入 ${aiSites.size} 个，严格把关）`);
+  // 已开赛的赛事数据已冻结（分级调度不再复查它们），官网死链只影响历史展示，
+  // 不必每轮都发 HTTP 请求 —— 与 update-status 的“赛期已过不再消耗资源”保持同一口径
+  const today = new Date(Date.now() + 8 * 3600000).toISOString().slice(0, 10); // 东八区今天
+  const hasSite = races.filter(r => r.officialSite && !SITE_EXEMPT.some(d => r.officialSite!.includes(d)));
+  const withSite = hasSite.filter(r => r.raceDate >= today);
+  console.log(`官网实测：${withSite.length} 个（其中本次 AI 新写入 ${aiSites.size} 个，严格把关；已开赛赛事跳过 ${hasSite.length - withSite.length} 个）`);
   const queue = [...withSite];
   const warnings: string[] = [];
   const workers = Array.from({ length: 5 }, async () => {

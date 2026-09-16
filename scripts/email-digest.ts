@@ -21,6 +21,14 @@ const open = races.filter((r) => deriveStatus(r, now) === "open").sort(byRegEnd)
 const fresh = races.filter(isNew);
 
 const orNA = (v?: string) => v || "暂未公布";
+
+// 赛期变更：由 update-status.ts 当次运行写出，仅在同一 job 内有效（不入库）
+// AI 改赛期是自动生效的，这里列出来让人扫一眼，防止错改静默沉淀
+const CHANGES_PATH = "data/dateChanges.json";
+interface DateChange { name: string; from: string; to: string; note: string }
+const dateChanges: DateChange[] = existsSync(CHANGES_PATH)
+  ? JSON.parse(readFileSync(CHANGES_PATH, "utf8"))
+  : [];
 const siteCell = (r: Race) =>
   r.officialSite
     ? `<a href="${r.officialSite}" style="color:#2563eb;text-decoration:underline">官方报名 ↗</a>`
@@ -57,11 +65,33 @@ function section(title: string, emoji: string, list: Race[]): string {
   return `<h2 style="font-size:17px;margin:28px 0 4px;color:#111">${emoji} ${title}（${list.length} 场）</h2>${body}`;
 }
 
+function changesSection(): string {
+  if (!dateChanges.length) return "";
+  const rows = dateChanges.map((c) => `<tr>
+  <td style="padding:10px 8px;border-bottom:1px solid #eee;font-weight:600;color:#111">${c.name}</td>
+  <td style="padding:10px 8px;border-bottom:1px solid #eee;color:#94a3b8;text-decoration:line-through;white-space:nowrap">${c.from}</td>
+  <td style="padding:10px 8px;border-bottom:1px solid #eee;color:#b91c1c;font-weight:600;white-space:nowrap">${c.to}</td>
+  <td style="padding:10px 8px;border-bottom:1px solid #eee;color:#64748b;font-size:12px">${c.note || "—"}</td>
+</tr>`).join("\n      ");
+  return `<h2 style="font-size:17px;margin:28px 0 4px;color:#111">⚠️ 赛期变更（${dateChanges.length} 场，请扫一眼）</h2>
+    <p style="color:#64748b;font-size:13px;margin:0 0 6px">以下比赛日期已由 AI 根据官方公告自动改正。若发现改错，直接改 data/races.json 即可。</p>
+    <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">
+      <tr style="background:#f8fafc;color:#64748b;font-size:12px">
+        <th align="left" style="padding:8px">赛事</th>
+        <th align="left" style="padding:8px">原赛期</th>
+        <th align="left" style="padding:8px">改为</th>
+        <th align="left" style="padding:8px">依据</th>
+      </tr>
+      ${rows}
+    </table>`;
+}
+
 const html = `<div style="font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;max-width:720px;margin:0 auto;padding:20px;color:#1e293b">
   <h1 style="font-size:21px;margin:0 0 4px">🏃 pbrun.run 每日报名简报</h1>
   <p style="color:#64748b;font-size:13px;margin:0 0 8px">${todayStr} ｜ 赛事库共 ${races.length} 场</p>
   ${section("正在报名", "🔥", open)}
   ${section("新入库赛事", "🆕", fresh)}
+  ${changesSection()}
   <p style="color:#94a3b8;font-size:12px;margin-top:28px;border-top:1px solid #eee;padding-top:12px">
     字段留空表示组委会暂未公布；报名请务必通过官方渠道。<br>
     完整赛事列表：<a href="https://pbrun.run" style="color:#2563eb">pbrun.run</a> ｜ 数据以组委会官方公告为准

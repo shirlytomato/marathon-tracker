@@ -6,16 +6,18 @@
 
 ```
 中国田协赛事名录 ──采集清洗──> data/races.json（仓库内数据源，无数据库）
+                                   ▲
+  Actions 每周一/三/六 06:30 ─────┤  新赛事巡检：增量粗筛 → 逐场官方公告核实
+  Actions 每天 07:30 ────────────┘  分级复查：只查还可能发生变化的赛事
                                    │
-GitHub Actions 每天 07:30 ──> 千问 API 联网查询赛事进展 ──> 更新 JSON 并提交
-                                                              │
-                                   Vercel 自动部署 <───────────┘
+                                   └──> Vercel 自动部署
 ```
 
 - **前端**：Next.js 16 + Tailwind CSS，无后端、无数据库
-- **数据**：`data/races.json`（206 场国内 + 14 场国际，采集日 2026-08-21）
-- **更新**：`scripts/update-status.ts` 调用阿里云百炼千问 API（联网搜索）
-- **成本**：代码托管/部署/调度均使用免费额度；千问 API 按分级频率查询（近 90 天赛事每日、远场每周、已结束不再查询），日均成本约几毛钱
+- **数据**：`data/races.json`（318 场国内 + 21 场国际，由两条管道持续增补）
+- **新赛事**：`scripts/discover-races.ts` 两段式巡检——先只搜最近 10 天新官宣的赛事（库内已收录的作为排除名单注入提示词），再对通过本地去重的候选逐场核实官方公告，核实不过直接丢弃
+- **复查**：`scripts/update-status.ts` 调用阿里云百炼千问 API（联网搜索），复查范围由 `src/lib/schedule.ts` 的分级调度决定
+- **成本**：代码托管/部署/调度均使用免费额度；千问 API 只花在“还可能变化”的赛事上，赛期已过（当前 162 场）与报名已尘埃落定的一律不查（实测日均查询 156 场 → 47 场，7 天累计 1092 → 332 次，降幅 70%）
 
 ## 本地运行
 
@@ -78,14 +80,20 @@ data/races.json              # 赛事数据（唯一数据源）
 src/
   types/race.ts              # 数据类型
   lib/status.ts              # 状态推导/排序/统计（含单元测试）
+  lib/schedule.ts            # 分级复查调度：决定每场赛事多久查一次（含单元测试）
   lib/races.ts               # 数据加载
   components/                # StatsBar / FilterBar / RaceCard / Tracker
 scripts/
   seed-domestic.py           # 国内赛事种子脚本（一次性）
   seed-international.ts      # 国际赛事种子脚本（一次性）
-  update-status.ts           # 每日更新脚本（Actions 调用）
+  discover-races.ts          # 新赛事巡检脚本（Actions 每周一/三/六调用）
+  update-status.ts           # 每日复查脚本（Actions 调用）
+  verify-data.ts             # 发布前检测关卡（日期一致性 + 官网实测）
+  email-digest.ts            # 每日简报邮件
+  alert-failure.py           # 任务失败告警（开/评论 Issue）
   lib/qwen.ts                # 千问 API 客户端
-.github/workflows/update-races.yml  # 每日 07:30 定时任务
+.github/workflows/update-races.yml    # 每日 07:30 定时任务
+.github/workflows/discover-races.yml  # 每周一/三/六 06:30 新赛事巡检
 ```
 
 ## 免责声明

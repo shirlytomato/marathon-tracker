@@ -1930,14 +1930,17 @@
     "country": "中国",
     "province": "福建",
     "raceDate": "2026-12-27",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "全程马拉松",
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-03T01:19:20.521Z",
-    "officialSite": "https://www.fuzhou-marathon.com/"
+    "updatedAt": "2026-09-16T03:02:13.661Z",
+    "officialSite": "https://www.fuzhou-marathon.com/",
+    "regStart": "2026-09-10",
+    "regEnd": "2026-09-19",
+    "lotteryDate": "2026-09-30"
   },
   {
     "id": "合肥马拉松",
@@ -4161,14 +4164,16 @@
     "name": "温州马拉松",
     "country": "中国",
     "province": "浙江",
-    "raceDate": "2026-12-06",
-    "regStatus": "pending",
+    "raceDate": "2026-11-22",
+    "regStatus": "open",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-08T01:24:20.627Z",
-    "officialSite": "http://www.wzim.org/"
+    "updatedAt": "2026-09-16T03:02:13.661Z",
+    "officialSite": "http://www.wzim.org/",
+    "regStart": "2026-09-08",
+    "regEnd": "2026-09-20"
   },
   {
     "id": "赣州马拉松",
@@ -4790,14 +4795,16 @@
     "raceDate": "2026-12-20",
     "regStart": "2026-09-10",
     "regEnd": "2026-09-28",
-    "regStatus": "pending",
+    "regStatus": "open",
     "scale": "20000人",
     "events": [
       "马拉松",
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-09-09T00:25:38.099Z"
+    "updatedAt": "2026-09-16T03:02:13.661Z",
+    "lotteryDate": "2026-10-15",
+    "officialSite": "https://www.stmls.cn/"
   },
   {
     "id": "2026高淳马拉松-2026",
