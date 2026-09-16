@@ -6,9 +6,11 @@ import { readFileSync, writeFileSync } from "fs";
 import type { Race } from "../src/types/race";
 import { deriveStatus } from "../src/lib/status";
 import { isDue, summarizePlan } from "../src/lib/schedule";
-import { qwenSearch } from "./lib/qwen";
+import { qwenSearch, logUsage } from "./lib/qwen";
 
 const DRY = process.argv.includes("--dry-run");
+// --limit=N：只查前 N 场，用于花小钱验证链路与测 token 单价（生产不传此参数）
+const LIMIT = Number(process.argv.find(a => a.startsWith("--limit="))?.slice(8) ?? 0);
 const now = new Date();
 
 const PROMPT = (r: Race) =>
@@ -51,9 +53,10 @@ async function siteReachable(url: string): Promise<boolean> {
 async function main() {
   const path = "data/races.json";
   const races = JSON.parse(readFileSync(path, "utf8")) as Race[];
-  const targets = races.filter(r => isDue(r, now));
+  const due = races.filter(r => isDue(r, now));
+  const targets = LIMIT > 0 ? due.slice(0, LIMIT) : due;
   const buckets = summarizePlan(races, now);
-  console.log(`待更新 ${targets.length}/${races.length} 场${DRY ? "（dry-run，不写文件）" : ""}`);
+  console.log(`待更新 ${due.length}/${races.length} 场${LIMIT > 0 ? `（本次限制只查前 ${targets.length} 场）` : ""}${DRY ? "（dry-run，不写文件）" : ""}`);
   console.log(`  分级：每天盯 ${buckets.daily} 场｜周检 ${buckets.weekly} 场｜月检 ${buckets.monthly} 场｜已尘埃落定不再查 ${buckets.never} 场`);
   let ok = 0, fail = 0;
   const aiSites = new Set<string>(); // 本次由 AI 新写入/替换的官网，发布前检测对其严格把关
@@ -101,6 +104,7 @@ async function main() {
     }
   }
   console.log(`完成：成功 ${ok}，失败 ${fail}${dateChanges.length ? `，赛期变更 ${dateChanges.length} 场` : ""}`);
+  logUsage(`每日复查${LIMIT > 0 ? `（样本 ${targets.length} 场）` : ""}`);
   if (!DRY) {
     if (ok > 0) writeFileSync(path, JSON.stringify(races, null, 2));
     // 告知发布前检测：哪些官网是本次 AI 新写入的（需严格把关），其余为历史已核实官网（故障仅警告）

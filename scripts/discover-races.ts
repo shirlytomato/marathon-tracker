@@ -1,10 +1,8 @@
 // scripts/discover-races.ts —— 新赛事巡检（GitHub Actions 每周一/三/六调用，支持 --dry-run）
 //
 // 两段式设计，目标是「少烧 token + 只收真赛事」：
-//   第一段 粗筛：只问最近 SCAN_DAYS 天内新官宣／新定档／刚发竞赛规程的赛事，
-//     输出仅名称+日期+来源（不要全字段）。同时把库内已收录的赛事名喂给模型做排除——
-//     不喂的话模型每轮都会把北马上马这类知名赛事重报一遍，既浪费输出，
-//     又会挤占返回条数上限、让真正的新赛事永远轮不到。
+//   第一段 粗筛：联网搜未来半年内即将举办的赛事，只要名称+地区+日期（不要全字段）。
+//     去重全部在本地做（名称归一化比对的 existing 集合），不依赖提示词。
 //   第二段 核实：只对通过本地去重与日期校验的候选逐场查一次，要求给出组委会官方公告；
 //     核实不通过（找不到官方公告／日期对不上）→ 直接丢弃不入库，宁可漏收也不收错。
 //
@@ -13,31 +11,33 @@
 import { readFileSync, writeFileSync } from "fs";
 import type { Race } from "../src/types/race";
 import { deriveStatus } from "../src/lib/status";
-import { qwenSearch } from "./lib/qwen";
+import { qwenSearch, logUsage } from "./lib/qwen";
 
 const DRY = process.argv.includes("--dry-run");
 const MAX_ADD = 8;     // 单次核实/入库上限：超限说明粗筛异常，其余留待下一轮
-const SCAN_DAYS = 10;  // 粗筛窗口：巡检每 2~3 天跑一次，留足重叠余量避免漏掉
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 // 动态日期窗口：提示词不能写死日期，否则过期后巡检会全部失效
 const iso = (ms: number) => new Date(ms).toISOString().slice(0, 10);
 const today = iso(Date.now());
-const scanFrom = iso(Date.now() - SCAN_DAYS * 86400000);
 const tomorrow = iso(Date.now() + 86400000);
 const halfYearLater = iso(Date.now() + 183 * 86400000);
 
 // 名称归一化：去掉年份与空白后比较，避免"2026郑州马拉松"与"郑州马拉松"重复入库
 const norm = (s: string) => s.replace(/20\d{2}/g, "").replace(/\s+/g, "");
 
-// 第一段：只要名称与日期，输出越小越好（token 主要花在输出和搜索上下文上）
-const SCAN_PROMPT = (scope: string, known: string) =>
-  `请联网搜索${scope}在 ${scanFrom} 至 ${today} 期间新公布的马拉松赛事：` +
-  `新定档比赛日期、首次发布竞赛规程、或刚开启报名的赛事。` +
-  `搜索关键词示例：“马拉松 定档”“马拉松 竞赛规程 发布”“马拉松 报名开启”。` +
-  `要求：比赛日期必须在 ${tomorrow} 至 ${halfYearLater} 之间；只列这段时间内新公布的，` +
-  `下面这些库内已收录的赛事一律不要返回：${known}。` +
-  `最多返回 15 场，禁止推测或编造。只返回一个 JSON 对象，不要包含其他文字：` +
+// 第一段粗筛提示词。三条实测结论（2026-09-16，每组跑 2 次）——不要“优化”掉它们：
+//   ✗ 写成“最近 N 天新公布的赛事”：模型无法从搜索结果判定公告发布日期，
+//     实测稳定返回 0 场，而输入 token 照烧（4940）——等于把发现新赛事的功能悄悄废掉
+//   ✗ 把库内赛事名当排除名单塞进提示词：1459 字的否定清单让模型过度保守，
+//     实测返回 12 场 → 1 场，连搜索都变浅（输入 5527 → 4426）；去重本来就在本地做，免费
+//   ✓ 只要名称/地区/日期（不要全字段）：比一次要全字段省 20% token，命中新赛事数量相同
+const SCAN_PROMPT = (scope: string) =>
+  `请联网搜索${scope}即将举办的马拉松赛事。搜索方法：在搜索结果中查找赛事报名公告、竞赛规程发布等新闻，` +
+  `例如搜索“马拉松 报名开启”“马拉松 定档”“马拉松 竞赛规程”等关键词。` +
+  `只收录比赛日期在 ${tomorrow} 至 ${halfYearLater} 之间、且能找到公开报道的赛事，最多返回 15 场，禁止推测或编造。` +
+  `本轮只需要名称、地区和比赛日期，报名时间/项目/规模/官网等信息不用返回（后续会另行核实）。` +
+  `只返回一个 JSON 对象，不要包含其他文字：` +
   `{"races":[{"name":"赛事全称","country":"国家","province":"国内赛事填省份，海外填空字符串",` +
   `"city":"城市","raceDate":"比赛日期 YYYY-MM-DD","source":"信息来源一句话"}]}`;
 
@@ -89,9 +89,9 @@ async function siteReachable(url: string): Promise<boolean> {
   return false;
 }
 
-async function scan(scope: string, known: string): Promise<Candidate[]> {
+async function scan(scope: string): Promise<Candidate[]> {
   try {
-    const parsed = JSON.parse(await qwenSearch(SCAN_PROMPT(scope, known)));
+    const parsed = JSON.parse(await qwenSearch(SCAN_PROMPT(scope)));
     const list = Array.isArray(parsed.races) ? (parsed.races as Candidate[]) : [];
     console.log(`【粗筛】${scope}：返回 ${list.length} 场`);
     return list;
@@ -128,15 +128,12 @@ async function main() {
   const aiSites = new Set<string>();
   const added: Race[] = [];
 
-  // 把库内尚未开赛的赛事名喂给粗筛做排除（已开赛的不会再被官宣，无需占提示词长度）
-  const knownFuture = races.filter(r => r.raceDate > today);
-  const known = [...new Set(knownFuture.map(r => norm(r.name)))].sort().join("、");
-  console.log(`赛事库 ${races.length} 场（未开赛 ${knownFuture.length} 场已作为排除名单注入提示词）`);
+  console.log(`赛事库 ${races.length} 场（已收录名称全部进本地去重集）`);
 
-  // 第一段：国内 + 海外两轮增量粗筛
+  // 第一段：国内 + 海外两轮粗筛
   const candidates = [
-    ...await scan("中国各地（含省市县）", known),
-    ...await scan("海外（日本、韩国、东南亚及欧美主要城市）", known),
+    ...await scan("中国各地（含省市县）"),
+    ...await scan("海外（日本、韩国、东南亚及欧美主要城市）"),
   ];
   console.log(`【粗筛】共 ${candidates.length} 场候选`);
   if (scanFailures > 0 && candidates.length === 0) {
@@ -210,6 +207,7 @@ async function main() {
   }
 
   console.log(`完成：粗筛 ${candidates.length} 场 → 核实 ${shortlist.length} 场 → 新入库 ${added.length} 场，总计 ${races.length} 场${DRY ? "（dry-run，不写文件）" : ""}`);
+  logUsage("新赛事巡检");
   // 待核实的候选全部因 API 异常失败 → 与"没有新赛事"是两回事，必须让任务变红
   if (shortlist.length > 0 && verifyFailures === shortlist.length) {
     console.error(`✗ 全部 ${verifyFailures} 场核实查询均失败（疑似千问 API 密钥失效或额度耗尽），标记任务失败以免形成假绿灯`);
