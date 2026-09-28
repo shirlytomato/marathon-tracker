@@ -56,9 +56,11 @@ jobs:
         run: |
           git config user.name "marathon-bot"
           git config user.email "marathon-bot@users.noreply.github.com"
-          git pull --rebase
+          # 先暂存再 pull：pull --rebase 遇到未暂存改动会直接拒绝退出（2026-09-28 事故，
+          # knownIds.json 刚被 email-digest 覆盖，正是这一步唯一的未暂存改动）
           git add data/knownIds.json
           git diff --cached --quiet || git commit -m "chore: 更新简报快照 $(date -u +%F)"
+          git pull --rebase
           git push
 
       # 任一环节失败 → 开/追加告警 Issue。此前事故：流水线连续失败 6 天毫无动静
