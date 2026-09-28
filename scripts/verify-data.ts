@@ -1,35 +1,21 @@
 // scripts/verify-data.ts —— 发布前检测关卡（本地 + GitHub Actions 提交前调用）
 // 硬错误（拦截发布）：
+//  0. 字段契约：races.json 每条记录必须符合 data/schema.json（缺失/脏字段/类型不符均拦截，
+//     schema 文件本身缺失或损坏同样拦截——没有契约就不允许放行）
 //  1. 日期格式与逻辑：YYYY-MM-DD、报名窗口在赛事日期之前、字段年份与赛事一致
 //  2. 状态合法性：regStatus 必须属于枚举值
 //  3. 本次 AI 新写入的官网必须 HTTP 可达（防编造域名入库，重试 2 次）
 // 软警告（不拦截）：历史已核实的官网临时不可达——站点维护/反爬抖动不应阻断全量数据更新，仅打印警告待人工跟进
 import { readFileSync } from "fs";
 import type { Race, RegStatus } from "../src/types/race";
+import { siteReachable } from "./lib/site-reach";
+import { loadSchema, schemaIssues } from "./lib/schema";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const VALID_STATUS: RegStatus[] = ["pending", "open", "drawing", "closed", "finished"];
 // 大满贯等头部赛事官网带反爬/排队系统（302 到 waiting room），实测易误判，豁免 HTTP 检测
 // szns-marathon.com：深圳南山半马官网对脚本返回 403，本地宝确认其为官方报名地址
 const SITE_EXEMPT = ["nyrr.org", "szns-marathon.com"];
-
-async function siteReachable(url: string): Promise<boolean> {
-  for (let i = 0; i < 3; i++) {
-    try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 20000);
-      const res = await fetch(url, {
-        signal: ctrl.signal,
-        redirect: "follow",
-        headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" },
-      });
-      clearTimeout(timer);
-      // 3xx 由 fetch 自动跟随，未跟随的重定向视为可达；429/503 说明站点在线（限流/维护），不算死链
-      if (res.ok || (res.status >= 300 && res.status < 400) || res.status === 429 || res.status === 503) return true;
-    } catch { /* 重试 */ }
-  }
-  return false;
-}
 
 function checkDates(r: Race): string[] {
   const errs: string[] = [];
@@ -57,6 +43,23 @@ async function main() {
   const races = JSON.parse(readFileSync("data/races.json", "utf8")) as Race[];
   const errors: string[] = [];
 
+  // 0) 字段契约校验（离线检查，必过）：schema 缺失/损坏直接报错退出，不允许无契约放行
+  let schema;
+  try {
+    schema = loadSchema();
+  } catch (e) {
+    console.error(`❌ data/schema.json 不可用（${(e as Error).message}），禁止发布`);
+    process.exit(1);
+  }
+  const contractErrs = schemaIssues(races as unknown as Record<string, unknown>[], schema);
+  if (contractErrs.length) {
+    console.error(`\n❌ 字段契约校验未通过（schema v${schema.schemaVersion}，${contractErrs.length} 项）：`);
+    for (const e of contractErrs.slice(0, 30)) console.error(`  - ${e}`);
+    if (contractErrs.length > 30) console.error(`  …其余 ${contractErrs.length - 30} 项略`);
+    process.exit(1);
+  }
+  console.log(`字段契约：schema v${schema.schemaVersion}，${races.length} 条记录全部通过`);
+
   // 1) 字段一致性（离线检查，必过）
   for (const r of races) {
     for (const e of checkDates(r)) errors.push(`[字段] ${r.name}: ${e}`);
@@ -80,7 +83,8 @@ async function main() {
   const warnings: string[] = [];
   const workers = Array.from({ length: 5 }, async () => {
     for (let r = queue.shift(); r; r = queue.shift()) {
-      const ok = await siteReachable(r.officialSite!);
+      // 发布前检测是最后一道关卡，给更宽的重试预算（3 次 × 20s），减少网络抖动误拦
+      const ok = await siteReachable(r.officialSite!, { attempts: 3, timeoutMs: 20000 });
       console.log(`${ok ? "✓" : "✗"} ${r.name} ${r.officialSite}`);
       if (ok) continue;
       if (aiSites.has(r.officialSite!)) errors.push(`[官网] ${r.name}: AI 新写入官网不可达 ${r.officialSite}`);

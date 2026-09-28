@@ -8,10 +8,14 @@ on:
 
 permissions:
   contents: write
+  issues: write # 失败告警开/追加 Issue 用内置 GITHUB_TOKEN，无需额外密钥
 
 jobs:
   discover:
     runs-on: ubuntu-latest
+    # 千问 API 挂起兜底：本任务最多 2 轮粗筛 + 8 场核实，正常 15 分钟内完成；
+    # 60 分钟已是宽裕上限，远低于默认 360 分钟，避免白烧 Actions 配额
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -28,7 +32,7 @@ jobs:
         env:
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
 
-      - name: 发布前检测（日期一致性 + 官网实测，不通过则不提交）
+      - name: 发布前检测（字段契约 + 日期一致性 + 官网实测，不通过则不提交）
         run: npx tsx scripts/verify-data.ts
 
       - name: 提交新赛事数据
@@ -38,3 +42,10 @@ jobs:
           git add data/races.json data/todaySites.json
           git diff --cached --quiet || git commit -m "feat: 新赛事巡检入库 $(date -u +%F)"
           git push
+
+      # 任一环节失败 → 开/追加告警 Issue（与每日更新共用同一固定标题，不刷屏）
+      - name: 流水线失败告警
+        if: failure()
+        run: python3 scripts/alert-failure.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

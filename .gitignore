@@ -32,6 +32,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# 环境变量样例需要入库，让新 Agent/开发者知道需要哪些密钥
+!.env.example
 
 # vercel
 .vercel
@@ -42,3 +44,4 @@ next-env.d.ts
 
 # 数据管道运行时产物：同一 job 内 update-status → email-digest 之间传递，不入库
 /data/dateChanges.json
+/digest-preview.html

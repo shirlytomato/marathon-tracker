@@ -12,19 +12,16 @@ import { readFileSync, writeFileSync } from "fs";
 import type { Race } from "../src/types/race";
 import { deriveStatus } from "../src/lib/status";
 import { qwenSearch, logUsage } from "./lib/qwen";
+import { siteReachable } from "./lib/site-reach";
+import { buildWindow, norm, screenRace } from "./lib/validation";
 
 const DRY = process.argv.includes("--dry-run");
 const MAX_ADD = 8;     // 单次核实/入库上限：超限说明粗筛异常，其余留待下一轮
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 // 动态日期窗口：提示词不能写死日期，否则过期后巡检会全部失效
 const iso = (ms: number) => new Date(ms).toISOString().slice(0, 10);
-const today = iso(Date.now());
+const { today, halfYearLater } = buildWindow();
 const tomorrow = iso(Date.now() + 86400000);
-const halfYearLater = iso(Date.now() + 183 * 86400000);
-
-// 名称归一化：去掉年份与空白后比较，避免"2026郑州马拉松"与"郑州马拉松"重复入库
-const norm = (s: string) => s.replace(/20\d{2}/g, "").replace(/\s+/g, "");
 
 // 第一段粗筛提示词。三条实测结论（2026-09-16，每组跑 2 次）——不要“优化”掉它们：
 //   ✗ 写成“最近 N 天新公布的赛事”：模型无法从搜索结果判定公告发布日期，
@@ -71,24 +68,6 @@ interface Verified {
 let scanFailures = 0;
 let verifyFailures = 0;
 
-// 官网实测：与 update-status 同一策略，AI 返回的域名必须真实可达才允许入库
-async function siteReachable(url: string): Promise<boolean> {
-  for (let i = 0; i < 2; i++) {
-    try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 15000);
-      const res = await fetch(url, {
-        signal: ctrl.signal,
-        redirect: "follow",
-        headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" },
-      });
-      clearTimeout(timer);
-      if (res.ok || res.status === 302 || res.status === 429 || res.status === 503) return true;
-    } catch { /* 重试或判为不可达 */ }
-  }
-  return false;
-}
-
 async function scan(scope: string): Promise<Candidate[]> {
   try {
     const parsed = JSON.parse(await qwenSearch(SCAN_PROMPT(scope)));
@@ -100,22 +79,6 @@ async function scan(scope: string): Promise<Candidate[]> {
     console.error(`✗ 【粗筛】${scope}查询失败: ${(e as Error).message}`);
     return [];
   }
-}
-
-// 本地校验：日期格式、赛期在未来且不超半年、报名窗口年份与先后关系
-// 返回不通过的原因，通过则返回 null —— 不合格的候选不进第二段，省下一次核实调用
-function screenRace(raceDate: string, regStart?: string, regEnd?: string): string | null {
-  if (!DATE_RE.test(raceDate)) return `比赛日期格式非法(${raceDate})`;
-  if (raceDate <= today) return `比赛日期已过(${raceDate})`;
-  if (raceDate > halfYearLater) return `比赛日期超出半年窗口(${raceDate})`;
-  const year = Number(raceDate.slice(0, 4));
-  // 大型赛事常提前一年开放报名（如 2027 东京在 2026 年报名），允许同年或前一年
-  const yearOk = (v?: string) => !v || (DATE_RE.test(v) && [year, year - 1].includes(Number(v.slice(0, 4))));
-  if (!yearOk(regStart)) return `报名开始年份与赛期不符(${regStart})`;
-  if (!yearOk(regEnd)) return `报名截止年份与赛期不符(${regEnd})`;
-  if (regStart && regEnd && regStart > regEnd) return `报名开始晚于截止(${regStart}>${regEnd})`;
-  if (regEnd && regEnd >= raceDate) return `报名截止不早于比赛日(${regEnd}>=${raceDate})`;
-  return null;
 }
 
 async function main() {

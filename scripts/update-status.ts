@@ -7,6 +7,8 @@ import type { Race } from "../src/types/race";
 import { deriveStatus } from "../src/lib/status";
 import { isDue, summarizePlan } from "../src/lib/schedule";
 import { qwenSearch, logUsage } from "./lib/qwen";
+import { siteReachable } from "./lib/site-reach";
+import { validYear } from "./lib/validation";
 
 const DRY = process.argv.includes("--dry-run");
 // --limit=N：只查前 N 场，用于花小钱验证链路与测 token 单价（生产不传此参数）
@@ -26,29 +28,7 @@ const PROMPT = (r: Race) =>
   `"regStatus":"pending|open|drawing|closed|finished 之一","lotteryDate":"抽签日期 YYYY-MM-DD，无则为空字符串",` +
   `"raceDate":"核实后的比赛日期 YYYY-MM-DD","officialSite":"赛事官网URL，未知则为空字符串","note":"一句话摘要，注明来源"}`;
 
-// 日期年份防护：AI 可能返回往年数据（如给 2026 赛事填 2025 报名窗口），与赛事年份不符则丢弃
-const validYear = (v: string, race: Race) =>
-  /^\d{4}-\d{2}-\d{2}$/.test(v) && v.slice(0, 4) === race.raceDate.slice(0, 4);
-
 const VALID_STATUS = new Set(["pending", "open", "drawing", "closed", "finished"]);
-
-// 官网实测：AI 返回的域名经常是编造的，必须 HTTP 可达才允许写入（重试一次）
-async function siteReachable(url: string): Promise<boolean> {
-  for (let i = 0; i < 2; i++) {
-    try {
-      const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 15000);
-      const res = await fetch(url, {
-        signal: ctrl.signal,
-        redirect: "follow",
-        headers: { "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" },
-      });
-      clearTimeout(timer);
-      if (res.ok || res.status === 302) return true;
-    } catch { /* 重试或判为不可达 */ }
-  }
-  return false;
-}
 
 async function main() {
   const path = "data/races.json";
@@ -68,7 +48,7 @@ async function main() {
       const oldDate = r.raceDate;
       for (const k of ["regStart", "regEnd", "lotteryDate", "raceDate"] as const) {
         const v = parsed[k];
-        if (typeof v === "string" && v && validYear(v, r)) (r as unknown as Record<string, unknown>)[k] = v;
+        if (typeof v === "string" && v && validYear(v, r.raceDate)) (r as unknown as Record<string, unknown>)[k] = v;
         // AI 返回空字符串：保留原值，不用空值覆盖已有数据
       }
       if (r.raceDate !== oldDate) {

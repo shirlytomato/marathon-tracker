@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "description": "data/races.json 的字段契约。代码新增/删除字段时必须同步升级此文件（改字段 bump schemaVersion），verify-data.ts 在发布前拦截漂移。",
+  "required": ["id", "name", "country", "raceDate", "regStatus", "events", "category", "updatedAt"],
+  "optional": ["shortName", "province", "city", "location", "regStart", "regEnd", "lotteryDate", "needLottery", "scale", "fee", "officialSite"],
+  "types": {
+    "id": "string",
+    "name": "string",
+    "shortName": "string",
+    "country": "string",
+    "province": "string",
+    "city": "string",
+    "raceDate": "string",
+    "location": "string",
+    "regStart": "string",
+    "regEnd": "string",
+    "regStatus": "enum:pending,open,drawing,closed,finished",
+    "lotteryDate": "string",
+    "needLottery": "boolean",
+    "scale": "string",
+    "events": "string[]",
+    "fee": "string",
+    "category": "enum:A,B,platinum,gold,major",
+    "officialSite": "string",
+    "updatedAt": "string"
+  }
+}

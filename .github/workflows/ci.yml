@@ -1,0 +1,33 @@
+name: CI（PR 合入门禁）
+
+# 补齐合入前快检：lint / 类型 / 单测（含字段契约与校验规则的单元测试）。
+# 此前只有定时数据流水线，代码改动可以不经任何检查直接进 main。
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 代码规范检查
+        run: npm run lint
+
+      - name: 类型检查
+        run: npx tsc --noEmit
+
+      - name: 单元测试（schedule/status/validation/schema 契约）
+        run: npm test

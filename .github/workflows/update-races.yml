@@ -8,10 +8,14 @@ on:
 
 permissions:
   contents: write
+  issues: write # 失败告警开/追加 Issue 用内置 GITHUB_TOKEN，无需额外密钥
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    # 千问 API 挂起/网络异常时的兜底：默认 360 分钟太宽，会白烧 Actions 配额；
+    # 120 分钟按「上百场赛事 × 单场最慢一次联网查询」留足余量，正常远达不到
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -28,7 +32,7 @@ jobs:
         env:
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
 
-      - name: 发布前检测（日期一致性 + 官网实测，不通过则不提交）
+      - name: 发布前检测（字段契约 + 日期一致性 + 官网实测，不通过则不提交）
         run: npx tsx scripts/verify-data.ts
 
       - name: 提交数据更新
@@ -38,3 +42,28 @@ jobs:
           git add data/races.json data/todaySites.json
           git diff --cached --quiet || git commit -m "chore: 更新赛事数据 $(date -u +%F)"
           git push
+
+      # 数据提交成功后再生成简报：dateChanges.json 是运行时产物不入库，
+      # 必须与 update-status 在同一个 job 内读盘渲染（此前脚本写好但从未被调用）
+      - name: 生成并发送每日简报邮件（Resend）
+        run: npx tsx scripts/email-digest.ts
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+      # 简报会覆盖 knownIds.json 快照（次日"新入库"对比基线），不提交则每天重复报同一批新赛事
+      - name: 提交简报快照（knownIds 基线）
+        run: |
+          git config user.name "marathon-bot"
+          git config user.email "marathon-bot@users.noreply.github.com"
+          git pull --rebase
+          git add data/knownIds.json
+          git diff --cached --quiet || git commit -m "chore: 更新简报快照 $(date -u +%F)"
+          git push
+
+      # 任一环节失败 → 开/追加告警 Issue。此前事故：流水线连续失败 6 天毫无动静
+      - name: 流水线失败告警
+        if: failure()
+        run: python3 scripts/alert-failure.py
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
