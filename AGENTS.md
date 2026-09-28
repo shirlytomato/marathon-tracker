@@ -28,6 +28,7 @@ npx tsx scripts/update-status.ts --dry-run   # 每日复查（dry-run 不写文�
 npx tsx scripts/discover-races.ts --dry-run  # 新赛事巡检
 npx tsx scripts/verify-data.ts               # 发布前检测（字段契约+日期+官网 HTTP 实测）
 npx tsx scripts/email-digest.ts --dry-run    # 简报预览写入 digest-preview.html，不发送
+npx tsx scripts/dedupe-races.ts              # 存量清洗+重复合并（默认预览，加 --apply 才写回）
 npm run dev                                   # 本地预览前端
 ```
 
@@ -50,6 +51,11 @@ npm run dev                                   # 本地预览前端
    `data/knownIds.json` 是简报"新入库"对比基线，**必须随 workflow 提交**。
 5. 端点与密钥成对匹配：千问 Token Plan 端点只能用 Token Plan 的密钥（见 alert 脚本注释）。
 6. AI 只给 category "B"，标牌等级需人工核实后升级；赛期以官方公告为准，禁止按往年经验推测。
+7. **入库前必须过 `findDuplicate` 同场判定**（`scripts/lib/validation.ts`）。种子数据用干净短名
+   （"济南马拉松"），巡检用官方冠名全称（"2026恒丰银行济南(泉城)马拉松"），
+   原先按 `norm(name)` 精确比对拦不住改名变体，2026-09-28 页面上已出现 9 组重复卡片。
+   三条规则（同名/同赛期互为包含/同赛期同城且一方是城市主赛事）均**要求同年**，
+   否则伦敦马拉松这类每年一届的同名赛事会被误拦、真赛事永久漏收。
 
 ## GitHub Secrets（仓库 Settings → Secrets and variables → Actions）
 

@@ -1977,7 +1977,7 @@
   },
   {
     "id": "乐山双遗马拉松",
-    "name": "乐山双遗马拉松",
+    "name": "乐山双遗马拉松暨跑遍四川(乐山站)",
     "country": "中国",
     "province": "四川",
     "raceDate": "2026-11-29",
@@ -1991,7 +1991,9 @@
     "regStart": "2026-08-14",
     "regEnd": "2026-08-31",
     "needLottery": true,
-    "lotteryDate": "2026-09-02"
+    "lotteryDate": "2026-09-02",
+    "city": "乐山",
+    "shortName": "乐山双遗马拉松"
   },
   {
     "id": "粤港澳大湾区女子半程马拉松",
@@ -2576,7 +2578,7 @@
   },
   {
     "id": "长春莲花山半程马拉松",
-    "name": "长春莲花山半程马拉松",
+    "name": "天定山·山里院子 长春莲花山半程马拉松",
     "country": "中国",
     "province": "吉林",
     "raceDate": "2026-09-06",
@@ -2585,7 +2587,9 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-09-04T01:18:37.174Z"
+    "updatedAt": "2026-09-04T01:18:37.174Z",
+    "city": "长春",
+    "shortName": "长春莲花山半程马拉松"
   },
   {
     "id": "长宁蜀南竹海半程马拉松",
@@ -2686,16 +2690,19 @@
   },
   {
     "id": "连云港连岛半程马拉松",
-    "name": "连云港连岛半程马拉松",
+    "name": "连云港·连岛半程马拉松",
     "country": "中国",
     "province": "江苏",
     "raceDate": "2026-11-08",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-09-28T06:14:10.615Z"
+    "updatedAt": "2026-09-28T06:14:10.615Z",
+    "regStart": "2026-08-12",
+    "lotteryDate": "2026-09-21",
+    "shortName": "连云港连岛半程马拉松"
   },
   {
     "id": "威海马拉松",
@@ -3327,19 +3334,24 @@
   },
   {
     "id": "济南马拉松",
-    "name": "济南马拉松",
+    "name": "恒丰银行济南(泉城)马拉松",
     "country": "中国",
     "province": "山东",
     "raceDate": "2026-10-25",
     "regStatus": "closed",
     "events": [
-      "全程马拉松"
+      "全程马拉松",
+      "半程马拉松"
     ],
     "category": "A",
     "updatedAt": "2026-09-28T06:52:27.292Z",
     "officialSite": "http://jinanmarathon.iqilu.com/",
     "regStart": "2026-08-20",
-    "lotteryDate": "2026-09-08"
+    "lotteryDate": "2026-09-08",
+    "city": "济南",
+    "regEnd": "2026-09-01",
+    "scale": "25000人",
+    "shortName": "济南马拉松"
   },
   {
     "id": "成都马拉松",
@@ -3424,7 +3436,7 @@
   },
   {
     "id": "昌平马拉松",
-    "name": "昌平马拉松",
+    "name": "北京昌平马拉松",
     "country": "中国",
     "province": "北京",
     "raceDate": "2026-10-25",
@@ -3434,7 +3446,10 @@
     ],
     "category": "A",
     "updatedAt": "2026-09-28T06:25:09.780Z",
-    "regStart": "2026-08-27"
+    "regStart": "2026-08-27",
+    "city": "昌平区",
+    "regEnd": "2026-09-04",
+    "shortName": "昌平马拉松"
   },
   {
     "id": "贺州半程马拉松",
@@ -3493,7 +3508,7 @@
   },
   {
     "id": "长嘉汇半程马拉松",
-    "name": "长嘉汇半程马拉松",
+    "name": "重庆(长嘉汇)半程马拉松",
     "country": "中国",
     "province": "重庆",
     "raceDate": "2026-11-01",
@@ -3506,7 +3521,10 @@
     "officialSite": "https://www.cqnbmarathon.com",
     "regStart": "2026-07-15",
     "regEnd": "2026-07-22",
-    "lotteryDate": "2026-07-30"
+    "lotteryDate": "2026-07-30",
+    "city": "重庆",
+    "scale": "16000人",
+    "shortName": "长嘉汇半程马拉松"
   },
   {
     "id": "衡阳马拉松",
@@ -3692,7 +3710,8 @@
     "raceDate": "2026-11-08",
     "regStatus": "open",
     "events": [
-      "全程马拉松"
+      "全程马拉松",
+      "半程马拉松"
     ],
     "category": "A",
     "updatedAt": "2026-09-09T01:27:06.529Z",
@@ -3700,7 +3719,10 @@
     "regStart": "2026-09-09",
     "regEnd": "2026-09-21",
     "lotteryDate": "2026-09-25",
-    "needLottery": true
+    "needLottery": true,
+    "city": "南京市高淳区",
+    "scale": "12000人",
+    "shortName": "高淳马拉松"
   },
   {
     "id": "新余仙女湖马拉松",
@@ -3731,21 +3753,6 @@
     "regStart": "2026-08-10",
     "regEnd": "2026-08-31",
     "needLottery": true
-  },
-  {
-    "id": "连云港·连岛半程马拉松",
-    "name": "连云港·连岛半程马拉松",
-    "country": "中国",
-    "province": "江苏",
-    "raceDate": "2026-11-08",
-    "regStatus": "closed",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-28T06:54:04.873Z",
-    "lotteryDate": "2026-09-21",
-    "regStart": "2026-08-12"
   },
   {
     "id": "常德柳叶湖马拉松",
@@ -3858,13 +3865,18 @@
     "country": "中国",
     "province": "湖北",
     "raceDate": "2026-11-15",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
-      "全程马拉松"
+      "全程马拉松",
+      "半程马拉松"
     ],
     "category": "A",
     "updatedAt": "2026-09-09T01:27:36.809Z",
-    "officialSite": "https://guanggumarathon.mararun.com/"
+    "officialSite": "https://guanggumarathon.mararun.com/",
+    "city": "武汉",
+    "regStart": "2026-09-03",
+    "regEnd": "2026-09-10",
+    "shortName": "光谷马拉松"
   },
   {
     "id": "天目湖马拉松",
@@ -4080,11 +4092,15 @@
     "raceDate": "2026-11-29",
     "regStatus": "pending",
     "events": [
-      "全程马拉松"
+      "全程马拉松",
+      "半程马拉松"
     ],
     "category": "A",
     "updatedAt": "2026-09-08T01:23:54.822Z",
-    "officialSite": "https://qiandaohu.zjim.org/"
+    "officialSite": "https://qiandaohu.zjim.org/",
+    "city": "杭州",
+    "regStart": "2026-08-26",
+    "shortName": "千岛湖马拉松"
   },
   {
     "id": "常州长荡湖马拉松",
@@ -4607,23 +4623,6 @@
     "updatedAt": "2026-09-08T01:24:54.823Z"
   },
   {
-    "id": "2026重庆(长嘉汇)半程马拉松-2026",
-    "name": "2026重庆(长嘉汇)半程马拉松",
-    "country": "中国",
-    "province": "重庆",
-    "city": "重庆",
-    "raceDate": "2026-11-01",
-    "regStart": "2026-07-15",
-    "regEnd": "2026-07-22",
-    "regStatus": "closed",
-    "scale": "16000人",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-08T01:24:57.409Z"
-  },
-  {
     "id": "2026广州番禺大夫山·城市山径赛-2026",
     "name": "2026广州番禺大夫山·城市山径赛",
     "country": "中国",
@@ -4657,39 +4656,6 @@
     "updatedAt": "2026-09-03T01:25:58.002Z"
   },
   {
-    "id": "2026乐山双遗马拉松暨跑遍四川(乐山站)-2026",
-    "name": "2026乐山双遗马拉松暨跑遍四川(乐山站)",
-    "country": "中国",
-    "province": "四川省",
-    "city": "乐山市",
-    "raceDate": "2026-11-29",
-    "regStart": "2026-08-14",
-    "regEnd": "2026-08-31",
-    "regStatus": "closed",
-    "events": [
-      "马拉松",
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-08T01:25:02.890Z"
-  },
-  {
-    "id": "2026北京昌平马拉松-2026",
-    "name": "2026北京昌平马拉松",
-    "country": "中国",
-    "province": "北京市",
-    "city": "昌平区",
-    "raceDate": "2026-10-25",
-    "regStart": "2026-08-27",
-    "regEnd": "2026-09-04",
-    "regStatus": "closed",
-    "events": [
-      "马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-08T01:25:05.428Z"
-  },
-  {
     "id": "2026 “两园一河”·永定河半程马拉松-2026",
     "name": "2026 “两园一河”·永定河半程马拉松",
     "country": "中国",
@@ -4703,22 +4669,6 @@
     ],
     "category": "B",
     "updatedAt": "2026-09-08T01:25:08.020Z"
-  },
-  {
-    "id": "2026千岛湖马拉松-2026",
-    "name": "2026千岛湖马拉松",
-    "country": "中国",
-    "province": "浙江",
-    "city": "杭州",
-    "raceDate": "2026-11-29",
-    "regStart": "2026-08-26",
-    "regStatus": "pending",
-    "events": [
-      "马拉松",
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-09T01:28:37.972Z"
   },
   {
     "id": "2026象山半程马拉松-2026",
@@ -4747,75 +4697,24 @@
     "regEnd": "2026-10-23",
     "regStatus": "open",
     "events": [
-      "马拉松",
+      "全程马拉松",
       "半程马拉松"
     ],
     "category": "B",
     "updatedAt": "2026-09-28T06:56:16.944Z"
   },
   {
-    "id": "2026恒丰银行济南(泉城)马拉松-2026",
-    "name": "2026恒丰银行济南(泉城)马拉松",
-    "country": "中国",
-    "province": "山东",
-    "city": "济南",
-    "raceDate": "2026-10-25",
-    "regStart": "2026-08-20",
-    "regEnd": "2026-09-01",
-    "regStatus": "closed",
-    "scale": "25000人",
-    "events": [
-      "全程马拉松",
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-08T01:25:17.419Z"
-  },
-  {
-    "id": "2026天定山·山里院子 长春莲花山半程马拉松-2026",
-    "name": "2026天定山·山里院子 长春莲花山半程马拉松",
-    "country": "中国",
-    "province": "吉林",
-    "city": "长春",
-    "raceDate": "2026-09-06",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-05T00:15:28.567Z"
-  },
-  {
     "id": "2026杭州—阿克苏同心杯马拉松-2026",
     "name": "2026杭州—阿克苏同心杯马拉松",
     "country": "中国",
-    "province": "新疆维吾尔自治区",
-    "city": "阿克苏市",
+    "province": "新疆",
+    "city": "阿克苏",
     "raceDate": "2026-10-18",
     "regStart": "2026-08-05",
     "regEnd": "2026-09-10",
     "regStatus": "open",
-    "scale": "空字符串",
     "events": [
-      "马拉松",
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-09T00:25:38.099Z"
-  },
-  {
-    "id": "2026光谷马拉松-2026",
-    "name": "2026光谷马拉松",
-    "country": "中国",
-    "province": "湖北省",
-    "city": "武汉市",
-    "raceDate": "2026-11-15",
-    "regStart": "2026-09-03",
-    "regEnd": "2026-09-10",
-    "regStatus": "open",
-    "scale": "空字符串",
-    "events": [
-      "马拉松",
+      "全程马拉松",
       "半程马拉松"
     ],
     "category": "B",
@@ -4825,15 +4724,15 @@
     "id": "2026汕头马拉松-2026",
     "name": "2026汕头马拉松",
     "country": "中国",
-    "province": "广东省",
-    "city": "汕头市",
+    "province": "广东",
+    "city": "汕头",
     "raceDate": "2026-12-20",
     "regStart": "2026-09-10",
     "regEnd": "2026-09-28",
     "regStatus": "open",
     "scale": "20000人",
     "events": [
-      "马拉松",
+      "全程马拉松",
       "半程马拉松"
     ],
     "category": "B",
@@ -4842,36 +4741,17 @@
     "officialSite": "https://www.stmls.cn/"
   },
   {
-    "id": "2026高淳马拉松-2026",
-    "name": "2026高淳马拉松",
-    "country": "中国",
-    "province": "江苏省",
-    "city": "南京市高淳区",
-    "raceDate": "2026-11-08",
-    "regStart": "2026-09-09",
-    "regEnd": "2026-09-21",
-    "regStatus": "open",
-    "scale": "12000人",
-    "events": [
-      "全程马拉松",
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-09T00:25:38.099Z"
-  },
-  {
     "id": "2027顺德容桂马拉松-2027",
     "name": "2027顺德容桂马拉松",
     "country": "中国",
-    "province": "广东省",
+    "province": "广东",
     "city": "佛山市顺德区",
     "raceDate": "2027-01-03",
     "regStart": "2026-09-08",
     "regEnd": "2026-09-30",
     "regStatus": "open",
-    "scale": "空字符串",
     "events": [
-      "空字符串"
+      "全程马拉松"
     ],
     "category": "B",
     "updatedAt": "2026-09-28T06:57:10.968Z"

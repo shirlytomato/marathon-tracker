@@ -13,7 +13,7 @@ import type { Race } from "../src/types/race";
 import { deriveStatus } from "../src/lib/status";
 import { qwenSearch, logUsage } from "./lib/qwen";
 import { siteReachable } from "./lib/site-reach";
-import { buildWindow, norm, screenRace } from "./lib/validation";
+import { buildWindow, cleanEvents, cleanRegion, cleanText, findDuplicate, screenRace } from "./lib/validation";
 
 const DRY = process.argv.includes("--dry-run");
 const MAX_ADD = 8;     // 单次核实/入库上限：超限说明粗筛异常，其余留待下一轮
@@ -85,9 +85,9 @@ async function main() {
   const path = "data/races.json";
   const races = JSON.parse(readFileSync(path, "utf8")) as Race[];
   const now = new Date();
-  const existing = new Set(
-    races.flatMap(r => [norm(r.name), ...(r.shortName ? [norm(r.shortName)] : [])]),
-  );
+  // 去重口径从「norm(name) 精确比对」换成「同场判定」：种子数据用干净短名、
+  // 巡检用官方冠名全称，精确比对拦不住改名变体，已在页面上造成 9 组重复卡片。
+  const known = () => [...races, ...added];
   const aiSites = new Set<string>();
   const added: Race[] = [];
 
@@ -108,7 +108,8 @@ async function main() {
   const shortlist: Candidate[] = [];
   for (const c of candidates) {
     if (!c.name || !c.raceDate) { console.log(`  丢弃（缺名称或日期）: ${c.name ?? "?"}`); continue; }
-    if (existing.has(norm(c.name))) { console.log(`  跳过已收录: ${c.name}`); continue; }
+    const dupEarly = findDuplicate(c, known());
+    if (dupEarly) { console.log(`  跳过（与库内「${dupEarly.name}」为同一场）: ${c.name}`); continue; }
     const why = screenRace(c.raceDate);
     if (why) { console.log(`  丢弃（${why}）: ${c.name}`); continue; }
     if (shortlist.length >= MAX_ADD) { console.log(`  已达单次上限 ${MAX_ADD} 场，其余留待下次: ${c.name}`); continue; }
@@ -132,21 +133,24 @@ async function main() {
     }
     const why = screenRace(v.raceDate, v.regStart, v.regEnd);
     if (why) { console.log(`  丢弃（核实结果自相矛盾：${why}）: ${c.name}`); continue; }
-    if (existing.has(norm(c.name))) { console.log(`  跳过（本轮已收录同名赛事）: ${c.name}`); continue; }
+    // 核实后按官方赛期再判一次：赛期被修正后可能与库内另一场撞成同一天
+    const dup = findDuplicate({ name: c.name, raceDate: v.raceDate, city: c.city }, known());
+    if (dup) { console.log(`  跳过（与库内「${dup.name}」为同一场）: ${c.name}`); continue; }
 
+    const events = cleanEvents(v.events);
     const race: Race = {
       id: `${c.name}-${v.raceDate.slice(0, 4)}`,
       name: c.name,
       country: c.country && c.country !== "中国" ? c.country : "中国",
-      province: c.country === "中国" || !c.country ? c.province || undefined : undefined,
-      city: c.city || undefined,
+      province: cleanRegion(c.country === "中国" || !c.country ? c.province : undefined),
+      city: cleanRegion(c.city, "city"),
       raceDate: v.raceDate,
-      regStart: v.regStart || undefined,
-      regEnd: v.regEnd || undefined,
-      lotteryDate: v.lotteryDate || undefined,
+      regStart: cleanText(v.regStart),
+      regEnd: cleanText(v.regEnd),
+      lotteryDate: cleanText(v.lotteryDate),
       regStatus: "pending",
-      scale: v.scale || undefined,
-      events: Array.isArray(v.events) && v.events.length ? v.events : ["全程马拉松"],
+      scale: cleanText(v.scale),
+      events: events.length ? events : ["全程马拉松"],
       category: "B", // 标牌等级不轻信 AI，一律 B 类，人工核实后升级
       updatedAt: now.toISOString(),
     };
@@ -164,7 +168,6 @@ async function main() {
     if (v.raceDate !== c.raceDate) console.log(`  ⚠ 赛期以官方公告为准: ${c.raceDate} → ${v.raceDate}`);
     console.log(`  来源: ${v.source ?? c.source ?? "未注明"}`);
     races.push(race);
-    existing.add(norm(c.name));
     added.push(race);
     console.log(`✓ 新入库: ${race.name} ${race.raceDate} [${race.regStatus}]`);
   }
