@@ -1,7 +1,19 @@
 import type { Race, RegStatus } from "@/types/race";
 
 const day = 86400000;
+/** 日期一律按东八区解释，不受访客所在时区影响 */
 const toDate = (s: string) => new Date(s + "T00:00:00+08:00").getTime();
+/** 东八区的「自然日序号」：同一天里的任何时刻都落在同一个序号上 */
+const beijingDayIndex = (t: number) => Math.floor((t + 8 * 3600000) / day);
+
+/**
+ * 距目标日期还剩几个自然日：当天 = 0，次日 = 1，已过 = 0。
+ * 按自然日而不是按小时差取整：小时差向上取整的话，截止当天无论多晚
+ * 都显示「还剩 1 天」，「今天截止」永远出不来。
+ */
+export function daysLeftUntil(dateStr: string, now: Date): number {
+  return Math.max(0, beijingDayIndex(toDate(dateStr)) - beijingDayIndex(now.getTime()));
+}
 
 /** 根据日期字段推导展示状态（数据管道的 regStatus 仅作为无日期字段时的兜底） */
 export function deriveStatus(race: Race, now: Date): RegStatus {

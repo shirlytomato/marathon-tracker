@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { deriveStatus, sortRaces, computeStats } from "./status";
+import { deriveStatus, sortRaces, computeStats, daysLeftUntil } from "./status";
 import type { Race } from "@/types/race";
 
 const now = new Date("2026-08-21T08:00:00+08:00");
@@ -30,6 +30,24 @@ describe("deriveStatus", () => {
   });
   it("无报名信息且比赛未到 -> pending", () => {
     expect(deriveStatus(base, now)).toBe("pending");
+  });
+});
+
+describe("daysLeftUntil", () => {
+  it("截止当天上午 -> 0（今天截止）", () => {
+    expect(daysLeftUntil("2026-09-30", new Date("2026-09-30T09:37:00+08:00"))).toBe(0);
+  });
+  it("截止当天深夜 -> 仍为 0，不会退回 1", () => {
+    expect(daysLeftUntil("2026-09-30", new Date("2026-09-30T23:58:00+08:00"))).toBe(0);
+  });
+  it("明天截止 -> 1（不按小时向上取整成 2）", () => {
+    expect(daysLeftUntil("2026-09-30", new Date("2026-09-29T10:55:00+08:00"))).toBe(1);
+  });
+  it("截止日已过 -> 0", () => {
+    expect(daysLeftUntil("2026-09-30", new Date("2026-10-05T08:00:00+08:00"))).toBe(0);
+  });
+  it("海外访客按北京时间算：utc 凌晨已是北京当天 -> 0", () => {
+    expect(daysLeftUntil("2026-09-30", new Date("2026-09-30T01:00:00Z"))).toBe(0);
   });
 });
 

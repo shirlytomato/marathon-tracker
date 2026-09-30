@@ -1,5 +1,5 @@
 import type { Race, RegStatus } from "@/types/race";
-import { deriveStatus } from "@/lib/status";
+import { deriveStatus, daysLeftUntil } from "@/lib/status";
 
 const STATUS_STYLE: Record<RegStatus, { label: string; cls: string }> = {
   open: { label: "报名中", cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
@@ -22,14 +22,11 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
   const st = STATUS_STYLE[status];
   const cat = CATEGORY_STYLE[race.category];
 
-  // 报名中且 7 天内截止 → 红色高亮
-  const urgent =
-    status === "open" && race.regEnd &&
-    (new Date(race.regEnd + "T23:59:59+08:00").getTime() - now.getTime()) <= 7 * 86400000;
+  // 倒计时按自然日算：今天截止 = 0
+  const daysLeft = race.regEnd ? daysLeftUntil(race.regEnd, now) : null;
 
-  const daysLeft = race.regEnd
-    ? Math.max(0, Math.ceil((new Date(race.regEnd + "T23:59:59+08:00").getTime() - now.getTime()) / 86400000))
-    : null;
+  // 报名中且 7 天内截止 → 红色高亮
+  const urgent = status === "open" && daysLeft !== null && daysLeft <= 7;
 
   // 次要信息：只展示有值的字段，一行带过
   const details = [

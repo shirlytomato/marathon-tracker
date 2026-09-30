@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { Race } from "@/types/race";
-import { deriveStatus, sortRaces, computeStats } from "@/lib/status";
+import { deriveStatus, sortRaces, computeStats, daysLeftUntil } from "@/lib/status";
 import StatsBar from "./StatsBar";
 import FilterBar, { type Filters } from "./FilterBar";
 import RaceCard from "./RaceCard";
@@ -14,9 +14,7 @@ const ICP_NUMBER = "";
 
 /** 置顶横滑卡片：报名中的赛事，附截止倒计时 */
 function OpenCard({ race, now }: { race: Race; now: Date }) {
-  const daysLeft = race.regEnd
-    ? Math.max(0, Math.ceil((new Date(race.regEnd + "T23:59:59+08:00").getTime() - now.getTime()) / 86400000))
-    : null;
+  const daysLeft = race.regEnd ? daysLeftUntil(race.regEnd, now) : null;
   const urgent = daysLeft !== null && daysLeft <= 7;
   return (
     <div className={`w-60 shrink-0 snap-start rounded-2xl border bg-white p-4 shadow-sm lg:w-72 lg:p-5 ${
@@ -47,7 +45,15 @@ function OpenCard({ race, now }: { race: Race; now: Date }) {
 }
 
 export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: string }) {
-  const now = useMemo(() => new Date(nowIso), [nowIso]);
+  // 页面是构建时一次性生成的静态页，nowIso 只代表构建那一刻，只用作首屏兜底；
+  // 挂载后换成访客本机的当前时间，并每分钟对齐一次（标签页一直开着过零点也能准）。
+  const [now, setNow] = useState(() => new Date(nowIso));
+  useEffect(() => {
+    const sync = () => setNow(new Date());
+    sync();
+    const timer = setInterval(sync, 60_000);
+    return () => clearInterval(timer);
+  }, []);
   const [tab, setTab] = useState<"domestic" | "international">("domestic");
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
   // 返回顶部：滚动超过一屏后显示悬浮按钮
@@ -64,11 +70,11 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
   const tabRaces = tab === "domestic" ? domestic : international;
 
   const stats = useMemo(() => computeStats(tabRaces, now), [tabRaces, now]);
-  // 显示口径：网站最近一次部署时间（静态构建时间），而非单条赛事的核对时间
+  // 显示口径：网站最近一次部署时间（静态构建时间），与访客本机的 now 无关
   const updatedAt = useMemo(() => {
-    const s = new Date(now.getTime() + 8 * 3600000).toISOString();
+    const s = new Date(new Date(nowIso).getTime() + 8 * 3600000).toISOString();
     return s.slice(0, 16).replace("T", " ");
-  }, [now]);
+  }, [nowIso]);
 
   const regions = useMemo(() => {
     const set = new Set<string>();
