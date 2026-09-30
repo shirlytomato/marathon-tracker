@@ -4769,5 +4769,39 @@
     ],
     "category": "B",
     "updatedAt": "2026-09-29T02:54:02.807Z"
+  },
+  {
+    "id": "第25届厦门马拉松赛-2027",
+    "name": "第25届厦门马拉松赛",
+    "country": "中国",
+    "province": "福建",
+    "city": "厦门",
+    "raceDate": "2027-01-10",
+    "regStart": "2026-09-23",
+    "regEnd": "2026-10-14",
+    "regStatus": "open",
+    "scale": "35000人",
+    "events": [
+      "全程马拉松"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-30T01:24:01.394Z",
+    "officialSite": "https://www.xmim.org"
+  },
+  {
+    "id": "首尔马拉松-2027",
+    "name": "首尔马拉松",
+    "country": "韩国",
+    "city": "首尔",
+    "raceDate": "2027-03-21",
+    "regStart": "2026-09-01",
+    "regStatus": "pending",
+    "scale": "40000人",
+    "events": [
+      "全程马拉松",
+      "10公里"
+    ],
+    "category": "B",
+    "updatedAt": "2026-09-30T01:24:01.394Z"
   }
 ]
