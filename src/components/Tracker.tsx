@@ -100,6 +100,11 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
     return sortRaces(list, now);
   }, [tabRaces, filters, now, tab]);
 
+  // 今日开跑：比赛日当天的赛事单独成组置顶（当天不再标"已结束"）
+  const racingToday = useMemo(
+    () => filtered.filter(r => deriveStatus(r, now) === "today"),
+    [filtered, now],
+  );
   // 报名雷达：报名中的赛事置顶横滑，按截止紧迫度排序
   const openRaces = useMemo(
     () => filtered.filter(r => deriveStatus(r, now) === "open")
@@ -156,6 +161,19 @@ export default function Tracker({ races, nowIso }: { races: Race[]; nowIso: stri
           ))}
         </div>
         <StatsBar open={stats.open} drawing={stats.drawing} updatedAt={updatedAt} />
+
+        {/* 今日开跑：比赛当天的赛事单独成组 */}
+        {racingToday.length > 0 && (
+          <section className="mt-4">
+            <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900 lg:text-xl">
+              🏃 今日开跑
+              <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-600">{racingToday.length}</span>
+            </h2>
+            <div className="mt-3 space-y-3">
+              {racingToday.map(r => <RaceCard key={r.id} race={r} now={now} />)}
+            </div>
+          </section>
+        )}
 
         {/* 报名雷达：正在报名的赛事置顶 */}
         {openRaces.length > 0 && (

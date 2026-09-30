@@ -10,7 +10,7 @@
 // 官网必须 HTTP 实测可达；category 一律 "B"（标牌等级不轻信 AI，需人工升级）
 import { readFileSync, writeFileSync } from "fs";
 import type { Race } from "../src/types/race";
-import { deriveStatus } from "../src/lib/status";
+import { deriveStatus, toStoredStatus } from "../src/lib/status";
 import { qwenSearch, logUsage } from "./lib/qwen";
 import { siteReachable } from "./lib/site-reach";
 import { buildWindow, cleanEvents, cleanRegion, cleanText, findDuplicate, screenRace } from "./lib/validation";
@@ -154,7 +154,7 @@ async function main() {
       category: "B", // 标牌等级不轻信 AI，一律 B 类，人工核实后升级
       updatedAt: now.toISOString(),
     };
-    race.regStatus = deriveStatus(race, now);
+    race.regStatus = toStoredStatus(deriveStatus(race, now));
     // 官网实测：可达才写入，不可达直接丢弃官网字段（赛事本身保留，来源已注明）
     if (v.officialSite && /^https?:\/\//.test(v.officialSite)) {
       if (await siteReachable(v.officialSite)) {

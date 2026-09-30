@@ -13,6 +13,15 @@ describe("deriveStatus", () => {
   it("比赛日已过 -> finished", () => {
     expect(deriveStatus({ ...base, raceDate: "2026-08-01" }, now)).toBe("finished");
   });
+  it("比赛日当天 -> today，不提前标已结束", () => {
+    expect(deriveStatus({ ...base, raceDate: "2026-08-21" }, now)).toBe("today");
+  });
+  it("比赛日当天深夜 -> 仍是 today", () => {
+    expect(deriveStatus({ ...base, raceDate: "2026-08-21" }, new Date("2026-08-21T23:59:00+08:00"))).toBe("today");
+  });
+  it("比赛日次日凌晨 -> finished", () => {
+    expect(deriveStatus({ ...base, raceDate: "2026-08-21" }, new Date("2026-08-22T00:05:00+08:00"))).toBe("finished");
+  });
   it("报名窗口内 -> open", () => {
     expect(deriveStatus({ ...base, regStart: "2026-08-12", regEnd: "2026-09-01" }, now)).toBe("open");
   });
@@ -58,6 +67,12 @@ describe("sortRaces", () => {
     const finished: Race = { ...base, id: "finished", raceDate: "2026-01-01", regStatus: "finished" };
     const sorted = sortRaces([finished, pending, open], now).map(r => r.id);
     expect(sorted).toEqual(["open", "pending", "finished"]);
+  });
+  it("today 排在 open 之后、pending 之前", () => {
+    const open: Race = { ...base, id: "open", regStart: "2026-08-01", regEnd: "2026-09-01", regStatus: "open" };
+    const today: Race = { ...base, id: "today", raceDate: "2026-08-21" };
+    const pending: Race = { ...base, id: "pending" };
+    expect(sortRaces([pending, today, open], now).map(r => r.id)).toEqual(["open", "today", "pending"]);
   });
 });
 

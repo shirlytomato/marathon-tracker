@@ -1,8 +1,9 @@
-import type { Race, RegStatus } from "@/types/race";
+import type { Race, DisplayStatus } from "@/types/race";
 import { deriveStatus, daysLeftUntil } from "@/lib/status";
 
-const STATUS_STYLE: Record<RegStatus, { label: string; cls: string }> = {
+const STATUS_STYLE: Record<DisplayStatus, { label: string; cls: string }> = {
   open: { label: "报名中", cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  today: { label: "今日开跑", cls: "bg-orange-500 text-white border-orange-500" },
   drawing: { label: "抽签中", cls: "bg-amber-50 text-amber-700 border-amber-200" },
   pending: { label: "筹备中", cls: "bg-violet-50 text-violet-700 border-violet-200" },
   closed: { label: "报名已截止", cls: "bg-slate-100 text-slate-600 border-slate-200" },
@@ -72,7 +73,9 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
           {race.raceDate.slice(0, 4)}年{dateLabel}
         </span>
         <span>{[race.country === "中国" ? race.province : race.country, race.city].filter(Boolean).join(" · ")}</span>
-        {status === "open" && race.regEnd && daysLeft !== null ? (
+        {status === "today" ? (
+          <span className="font-bold text-orange-600">{race.location ? `今日鸣枪 · ${race.location}` : "今日鸣枪开跑"}</span>
+        ) : status === "open" && race.regEnd && daysLeft !== null ? (
           <span className={urgent ? "font-bold text-red-600" : "font-semibold text-emerald-600"}>
             报名 {daysLeft === 0 ? "今天截止" : `还剩 ${daysLeft} 天`}
           </span>

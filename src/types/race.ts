@@ -1,4 +1,6 @@
 export type RegStatus = "pending" | "open" | "drawing" | "closed" | "finished";
+/** 前端展示状态：比数据管道多一个"今天比赛"，比赛日当天不算已结束 */
+export type DisplayStatus = RegStatus | "today";
 export type RaceCategory = "A" | "B" | "platinum" | "gold" | "major";
 
 export interface Race {

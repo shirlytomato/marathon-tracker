@@ -2,7 +2,7 @@
 
 export interface Filters {
   region: string;      // 省份（国内）或国家（国际），""=全部
-  status: string;      // open/drawing/pending/closed/finished/""
+  status: string;      // open/today/drawing/pending/closed/finished/""
   event: string;       // 全程马拉松/半程马拉松/""
   keyword: string;
   quick: "unfinished" | "finished" | "all";
@@ -51,6 +51,7 @@ export default function FilterBar({ filters, regions, months, monthCounts, onCha
         <select className={selectCls} value={statusValue} onChange={e => pickStatus(e.target.value)}>
           <option value="">全部状态</option>
           <option value="open">报名中</option>
+          <option value="today">今日开跑</option>
           <option value="drawing">抽签中</option>
           <option value="pending">筹备中</option>
           <option value="closed">已截止</option>

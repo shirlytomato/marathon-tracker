@@ -4,7 +4,7 @@
 // 新赛事的发现交给每周三次的新赛事巡检任务，不由本脚本承担。
 import { readFileSync, writeFileSync } from "fs";
 import type { Race } from "../src/types/race";
-import { deriveStatus } from "../src/lib/status";
+import { deriveStatus, toStoredStatus } from "../src/lib/status";
 import { isDue, summarizePlan } from "../src/lib/schedule";
 import { qwenSearch, logUsage } from "./lib/qwen";
 import { siteReachable } from "./lib/site-reach";
@@ -72,7 +72,7 @@ async function main() {
       // （实测 qwen3.7-plus：福州马拉松 regEnd 2026-09-19 未到，AI 却报 closed）
       // 仅在缺报名日期时保留 AI 的判断（如“抽签中”无法从日期推导）；
       // 且赛期未到的赛事禁止被标为 finished——否则会被分级调度永久排除、再也不会复查
-      const derived = deriveStatus(r, now);
+      const derived = toStoredStatus(deriveStatus(r, now));
       if (r.regStart && r.regEnd) r.regStatus = derived;
       else if (r.regStatus === "finished") r.regStatus = derived;
       r.updatedAt = new Date().toISOString();
