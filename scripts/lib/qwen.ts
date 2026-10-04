@@ -4,11 +4,14 @@
 const ENDPOINT = "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions";
 
 // 模型选型以“够快 + 联网搜索准确”为准，不是越强越好：
-//   qwen3.7-plus 实测 23 秒/场，regStart/regEnd/raceDate 三项全对 ← 当前选用
-//   qwen3.8-flash 实测 41 秒/场，同样全对
+//   qwen3.8-flash 实测 41 秒/场，regStart/regEnd/raceDate 三项全对 ← 当前选用
+//     个人版另有夜间折扣：22:00~次日 08:00 调用 Credits 打四折（定时任务 07:30 起跑正落在窗口内）
 //   qwen3.8-max   实测 201 秒/场（推理模型），全量跑会超 GitHub Actions 的 6 小时上限，禁用
+//   qwen3.7-plus  实测 23 秒/场且三项全对，但 2026-09-30 起在个人版密钥下全量返回
+//     403 AccessDenied.Unpurchased（官方错误码表：该模型仅团队版支持），停用；
+//     若日后套餐调整可改回，改回前先用 --limit=2 试跑一次确认不再 403
 // 注意：qwen-plus / qwen-flash 在 Token Plan 端点上不存在（model_not_found），不要回退到这两个名字。
-const MODEL = "qwen3.7-plus";
+const MODEL = "qwen3.8-flash";
 
 // 联网搜索单次实测 4~60 秒（取决于检索深度），超时给到 120 秒留足余量
 const TIMEOUT_MS = 120000;
