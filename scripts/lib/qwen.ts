@@ -1,16 +1,15 @@
 // scripts/lib/qwen.ts —— 阿里云百炼（DashScope）千问 API 客户端（OpenAI 兼容端点 + 联网搜索）
-// 端点与密钥必须成对匹配：Token Plan 端点只能用 Token Plan 资源包的密钥，
-// 混用会全量返回 401 invalid_api_key，导致每日更新任务静默失败（见 2026-09-10~09-15 事故）。
-const ENDPOINT = "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions";
+// 端点与密钥必须成对匹配：2026-10 起改用百炼通用端点 + 通用密钥，
+// 原先的 Token Plan 专属端点只认套餐发的密钥，拿通用密钥去调会全量 401 invalid_api_key
+// （2026-09-10~09-15 与 2026-09-30~10-04 两次停摆都源于端点/密钥/套餐授权不匹配）。
+const ENDPOINT = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
 
 // 模型选型以“够快 + 联网搜索准确”为准，不是越强越好：
 //   qwen3.8-flash 实测 41 秒/场，regStart/regEnd/raceDate 三项全对 ← 当前选用
-//     个人版另有夜间折扣：22:00~次日 08:00 调用 Credits 打四折（定时任务 07:30 起跑正落在窗口内）
 //   qwen3.8-max   实测 201 秒/场（推理模型），全量跑会超 GitHub Actions 的 6 小时上限，禁用
-//   qwen3.7-plus  实测 23 秒/场且三项全对，但 2026-09-30 起在个人版密钥下全量返回
-//     403 AccessDenied.Unpurchased（官方错误码表：该模型仅团队版支持），停用；
-//     若日后套餐调整可改回，改回前先用 --limit=2 试跑一次确认不再 403
-// 注意：qwen-plus / qwen-flash 在 Token Plan 端点上不存在（model_not_found），不要回退到这两个名字。
+//   qwen3.7-plus  通用端点上可用（实测 23 秒/场），但单场更贵，暂无必要
+// 免费额度按模型各自独立：某个模型报 403 AllocationQuota.FreeTierOnly 只说明“那一个”用完了，
+// 换一个模型即可（实测同一次探测里 qwen-plus 已耗尽，qwen3.8-flash 仍可用），不必改整体配置。
 const MODEL = "qwen3.8-flash";
 
 // 联网搜索单次实测 4~60 秒（取决于检索深度），超时给到 120 秒留足余量
@@ -38,6 +37,10 @@ export async function qwenSearch(prompt: string): Promise<string> {
   const body = JSON.stringify({
     model: MODEL,
     enable_search: true,
+    // forced_search 必须显式打开：实测通用端点上只给 enable_search 时，模型会自行判定
+    // “这一题不用搜”，输入停在 90 token（真搜了是 3200 上下），然后拿旧知识把赛期
+    // 答成“按往年推算”——不报错不告警，是最坏的一种静默失败。
+    search_options: { forced_search: true, enable_source: true },
     response_format: { type: "json_object" },
     messages: [{ role: "user", content: prompt }],
   });
@@ -62,6 +65,11 @@ export async function qwenSearch(prompt: string): Promise<string> {
       } else {
         const data = await res.json();
         const u = (data.usage ?? {}) as { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
+        // 拿输入 token 量做兜底判定“搜索到底有没有发生”：强制搜索生效时检索内容会灌进上下文
+        // （实测 3200±），没搜索时只剩提示词本身（实测 90）。低于阈值当失败，
+        // 走重试→报错→不写库，绝不让“没联网的模型猜测”混进 races.json。
+        if ((u.prompt_tokens ?? 0) < 800)
+          throw new Error(`千问 API 疑似未执行联网搜索（输入仅 ${u.prompt_tokens} token），拒绝采信`);
         usage.calls++;
         usage.promptTokens += u.prompt_tokens ?? 0;
         usage.completionTokens += u.completion_tokens ?? 0;
