@@ -2,7 +2,8 @@
 
 马拉松赛事追踪网站：单页展示国内/海外马拉松的报名窗口与状态。
 数据源是**纯 JSON 文件（无数据库）**，由**本机 Mac 的定时任务** + 阿里云百炼千问 API 自动维护，前端部署在 Vercel。
-（GitHub Actions 那两个 workflow 已停用：套餐专属端点只有境内网络可达，境外 runner 连它一律超时。）
+（GitHub Actions 那两个**调 AI** 的 workflow 已停用：套餐专属端点只有境内网络可达，境外 runner 连它一律超时；
+只保留一个不调 AI 的数据新鲜度心跳。）
 
 ## 数据流（改任何一环前先读这段）
 
@@ -14,6 +15,8 @@ data/races.json（唯一事实源，约 150 场）
   │    → scripts/verify-data.ts 发布前检测（不过则不提交）→ 提交并 push 到 main
   │    → 简报默认不跑，加 --with-digest 才接 scripts/draft-digest-mac.sh（当日简报→Mail 草稿→人工按发送）
   │    日志：~/Library/Logs/pbrun-daily-update.log；plist 备份在 scripts/run.pbrun.daily-update.plist
+  ├─ 每日 08:30（北京时间）watch-freshness.yml → scripts/check-freshness.py（仍在启用，不调 AI、不要密钥）
+  │    只看 main 上最近一次数据提交是否超 36 小时，超了就红 + 开/追加告警 Issue（本机没开机/没网也能报）
   ├─ 每周一/三/六 06:30 discover-races.yml → scripts/discover-races.ts（同样已停用，需要时在本机跑）
   └─ 前端 src/（Next.js）直接读 races.json 渲染
 停用中的 workflow：update-races.yml、discover-races.yml（GitHub Settings → Actions → Workflows 可重新启用，
@@ -90,11 +93,12 @@ launchctl kickstart -k gui/$(id -u)/run.pbrun.daily-update    # 立刻试跑一�
 
 | Secret | 用途 | 缺失后果 |
 | --- | --- | --- |
-| `DASHSCOPE_API_KEY` | 千问联网搜索（复查/巡检） | 脚本变红 + 告警 Issue |
+| `DASHSCOPE_API_KEY` | 只剩那两个停用 workflow 用（本机从 `.env` 读，不走 Actions） | 重新启用它们时脚本变红 + 告警 Issue |
 | `RESEND_API_KEY` + `EMAIL_TO` | 每日简报邮件 | 简报打印跳过，数据链路不受影响 |
 | `GITHUB_TOKEN`（内置） | 失败告警 Issue | 无需配置 |
 
-仓库需要 `Issues: Write` 权限（两个 workflow 已在 `permissions:` 声明）。
+仓库需要 `Issues: Write` 权限（三个 workflow 已在 `permissions:` 声明）。
+心跳 watch-freshness.yml 不调 AI、不需要任何自定义密钥。
 
 <!-- BEGIN:nextjs-agent-rules -->
 
