@@ -57,7 +57,10 @@ npm run dev                                   # 本地预览前端
    简报不能用 `updatedAt` 判新动态：update-status.ts 只要单场复查成功就无条件刷 updatedAt。
    基线只能由"真正送达的那一次"推进：`--dry-run`、`--html-file`、`--out-html` 三种未送达情形一律不得写基线
    （2026-10-04 加 `--out-html` 时漏了这一条，本地试跑把 knownIds 改写、凭空生成 digestBaseline，靠 `git show HEAD:` 复原）。
-5. 端点与密钥成对匹配：千问 Token Plan 端点只能用 Token Plan 的密钥（见 alert 脚本注释）。
+5. 端点与密钥成对匹配，且**只能用全球可达的通用端点**：`qwen.ts` 的 ENDPOINT 必须是
+   `dashscope.aliyuncs.com`（配 sk- 通用密钥 + 开通后付费）。Token Plan 专属端点挂在阿里云北京 NLB、
+   没有跨境加速，境外 runner 连它一律 TCP 超时（2026-10-05 实测 35 场全 ETIMEDOUT、成功 0），
+   套餐续费了也不能把 ENDPOINT 改回去 —— 密钥对不上是 401，端点连不通是超时，后者换密钥解决不了。
 6. AI 只给 category "B"，标牌等级需人工核实后升级；赛期以官方公告为准，禁止按往年经验推测。
 7. **入库前必须过 `findDuplicate` 同场判定**（`scripts/lib/validation.ts`）。种子数据用干净短名
    （"济南马拉松"），巡检用官方冠名全称（"2026恒丰银行济南(泉城)马拉松"），

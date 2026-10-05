@@ -44,11 +44,12 @@ def main() -> None:
         f"自动任务 **{wf}** 执行失败，线上数据已停止更新。\n\n"
         f"失败运行：{run_url}\n\n"
         f"排查入口：打开上面链接，看第一个变红的步骤。\n"
-        f"若是「联网查询赛事进展」或「联网搜索新官宣赛事」变红，"
-        f"日志里会刷 `千问 API 401: ...invalid_api_key...`，"
-        f"说明百炼密钥失效或 Token Plan 资源包耗尽 —— 去百炼控制台换新密钥，"
-        f"更新仓库 Secret `DASHSCOPE_API_KEY`，再手动触发一次 workflow 验证。\n\n"
-        f"注意：端点与密钥必须成对匹配，Token Plan 端点只能用 Token Plan 的密钥。"
+        f"若是「联网查询赛事进展」或「联网搜索新官宣赛事」变红，按日志里的错误码分两种病因：\n"
+        f"- `千问 API 401: ...invalid_api_key...` → 百炼密钥失效或与端点不配对，"
+        f"去百炼控制台换一把通用端点的 sk- 密钥，更新仓库 Secret `DASHSCOPE_API_KEY` 再手动触发验证。\n"
+        f"- `fetch failed（cause: ETIMEDOUT）` → 网络层打不通，换密钥没用。"
+        f"最常见是有人把端点改成了境外 runner 连不通的专属端点（见 qwen.ts 顶部实测记录）。\n\n"
+        f"注意：端点与密钥必须成对匹配，且 Actions 的 runner 在海外，只能用全球可达的通用端点。"
     )
 
     existing = [
