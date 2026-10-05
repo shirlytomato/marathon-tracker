@@ -51,14 +51,15 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
-      # 简报会覆盖 knownIds.json 快照（次日"新入库"对比基线），不提交则每天重复报同一批新赛事
-      - name: 提交简报快照（knownIds 基线）
+      # 简报会覆盖两份对比基线：knownIds.json（次日"新入库"）+ digestBaseline.json（次日"新动态"，
+      # 上一日的 regStart/regEnd/lotteryDate 快照），不提交则每天重复报同一批
+      - name: 提交简报快照（knownIds + 字段基线）
         run: |
           git config user.name "marathon-bot"
           git config user.email "marathon-bot@users.noreply.github.com"
           # 先暂存再 pull：pull --rebase 遇到未暂存改动会直接拒绝退出（2026-09-28 事故，
           # knownIds.json 刚被 email-digest 覆盖，正是这一步唯一的未暂存改动）
-          git add data/knownIds.json
+          git add data/knownIds.json data/digestBaseline.json
           git diff --cached --quiet || git commit -m "chore: 更新简报快照 $(date -u +%F)"
           git pull --rebase
           git push
