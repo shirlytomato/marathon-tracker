@@ -40,16 +40,21 @@ def main() -> None:
     wf = os.environ.get("GITHUB_WORKFLOW", "未知任务")
     run_url = f"{os.environ.get('GITHUB_SERVER_URL', 'https://github.com')}/{repo}/actions/runs/{run_id}"
 
+    # 心跳看守等不调 AI 的任务失败原因完全不同，用自己的话术覆盖默认排查指引
+    hint = os.environ.get(
+        "ALERT_HINT",
+        "排查入口：打开上面链接，看第一个变红的步骤。\n"
+        "若是「联网查询赛事进展」或「联网搜索新官宣赛事」变红，按日志里的错误码分两种病因：\n"
+        "- `千问 API 401: ...invalid_api_key...` → 百炼密钥失效或与端点不配对，"
+        "换一把与端点匹配的密钥，更新 `.env`（本机跑）或仓库 Secret `DASHSCOPE_API_KEY` 再手动触发验证。\n"
+        "- `fetch failed（cause: ETIMEDOUT）` → 网络层打不通，换密钥没用。"
+        "多半是端点与运行位置不匹配（专属端点只有境内网络可达，见 qwen.ts 顶部实测记录）。",
+    )
+
     body = (
         f"自动任务 **{wf}** 执行失败，线上数据已停止更新。\n\n"
         f"失败运行：{run_url}\n\n"
-        f"排查入口：打开上面链接，看第一个变红的步骤。\n"
-        f"若是「联网查询赛事进展」或「联网搜索新官宣赛事」变红，按日志里的错误码分两种病因：\n"
-        f"- `千问 API 401: ...invalid_api_key...` → 百炼密钥失效或与端点不配对，"
-        f"去百炼控制台换一把通用端点的 sk- 密钥，更新仓库 Secret `DASHSCOPE_API_KEY` 再手动触发验证。\n"
-        f"- `fetch failed（cause: ETIMEDOUT）` → 网络层打不通，换密钥没用。"
-        f"最常见是有人把端点改成了境外 runner 连不通的专属端点（见 qwen.ts 顶部实测记录）。\n\n"
-        f"注意：端点与密钥必须成对匹配，且 Actions 的 runner 在海外，只能用全球可达的通用端点。"
+        f"{hint}"
     )
 
     existing = [
