@@ -1,21 +1,24 @@
 # marathon-tracker（pbrun.run）—— Agent 操作指南
 
 马拉松赛事追踪网站：单页展示国内/海外马拉松的报名窗口与状态。
-数据源是**纯 JSON 文件（无数据库）**，由 GitHub Actions 定时任务 + 阿里云百炼千问 API 自动维护，前端部署在 Vercel。
+数据源是**纯 JSON 文件（无数据库）**，由**本机 Mac 的定时任务** + 阿里云百炼千问 API 自动维护，前端部署在 Vercel。
+（GitHub Actions 那两个 workflow 已停用：套餐专属端点只有境内网络可达，境外 runner 连它一律超时。）
 
 ## 数据流（改任何一环前先读这段）
 
 ```
 data/races.json（唯一事实源，约 150 场）
-  ├─ 每日 07:30（北京时间）update-races.yml → scripts/update-status.ts
-  │    按 src/lib/schedule.ts 分级调度（每天盯/周检/月检/不再查）联网复查赛事进展
+  ├─ 每日 07:30（北京时间）本机 LaunchAgent → bash scripts/daily-update-mac.sh
+  │    → scripts/update-status.ts 按 src/lib/schedule.ts 分级调度（每天盯/周检/月检/不再查）联网复查赛事进展
   │    写出：races.json、todaySites.json（本次 AI 新写入的官网）、dateChanges.json（赛期变更，运行时产物不入库）
-  │    → scripts/verify-data.ts 发布前检测（不过则不提交）
-  │    → 提交数据 → scripts/email-digest.ts 发当日简报 → 提交 data/knownIds.json 快照
-  ├─ 每周一/三/六 06:30 discover-races.yml → scripts/discover-races.ts
-  │    两段式：粗筛候选 → 本地去重/日期校验 → 逐场核实（只认官方公告）→ 入库
+  │    → scripts/verify-data.ts 发布前检测（不过则不提交）→ 提交并 push 到 main
+  │    → 简报默认不跑，加 --with-digest 才接 scripts/draft-digest-mac.sh（当日简报→Mail 草稿→人工按发送）
+  │    日志：~/Library/Logs/pbrun-daily-update.log；plist 备份在 scripts/run.pbrun.daily-update.plist
+  ├─ 每周一/三/六 06:30 discover-races.yml → scripts/discover-races.ts（同样已停用，需要时在本机跑）
   └─ 前端 src/（Next.js）直接读 races.json 渲染
-两个 workflow 任一环节失败都会跑 scripts/alert-failure.py 开/追加告警 Issue（GITHUB_TOKEN，无需额外密钥）。
+停用中的 workflow：update-races.yml、discover-races.yml（GitHub Settings → Actions → Workflows 可重新启用，
+但重新启用前必须把 qwen.ts 的 ENDPOINT 换成通用端点 + 通用密钥，否则必红）。
+它们失败时的告警走 scripts/alert-failure.py（GITHUB_TOKEN 开/追加 Issue）。
 ```
 
 ## 运行脚本（本地）
@@ -25,12 +28,24 @@ cp .env.example .env   # 填入 DASHSCOPE_API_KEY（必需）；RESEND_API_KEY/E
 set -a && source .env && set +a
 npm ci
 npx tsx scripts/update-status.ts --dry-run   # 每日复查（dry-run 不写文件）
+bash scripts/daily-update-mac.sh             # 本机每日更新全流程：拉 main→复查→检测→提交并 push
+                                             # 加 --with-digest 顺带生成 Mail 草稿简报
+                                             # 定时由 LaunchAgent 负责（见下方安装命令），不要再手动挂 cron
 npx tsx scripts/discover-races.ts --dry-run  # 新赛事巡检
 npx tsx scripts/verify-data.ts               # 发布前检测（字段契约+日期+官网 HTTP 实测）
 npx tsx scripts/email-digest.ts --dry-run    # 简报预览写入 digest-preview.html，不发送
 bash scripts/draft-digest-mac.sh             # 本机推送：当日简报→Mail 草稿→系统通知（零密钥，发送由人按）
 npx tsx scripts/dedupe-races.ts              # 存量清洗+重复合并（默认预览，加 --apply 才写回）
 npm run dev                                   # 本地预览前端
+```
+
+定时任务装法（换机器或误删时用，plist 备份在 `scripts/` 里）：
+
+```bash
+cp scripts/run.pbrun.daily-update.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/run.pbrun.daily-update.plist
+launchctl print gui/$(id -u)/run.pbrun.daily-update | head    # 确认已挂上 07:30
+launchctl kickstart -k gui/$(id -u)/run.pbrun.daily-update    # 立刻试跑一次（会真推送）
 ```
 
 ## 校验与门禁
@@ -57,10 +72,13 @@ npm run dev                                   # 本地预览前端
    简报不能用 `updatedAt` 判新动态：update-status.ts 只要单场复查成功就无条件刷 updatedAt。
    基线只能由"真正送达的那一次"推进：`--dry-run`、`--html-file`、`--out-html` 三种未送达情形一律不得写基线
    （2026-10-04 加 `--out-html` 时漏了这一条，本地试跑把 knownIds 改写、凭空生成 digestBaseline，靠 `git show HEAD:` 复原）。
-5. 端点与密钥成对匹配，且**只能用全球可达的通用端点**：`qwen.ts` 的 ENDPOINT 必须是
-   `dashscope.aliyuncs.com`（配 sk- 通用密钥 + 开通后付费）。Token Plan 专属端点挂在阿里云北京 NLB、
-   没有跨境加速，境外 runner 连它一律 TCP 超时（2026-10-05 实测 35 场全 ETIMEDOUT、成功 0），
-   套餐续费了也不能把 ENDPOINT 改回去 —— 密钥对不上是 401，端点连不通是超时，后者换密钥解决不了。
+5. **端点必须与"任务跑在哪台机器"匹配**（这是两次停摆的真正病根，别只记"密钥要配对"）：
+   - 本机 Mac（境内网络）→ Token Plan 专属端点 `token-plan.cn-beijing.maas.aliyuncs.com` + `sk-sp-` 套餐密钥。**当前就是这一档。**
+   - GitHub Actions（境外 runner）→ 通用端点 `dashscope.aliyuncs.com` + `sk-` 通用密钥（百炼后付费/免费额度）。
+   交叉使用一定失败，且两种失败长得不一样：密钥配错是 `401 invalid_api_key`（换密钥能治），
+   端点不可达是 `fetch failed / ETIMEDOUT`（35 场全灭、成功 0，换密钥治不了）。
+   套餐密钥拿去调通用端点、或调 `token-plan.us-east-1/ap-southeast-1` 这些海外同名主机，都是 401
+   ——它们属阿里云国际站账号体系，与国内站这把 key 不通。
 6. AI 只给 category "B"，标牌等级需人工核实后升级；赛期以官方公告为准，禁止按往年经验推测。
 7. **入库前必须过 `findDuplicate` 同场判定**（`scripts/lib/validation.ts`）。种子数据用干净短名
    （"济南马拉松"），巡检用官方冠名全称（"2026恒丰银行济南(泉城)马拉松"），

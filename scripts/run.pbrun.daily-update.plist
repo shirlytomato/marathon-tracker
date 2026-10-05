@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>run.pbrun.daily-update</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/shirly/Documents/marathon-tracker/scripts/daily-update-mac.sh</string>
+  </array>
+  <!-- 北京时间 07:30，与原 workflow 的 cron 同一时刻；电脑此时在睡觉的话，
+       StartCalendarInterval 会在下次唤醒时补跑一次（不会像 cron 那样直接丢掉） -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>7</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+  <key>WorkingDirectory</key>
+  <string>/Users/shirly/Documents/marathon-tracker</string>
+  <key>StandardOutPath</key>
+  <string>/Users/shirly/Library/Logs/pbrun-daily-update-launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/shirly/Library/Logs/pbrun-daily-update-launchd.log</string>
+</dict>
+</plist>

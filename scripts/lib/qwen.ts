@@ -1,11 +1,14 @@
 // scripts/lib/qwen.ts —— 阿里云百炼（DashScope）千问 API 客户端（OpenAI 兼容端点 + 联网搜索）
-// 端点与密钥必须成对匹配：Token Plan 专属端点只认套餐发的 sk-sp- 密钥，通用端点只认 sk- 开头的
-// 通用密钥，交叉使用一律 401 invalid_api_key（2026-09-10~09-15 与 2026-09-30~10-04 两次停摆
-// 都源于端点/密钥/套餐授权不匹配）。
-// 这里必须用通用端点，不能用 Token Plan 专属端点：后者挂在阿里云北京 NLB 上、没有跨境加速，
-// GitHub Actions 的境外 runner 连它一律 TCP 超时（2026-10-05 实测 35 场全报 fetch failed /
-// ETIMEDOUT，成功 0），密钥再对也跑不通。通用端点走 GTM 全球加速，境内外都通。
-const ENDPOINT = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions";
+// 端点必须匹配"这个脚本跑在哪台机器上"，选错了两种病长得完全不一样：
+//   本机 Mac（境内网络）      → 本行这个 Token Plan 专属端点 + 套餐发的 sk-sp- 密钥 ← 当前用法
+//   GitHub Actions（境外 runner）→ 通用端点 https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+//                                 + sk- 通用密钥（百炼后付费或免费额度）
+// 专属端点挂在阿里云北京 NLB、没有跨境加速，境外 runner 连它一律 TCP 超时（2026-10-05 实测
+// 35 场全部 fetch failed / ETIMEDOUT、成功 0），所以每日更新才搬回本机跑；反过来通用端点只认
+// sk- 密钥，拿 sk-sp- 去调是 401 invalid_api_key。海外同名主机（token-plan.us-east-1 /
+// ap-southeast-1 等）虽然境外可达，但属阿里云国际站账号体系，国内站这把 key 调它同样 401。
+// 一句话：401 换密钥能治，ETIMEDOUT 换密钥治不了，只能换运行位置或换端点。
+const ENDPOINT = "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1/chat/completions";
 
 // 模型选型以“够快 + 联网搜索准确”为准，不是越强越好：
 //   qwen3.8-flash 实测 41 秒/场，regStart/regEnd/raceDate 三项全对 ← 当前选用
