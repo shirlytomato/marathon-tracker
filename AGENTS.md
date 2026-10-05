@@ -28,6 +28,7 @@ npx tsx scripts/update-status.ts --dry-run   # 每日复查（dry-run 不写文�
 npx tsx scripts/discover-races.ts --dry-run  # 新赛事巡检
 npx tsx scripts/verify-data.ts               # 发布前检测（字段契约+日期+官网 HTTP 实测）
 npx tsx scripts/email-digest.ts --dry-run    # 简报预览写入 digest-preview.html，不发送
+bash scripts/draft-digest-mac.sh             # 本机推送：当日简报→Mail 草稿→系统通知（零密钥，发送由人按）
 npx tsx scripts/dedupe-races.ts              # 存量清洗+重复合并（默认预览，加 --apply 才写回）
 npm run dev                                   # 本地预览前端
 ```
@@ -45,10 +46,17 @@ npm run dev                                   # 本地预览前端
 
 1. **假绿灯防治**：API 全部调用失败必须 `process.exit(1)` 让任务变红，禁止 catch 后照常退出 0
    （2026-09-10~15 连续失败 6 天无人知晓就是这么来的）。
+   另一面是「静默陈旧」：email-digest.ts 会统计分级调度里**每天必查（间隔=1 天）却超 36 小时未复查**的场次，
+   超阈值就在邮件顶部挂停更横幅 —— 否则收件人会把数据停摆导致的「暂无」当成今天真的没有赛事截止。
+   判据只用间隔=1 那一级：周检/月检按 id 相位每 7/30 天才轮一次，`updatedAt` 天然几十天不动，计进去会天天误报。
 2. **AI 返回的官网域名必须 HTTP 实测可达才入库**；可达口径以 `scripts/lib/site-reach.ts` 为唯一实现。
 3. discover-races.ts 第一段粗筛提示词里的三条实测结论（注释中标 ✗/✓）不要改动。
 4. `data/dateChanges.json`、`digest-preview.html` 是运行时产物，故意不入库；
-   `data/knownIds.json` 是简报"新入库"对比基线，**必须随 workflow 提交**。
+   `data/knownIds.json`（简报"新入库"对比）与 `data/digestBaseline.json`（简报"今日新动态"对比，存上一日的
+   regStart/regEnd/lotteryDate 快照）**必须随 workflow 提交**，否则次日比不出变化。
+   简报不能用 `updatedAt` 判新动态：update-status.ts 只要单场复查成功就无条件刷 updatedAt。
+   基线只能由"真正送达的那一次"推进：`--dry-run`、`--html-file`、`--out-html` 三种未送达情形一律不得写基线
+   （2026-10-04 加 `--out-html` 时漏了这一条，本地试跑把 knownIds 改写、凭空生成 digestBaseline，靠 `git show HEAD:` 复原）。
 5. 端点与密钥成对匹配：千问 Token Plan 端点只能用 Token Plan 的密钥（见 alert 脚本注释）。
 6. AI 只给 category "B"，标牌等级需人工核实后升级；赛期以官方公告为准，禁止按往年经验推测。
 7. **入库前必须过 `findDuplicate` 同场判定**（`scripts/lib/validation.ts`）。种子数据用干净短名
