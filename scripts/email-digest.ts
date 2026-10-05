@@ -43,8 +43,10 @@ const baseline: Record<string, FieldSnap> = existsSync(BASE_PATH)
   : {};
 const hasBaseline = Object.keys(baseline).length > 0;
 
-// 跑完后覆盖两份基线，供次日对比；dry-run、发现成正文、只落盘三种情形都不动——简报并未真正送达，不能把它当作「已推过」
-if (!DRY_RUN && !HTML_FILE && !OUT_HTML) {
+// 两份基线只在"简报真正送达的那一次"推进，供次日对比。
+// 不动的情形有五种：--dry-run、--html-file（送的是现成成品，数据版没发出去）、--out-html（只落盘，
+// 发不发由人在 Mail 里按）、未配置发信密钥、发信失败。提前推进等于把当天的新动态静默吃掉。
+function advanceBaselines(): void {
   writeFileSync(KNOWN_PATH, JSON.stringify(races.map((r) => r.id)));
   const next: Record<string, FieldSnap> = {};
   for (const r of races) next[r.id] = { regStart: r.regStart, regEnd: r.regEnd, lotteryDate: r.lotteryDate };
@@ -273,6 +275,8 @@ if (!res.ok) {
   process.exit(1);
 }
 console.log(`✅ 简报邮件已发送至 ${to}（${HTML_FILE ? `现成成品 ${HTML_FILE}` : `7 天内截止 ${closing.length} 场，新动态 ${newsList.length} 条，即将开放 ${opening.length} 场`}）`);
+// 送达之后才推进基线；发的是现成成品时数据版并未送达，基线留给下一次真正发数据版的那轮
+if (!HTML_FILE) advanceBaselines();
 }
 
 main();
