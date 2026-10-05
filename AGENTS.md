@@ -10,6 +10,7 @@
 ```
 data/races.json（唯一事实源，约 150 场）
   ├─ 每日 07:30（北京时间）本机 LaunchAgent → bash scripts/daily-update-mac.sh
+  │    （跑的是运行副本 ~/pbrun/marathon-tracker，原因见下方"定时任务装法"）
   │    → scripts/update-status.ts 按 src/lib/schedule.ts 分级调度（每天盯/周检/月检/不再查）联网复查赛事进展
   │    写出：races.json、todaySites.json（本次 AI 新写入的官网）、dateChanges.json（赛期变更，运行时产物不入库）
   │    → scripts/verify-data.ts 发布前检测（不过则不提交）→ 提交并 push 到 main
@@ -43,6 +44,12 @@ npm run dev                                   # 本地预览前端
 ```
 
 定时任务装法（换机器或误删时用，plist 备份在 `scripts/` 里）：
+
+**为什么副本在 `~/pbrun/marathon-tracker`：** macOS 隐私保护不让 launchd 起的 `/bin/bash` 读
+"文稿"目录（实测静默拒绝、连授权弹窗都没有：`ls`/`head`/`git` 全部 Operation not permitted）。
+所以定时任务用一份位于 `~/pbrun/` 的运行副本，你编辑的那份仍在 `~/Documents/marathon-tracker`。
+两份都指向同一个远端 main：副本每天 `git pull` 取最新代码与数据，你这边推送后次日自动跟上。
+**手改 `data/races.json` 只在你编辑的那份做并推送，别在副本里改**（副本会被次日的 pull 覆盖）。
 
 ```bash
 cp scripts/run.pbrun.daily-update.plist ~/Library/LaunchAgents/

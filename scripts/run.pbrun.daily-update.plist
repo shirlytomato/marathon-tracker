@@ -7,8 +7,11 @@
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/shirly/Documents/marathon-tracker/scripts/daily-update-mac.sh</string>
+    <string>/Users/shirly/pbrun/marathon-tracker/scripts/daily-update-mac.sh</string>
   </array>
+  <!-- 路径指向 ~/pbrun 而不是 ~/Documents：macOS 隐私保护禁止 launchd 起的 /bin/bash 读
+       "文稿"目录（实测静默拒绝、无授权弹窗，ls/head/git 一律 Operation not permitted）。
+       这份是"运行副本"，你编辑的仓库仍在 ~/Documents/marathon-tracker，两者共用远端 main。 -->
   <!-- 北京时间 07:30，与原 workflow 的 cron 同一时刻；电脑此时在睡觉的话，
        StartCalendarInterval 会在下次唤醒时补跑一次（不会像 cron 那样直接丢掉） -->
   <key>StartCalendarInterval</key>
@@ -19,7 +22,7 @@
     <integer>30</integer>
   </dict>
   <key>WorkingDirectory</key>
-  <string>/Users/shirly/Documents/marathon-tracker</string>
+  <string>/Users/shirly/pbrun/marathon-tracker</string>
   <key>StandardOutPath</key>
   <string>/Users/shirly/Library/Logs/pbrun-daily-update-launchd.log</string>
   <key>StandardErrorPath</key>
