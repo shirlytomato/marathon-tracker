@@ -2773,7 +2773,7 @@
     "country": "中国",
     "province": "福建",
     "raceDate": "2026-10-25",
-    "regStatus": "open",
+    "regStatus": "closed",
     "events": [
       "半程马拉松"
     ],
@@ -3588,7 +3588,7 @@
     "name": "黄冈半程马拉松",
     "country": "中国",
     "province": "湖北",
-    "raceDate": "2026-11-08",
+    "raceDate": "2026-11-01",
     "regStatus": "pending",
     "events": [
       "半程马拉松"
