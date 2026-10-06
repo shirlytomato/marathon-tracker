@@ -40,6 +40,14 @@ describe("deriveStatus", () => {
   it("无报名信息且比赛未到 -> pending", () => {
     expect(deriveStatus(base, now)).toBe("pending");
   });
+  it("报名窗口不完整 -> 用数据管道的 regStatus 兜底，不强制显示待开放", () => {
+    // 泰宁半程马拉松实测形态：只有开始日没有截止日，人工标为已截止
+    expect(deriveStatus({ ...base, regStart: "2026-07-02", regStatus: "closed" }, now)).toBe("closed");
+    expect(deriveStatus({ ...base, regEnd: "2026-09-22", regStatus: "open" }, now)).toBe("open");
+  });
+  it("赛期未到却残留 finished 标记 -> 按日期判，不显示已结束", () => {
+    expect(deriveStatus({ ...base, regStatus: "finished" }, now)).toBe("pending");
+  });
 });
 
 describe("daysLeftUntil", () => {

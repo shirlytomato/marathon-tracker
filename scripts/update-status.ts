@@ -30,6 +30,15 @@ const PROMPT = (r: Race) =>
 
 const VALID_STATUS = new Set(["pending", "open", "drawing", "closed", "finished"]);
 
+// 赛期变更的依据是否站得住：AI 没给来源、或自陈"未检索到官方公告"，都算依据不足。
+// 实测 2026-10-06 黄冈半程马拉松被按"湖北下半年赛事日历聚合信息"改了期，
+// 而它自己写的 note 就是"未检索到……官方公告原文"——日期变了却没有任何官方依据。
+// 硬纪律 6 要求赛期以官方公告为准，所以这种情况一律不动库内日期，只在日志里留痕待人工跟。
+const WEAK_EVIDENCE = /未(检索|查找|查询|查到|找到)|无官方|没有官方/;
+function weakEvidence(note: string): boolean {
+  return !note.trim() || WEAK_EVIDENCE.test(note);
+}
+
 async function main() {
   const path = "data/races.json";
   const races = JSON.parse(readFileSync(path, "utf8")) as Race[];
@@ -46,6 +55,8 @@ async function main() {
     try {
       const parsed = JSON.parse(await qwenSearch(PROMPT(r)));
       const oldDate = r.raceDate;
+      const note = typeof parsed.note === "string" ? parsed.note : "";
+      let discarded = false; // 本场是否丢弃过 AI 的日期字段
       // 赛期先落，其余日期再按新赛期校验。每个字段单独试写，自相矛盾的那一个丢弃：
       // 实测 2026-10-06 AI 把泰宁半程马拉松的报名截止填成比赛日，一条口误就让整批
       // 332 场卡在售前检测外、当天完全停更（门禁该挡的是脏数据入库，不是拖垮全量）。
@@ -53,21 +64,27 @@ async function main() {
         const v = parsed[k];
         // AI 返回空字符串：保留原值，不用空值覆盖已有数据
         if (typeof v !== "string" || !v || !validYear(v, r.raceDate)) continue;
+        if (k === "raceDate" && v !== oldDate && weakEvidence(note)) {
+          console.log(`  ⚠ 赛期变更未采纳: ${r.name} ${oldDate} → ${v}（依据不足：${note || "AI 未注明来源"}）`);
+          continue;
+        }
         const before = r[k];
         (r as unknown as Record<string, unknown>)[k] = v;
         const bad = dateConflict(r);
         if (bad) {
           (r as unknown as Record<string, unknown>)[k] = before;
+          discarded = true;
           console.log(`  ⚠ 丢弃 AI ${k}=${v}：${bad}（该场其余字段照常采用）`);
         }
       }
       if (r.raceDate !== oldDate) {
-        const note = typeof parsed.note === "string" ? parsed.note : "";
         dateChanges.push({ name: r.name, from: oldDate, to: r.raceDate, note });
         console.log(`  ⚠ 赛期变更: ${r.name} ${oldDate} → ${r.raceDate}（${note}）`);
       }
       const status = parsed.regStatus;
-      if (typeof status === "string" && VALID_STATUS.has(status)) r.regStatus = status as Race["regStatus"];
+      // 日期都填不对的一场，它报的状态同样不可信（泰宁：截止=比赛日，却又说报名中）
+      if (!discarded && typeof status === "string" && VALID_STATUS.has(status))
+        r.regStatus = status as Race["regStatus"];
       const site = parsed.officialSite;
       if (typeof site === "string" && site && site !== r.officialSite) {
         if (/^https?:\/\//.test(site) && (await siteReachable(site))) {

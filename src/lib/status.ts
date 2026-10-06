@@ -24,7 +24,11 @@ export function deriveStatus(race: Race, now: Date): DisplayStatus {
   const dayGap = beijingDayIndex(toDate(race.raceDate)) - beijingDayIndex(t);
   if (dayGap < 0) return "finished";
   if (dayGap === 0) return "today";
-  if (!race.regStart || !race.regEnd) return "pending";
+  // 窗口不完整时只能用 regStatus 兜底：写死 pending 会把人工/AI 已确认的状态顶掉
+  // （实测 2026-10-06 泰宁半程马拉松只有报名开始日、没有截止日，页面被强制显示"待开放"）。
+  // finished 不参与兜底：赛期未到的 finished 是管道里的陈旧标记，
+  // 是否已结束一律由上面的日期比较说了算，否则会把还没跑的赛事显示成已结束。
+  if (!race.regStart || !race.regEnd) return race.regStatus === "finished" ? "pending" : race.regStatus;
   const s = toDate(race.regStart), e = toDate(race.regEnd);
   if (t < s) return "pending";
   if (t <= e + day) return "open";
