@@ -10,6 +10,7 @@ import { readFileSync } from "fs";
 import type { Race, RegStatus } from "../src/types/race";
 import { siteReachable } from "./lib/site-reach";
 import { loadSchema, schemaIssues } from "./lib/schema";
+import { dateConflict } from "./lib/validation";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const VALID_STATUS: RegStatus[] = ["pending", "open", "drawing", "closed", "finished"];
@@ -29,12 +30,8 @@ function checkDates(r: Race): string[] {
     if (!DATE_RE.test(v)) errs.push(`${k} 格式非法: ${v}`);
     else if (!yearOk(v)) errs.push(`${k} 年份(${v})与赛事年份(${year})不符`);
   }
-  if (r.regStart && r.regEnd) {
-    if (DATE_RE.test(r.regStart) && DATE_RE.test(r.regEnd) && r.regStart > r.regEnd)
-      errs.push(`报名开始晚于截止: ${r.regStart} > ${r.regEnd}`);
-    if (DATE_RE.test(r.regEnd) && DATE_RE.test(r.raceDate) && r.regEnd >= r.raceDate)
-      errs.push(`报名截止不早于比赛日期: ${r.regEnd} >= ${r.raceDate}`);
-  }
+  const conflict = dateConflict(r);
+  if (conflict) errs.push(conflict);
   if (!VALID_STATUS.includes(r.regStatus)) errs.push(`regStatus 非法: ${r.regStatus}`);
   return errs;
 }

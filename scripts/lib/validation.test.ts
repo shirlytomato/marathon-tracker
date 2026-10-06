@@ -1,7 +1,7 @@
 // scripts/lib/validation.test.ts —— 数据管道本地校验规则的单元测试
 // 背景：screenRace / validYear 原先埋在不导出的脚本里，零测试覆盖，修改极易引入回归。
 import { describe, expect, it } from "vitest";
-import { buildWindow, cleanEvents, cleanRegion, cleanText, findDuplicate, norm, screenRace, validYear } from "./validation";
+import { buildWindow, cleanEvents, cleanRegion, cleanText, dateConflict, findDuplicate, norm, screenRace, validYear } from "./validation";
 
 // 固定窗口，避免测试随真实日期漂移
 const WIN = { today: "2026-09-28", halfYearLater: "2027-03-30" };
@@ -52,6 +52,24 @@ describe("validYear", () => {
   it("格式非法一律拒绝", () => {
     expect(validYear("2026-1-1", "2026-12-06")).toBe(false);
     expect(validYear("2026", "2026-12-06")).toBe(false);
+  });
+});
+
+describe("dateConflict", () => {
+  it("只查三个日期凑在一起的自相矛盾，缺字段放过", () => {
+    expect(dateConflict({ raceDate: "2026-10-25", regStart: "2026-07-02", regEnd: "2026-08-20" })).toBeNull();
+    expect(dateConflict({ raceDate: "2026-10-25" })).toBeNull();
+    expect(dateConflict({ raceDate: "2026-10-25", regStart: "2026-07-02" })).toBeNull();
+  });
+
+  it("拦下 2026-10-06 泰宁那类口误：报名截止填成比赛日", () => {
+    expect(dateConflict({ raceDate: "2026-10-25", regEnd: "2026-10-25" })).toContain("不早于比赛日");
+    expect(dateConflict({ raceDate: "2026-10-25", regEnd: "2026-11-01" })).toContain("不早于比赛日");
+    expect(dateConflict({ raceDate: "2026-10-25", regStart: "2026-11-10", regEnd: "2026-11-01" })).toContain("晚于截止");
+  });
+
+  it("格式非法的日期不参与比较（交给格式检查那条规则拦）", () => {
+    expect(dateConflict({ raceDate: "2026-10-25", regEnd: "10-25" })).toBeNull();
   });
 });
 

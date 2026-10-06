@@ -8,7 +8,7 @@ import { deriveStatus, toStoredStatus } from "../src/lib/status";
 import { isDue, summarizePlan } from "../src/lib/schedule";
 import { qwenSearch, logUsage } from "./lib/qwen";
 import { siteReachable } from "./lib/site-reach";
-import { validYear } from "./lib/validation";
+import { dateConflict, validYear } from "./lib/validation";
 
 const DRY = process.argv.includes("--dry-run");
 // --limit=N：只查前 N 场，用于花小钱验证链路与测 token 单价（生产不传此参数）
@@ -46,10 +46,20 @@ async function main() {
     try {
       const parsed = JSON.parse(await qwenSearch(PROMPT(r)));
       const oldDate = r.raceDate;
-      for (const k of ["regStart", "regEnd", "lotteryDate", "raceDate"] as const) {
+      // 赛期先落，其余日期再按新赛期校验。每个字段单独试写，自相矛盾的那一个丢弃：
+      // 实测 2026-10-06 AI 把泰宁半程马拉松的报名截止填成比赛日，一条口误就让整批
+      // 332 场卡在售前检测外、当天完全停更（门禁该挡的是脏数据入库，不是拖垮全量）。
+      for (const k of ["raceDate", "regStart", "regEnd", "lotteryDate"] as const) {
         const v = parsed[k];
-        if (typeof v === "string" && v && validYear(v, r.raceDate)) (r as unknown as Record<string, unknown>)[k] = v;
         // AI 返回空字符串：保留原值，不用空值覆盖已有数据
+        if (typeof v !== "string" || !v || !validYear(v, r.raceDate)) continue;
+        const before = r[k];
+        (r as unknown as Record<string, unknown>)[k] = v;
+        const bad = dateConflict(r);
+        if (bad) {
+          (r as unknown as Record<string, unknown>)[k] = before;
+          console.log(`  ⚠ 丢弃 AI ${k}=${v}：${bad}（该场其余字段照常采用）`);
+        }
       }
       if (r.raceDate !== oldDate) {
         const note = typeof parsed.note === "string" ? parsed.note : "";

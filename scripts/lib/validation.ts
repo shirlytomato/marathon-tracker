@@ -54,6 +54,17 @@ export function validYear(v: string, raceDate: string): boolean {
   return DATE_RE.test(v) && v.slice(0, 4) === raceDate.slice(0, 4);
 }
 
+// 三个日期凑在一起的自相矛盾检查（唯一口径，update-status 与 verify-data 共用）：
+// 实测 2026-10-06 泰宁半程马拉松被 AI 填成"报名截止 = 比赛日"，单这一条就让整批 332 场
+// 全部过不了发布前检测、当天数据停更 —— 复查环节必须先按此丢弃坏字段，不能留给门禁去挡整批。
+export function dateConflict(r: { raceDate: string; regStart?: string; regEnd?: string }): string | null {
+  if (r.regStart && r.regEnd && DATE_RE.test(r.regStart) && DATE_RE.test(r.regEnd) && r.regStart > r.regEnd)
+    return `报名开始晚于截止(${r.regStart}>${r.regEnd})`;
+  if (r.regEnd && DATE_RE.test(r.regEnd) && DATE_RE.test(r.raceDate) && r.regEnd >= r.raceDate)
+    return `报名截止不早于比赛日(${r.regEnd}>=${r.raceDate})`;
+  return null;
+}
+
 // ── AI 返回值清洗 ─────────────────────────────────────────────
 // 背景：巡检入库的赛事里实测出现过 scale="空字符串"、events 含"马拉松"与"空字符串"、
 // province="湖北省"、city="武汉市"。核实提示词要求"不确定则空字符串"，
