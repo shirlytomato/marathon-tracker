@@ -4206,13 +4206,29 @@
     "country": "中国",
     "province": "广东",
     "raceDate": "2026-12-27",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-11T13:27:04.464Z",
-    "officialSite": "http://huizhou-marathon.com/"
+    "updatedAt": "2026-10-16T15:34:03.001Z",
+    "officialSite": "http://huizhou-marathon.com/",
+    "regStart": "2026-10-15",
+    "regEnd": "2026-11-02",
+    "sources": [
+      {
+        "url": "http://huizhou.bendibao.com/cyfw/20261015/113624.shtm",
+        "observedAt": "2026-10-16T15:34:03.001Z",
+        "scope": "raceDate",
+        "verifiedAt": "2026-10-16T15:34:03.001Z"
+      },
+      {
+        "url": "http://huizhou.bendibao.com/cyfw/20261015/113624.shtm",
+        "observedAt": "2026-10-16T15:34:03.001Z",
+        "scope": "registration",
+        "verifiedAt": "2026-10-16T15:34:03.001Z"
+      }
+    ]
   },
   {
     "id": "仙游马拉松",
