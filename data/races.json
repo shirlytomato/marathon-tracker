@@ -4208,10 +4208,11 @@
     "raceDate": "2026-12-27",
     "regStatus": "open",
     "events": [
-      "全程马拉松"
+      "全程马拉松",
+      "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-16T15:34:03.001Z",
+    "updatedAt": "2026-10-16T15:40:34.158Z",
     "officialSite": "http://huizhou-marathon.com/",
     "regStart": "2026-10-15",
     "regEnd": "2026-11-02",
@@ -4228,7 +4229,10 @@
         "scope": "registration",
         "verifiedAt": "2026-10-16T15:34:03.001Z"
       }
-    ]
+    ],
+    "scale": "16000人",
+    "location": "惠州体育馆（云山西路）",
+    "needLottery": true
   },
   {
     "id": "仙游马拉松",
