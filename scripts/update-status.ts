@@ -91,11 +91,11 @@ async function main() {
       }
       // regStatus 以日期推导为准：AI 报的状态可能与它自己刚给出的日期矛盾
       // （实测 qwen3.7-plus：福州马拉松 regEnd 2026-09-19 未到，AI 却报 closed）
-      // 仅在缺报名日期时保留 AI 的判断（如“抽签中”无法从日期推导）；
-      // 且赛期未到的赛事禁止被标为 finished——否则会被分级调度永久排除、再也不会复查
-      const derived = toStoredStatus(deriveStatus(r, now));
-      if (r.regStart && r.regEnd) r.regStatus = derived;
-      else if (r.regStatus === "finished") r.regStatus = derived;
+      // 且赛期未到的赛事禁止被标为 finished——否则会被分级调度永久排除、再也不会复查。
+      // 窗口只填一半时同样要写回：deriveStatus 内部已保证「日期证不出的部分才采信库里值」，
+      // 原先加了 r.regStart && r.regEnd 的前置条件，等于让「有开始日、无截止日」的赛事
+      // （官方写「额满即止」的常见形态）永远拿不到纠正，AI 天天复查也修不动一行。
+      r.regStatus = toStoredStatus(deriveStatus(r, now));
       r.updatedAt = new Date().toISOString();
       ok++;
       console.log(`✓ ${r.name}`);
