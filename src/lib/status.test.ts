@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { deriveStatus, sortRaces, computeStats, daysLeftUntil } from "./status";
+import { deriveStatus, sortRaces, computeStats, daysLeftUntil, toStoredStatus } from "./status";
 import type { Race } from "@/types/race";
 
 const now = new Date("2026-08-21T08:00:00+08:00");
@@ -40,13 +40,40 @@ describe("deriveStatus", () => {
   it("无报名信息且比赛未到 -> pending", () => {
     expect(deriveStatus(base, now)).toBe("pending");
   });
-  it("报名窗口不完整 -> 用数据管道的 regStatus 兜底，不强制显示待开放", () => {
-    // 泰宁半程马拉松实测形态：只有开始日没有截止日，人工标为已截止
+  it("窗口不完整且日期证不出结论 -> 用数据管道的 regStatus 兜底，不强制显示待开放", () => {
+    // 泰宁半程马拉松实测形态：只有开始日没有截止日，人工已确认报满截止
     expect(deriveStatus({ ...base, regStart: "2026-07-02", regStatus: "closed" }, now)).toBe("closed");
+    // 只有截止日且还没到：无法证明报名已开始，采信库里
     expect(deriveStatus({ ...base, regEnd: "2026-09-22", regStatus: "open" }, now)).toBe("open");
   });
   it("赛期未到却残留 finished 标记 -> 按日期判，不显示已结束", () => {
     expect(deriveStatus({ ...base, regStatus: "finished" }, now)).toBe("pending");
+  });
+});
+
+describe("deriveStatus：窗口只填一半时用已知的那一端证伪库里状态", () => {
+  // 官方公告常见只给一端（"即日起开放报名，额满即止"），原先整段兜底让这类赛事
+  // 的状态永远停在库里旧值，AI 天天复查也修不动。
+  it("只公布开始日且已开始 -> 库里停在筹备中也要改成报名中", () => {
+    // 实测形态：临沂马拉松 2026-06-01 起、日照马拉松 2026-07-01 起，页面长期显示筹备中
+    expect(deriveStatus({ ...base, regStart: "2026-06-01", regStatus: "pending" }, now)).toBe("open");
+  });
+  it("只公布截止日且已过 -> 库里停在筹备中也要改成已截止", () => {
+    // 实测形态：清迈马拉松截止 2026-08-31，截止后仍标 pending
+    expect(deriveStatus({ ...base, regEnd: "2026-08-01", regStatus: "pending" }, now)).toBe("closed");
+  });
+  it("只公布开始日且还没到 -> 库里停在报名中要收回筹备中", () => {
+    expect(deriveStatus({ ...base, regStart: "2026-09-01", regStatus: "open" }, now)).toBe("pending");
+  });
+  it("截止未过却按人工标记显示已截止（额满即止）", () => {
+    expect(deriveStatus({ ...base, regEnd: "2026-09-22", regStatus: "closed" }, now)).toBe("closed");
+  });
+  it("半窗口也能进抽签中", () => {
+    const raced = { ...base, regEnd: "2026-08-01", regStatus: "open" as const, needLottery: true, lotteryDate: "2026-08-25" };
+    expect(deriveStatus(raced, now)).toBe("drawing");
+  });
+  it("已开始且截止未知时写回库里的也是报名中（自愈的前提）", () => {
+    expect(toStoredStatus(deriveStatus({ ...base, regStart: "2026-06-01", regStatus: "pending" }, now))).toBe("open");
   });
 });
 
