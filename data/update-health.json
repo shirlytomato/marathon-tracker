@@ -1,8 +1,12 @@
 {
-  "lastSuccessfulRun": null,
+  "lastSuccessfulRun": "2026-10-17T04:20:07.695Z",
   "lastRun": {
-    "completedAt": "2026-10-16T15:16:25.388Z",
-    "succeeded": 43,
-    "failed": 1
+    "completedAt": "2026-10-17T04:20:07.695Z",
+    "succeeded": 36,
+    "failed": 2,
+    "failedNames": [
+      "黄冈半程马拉松",
+      "璧山马拉松"
+    ]
   }
 }
