@@ -39,9 +39,26 @@ describe("来源与报名通道契约", () => {
     expect(validChannels([wechat, { ...wechat }])).toBe(false);
     expect(validChannels([wechat, { ...wechat, kind: "charity" as const, name: "慈善名额", entranceHint: "另一条指引" }])).toBe(true);
   });
-  it("schema v2 向后兼容旧赛事，同时严格校验新增嵌套字段", () => {
+  it.each([
+    { entranceType: ["app"] }, { entranceType: { value: "app" } },
+    { entranceType: null }, { entranceType: 1 }, { entranceType: true },
+    { entranceType: "carrier_pigeon" },
+  ])("拒绝非法入口类型 $entranceType，完整契约也必须拦截", ({ entranceType }) => {
+    const entry = { ...channel, entranceType };
+    expect.soft(validChannels([entry])).toBe(false);
+    expect(schemaIssues([{ ...race, registrationChannels: [entry] }], loadSchema())).toEqual([
+      "测试赛事: 字段 registrationChannels 类型不符（期望 RegistrationChannel[]）",
+    ]);
+  });
+  it.each([undefined, "website", "wechat_official", "wechat_miniprogram", "app", "platform"])("入口类型 %s 兼容网址和无网址指引", entranceType => {
+    for (const entry of [{ ...channel, entranceType }, { ...channel, url: undefined, entranceType, entranceHint: "打开赛事报名页面" }]) {
+      expect(validChannels([entry])).toBe(true);
+      expect(schemaIssues([{ ...race, registrationChannels: [entry] }], loadSchema())).toEqual([]);
+    }
+  });
+  it("schema v3 向后兼容旧赛事，同时严格校验新增嵌套字段", () => {
     const schema = loadSchema();
-    expect(schema.schemaVersion).toBe(2);
+    expect(schema.schemaVersion).toBe(3);
     expect(schemaIssues([{ ...race }], schema)).toEqual([]);
     expect(schemaIssues([{ ...race, category: "unknown", sources: [], registrationChannels: [channel] }], schema)).toEqual([]);
     expect(schemaIssues([{ ...race, sources: [{ url: "javascript:x" }] }], schema).length).toBeGreaterThan(0);

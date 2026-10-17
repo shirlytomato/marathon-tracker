@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "description": "data/races.json 的字段契约。代码新增/删除字段时必须同步升级此文件（改字段 bump schemaVersion），verify-data.ts 在发布前拦截漂移。",
   "required": ["id", "name", "country", "raceDate", "regStatus", "events", "category", "updatedAt"],
   "optional": ["shortName", "province", "city", "location", "regStart", "regEnd", "lotteryDate", "needLottery", "scale", "fee", "officialSite", "sources", "registrationChannels"],

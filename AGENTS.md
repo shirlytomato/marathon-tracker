@@ -99,7 +99,7 @@ launchctl kickstart -k gui/$(id -u)/run.pbrun.daily-update    # 立刻试跑一�
    ——它们属阿里云国际站账号体系，与国内站这把 key 不通。
 6. AI 新赛事只给 category "unknown"，认证级别需人工核验，不能将未知认证默认为 B 类。赛期以官方公告为准，禁止按往年经验推测。
    模型 URL 仅为待核验线索，当前兼容 API 不返回供应商检索证据；赛期变更先进入 data/pending-reviews.json，人工读取公告后用 scripts/review-date.ts 审批。
-   --apply 才写文件，旧值改变即拒绝覆盖；审批同步提交 races.json、pending-reviews.json、review-history.json。新增 sources/registrationChannels 遵循 schema v2；报名通道只接受人工核验记录。
+   --apply 才写文件，旧值改变即拒绝覆盖；审批同步提交 races.json、pending-reviews.json、review-history.json。新增 sources/registrationChannels 遵循 schema v3；报名通道只接受人工核验记录。
 7. **入库前必须过 `findDuplicate` 同场判定**（`scripts/lib/validation.ts`）。种子数据用干净短名
    （"济南马拉松"），巡检用官方冠名全称（"2026恒丰银行济南(泉城)马拉松"），
    原先按 `norm(name)` 精确比对拦不住改名变体，2026-09-28 页面上已出现 9 组重复卡片。

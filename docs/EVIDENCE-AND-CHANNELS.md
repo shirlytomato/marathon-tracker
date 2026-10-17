@@ -1,4 +1,6 @@
-# 来源证据、赛期复核与报名通道（schema v2）
+# 来源证据、赛期复核与报名通道（schema v3）
+
+v3 记录报名通道从必填 url 扩展为“网址或人工报名指引”的契约：url 可选，新增可选 entranceType、entranceHint，url 与非空 entranceHint 至少填写一个。entranceType 若填写，必须是下列枚举中的字符串，数组、对象等类型不能通过字符串转换入库。无通道的旧赛事和已有网址通道仍兼容，无需批量迁移 races.json；sourceUrl、verifiedAt 的人工核验要求保持不变。嵌套通道校验由 src/lib/evidence.ts 的 validChannels 执行，并由 scripts/lib/schema.ts 调用。
 
 ## 来源的含义
 

@@ -34,7 +34,7 @@ export function validChannels(value: unknown): value is RegistrationChannel[] {
     && ["general", "charity", "tour"].includes(String(channel.kind))
     // 入口可以是 http 网址，或人工填写的报名指引（公众号/小程序/APP 无独立网址）；两者至少其一
     && (channel.url === undefined || isHttpUrl(channel.url))
-    && (channel.entranceType === undefined || ENTRANCE_TYPES.includes(String(channel.entranceType)))
+    && (channel.entranceType === undefined || (typeof channel.entranceType === "string" && ENTRANCE_TYPES.includes(channel.entranceType)))
     && (channel.entranceHint === undefined || (typeof channel.entranceHint === "string" && !!channel.entranceHint.trim()))
     && (isHttpUrl(channel.url) || (typeof channel.entranceHint === "string" && !!channel.entranceHint.trim()))
     && isHttpUrl(channel.sourceUrl) && timestamp(channel.verifiedAt)
