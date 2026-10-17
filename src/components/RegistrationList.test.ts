@@ -7,7 +7,7 @@ const race: Race = { id: "demo", name: "测试报名赛事", country: "中国", 
 const now = new Date("2026-10-16T12:00:00+08:00");
 it("报名赛事包含项目、费用、抽签、完整年份与缺失信息说明", () => {
   const html = renderToStaticMarkup(createElement(RegistrationList, { races: [race], now }));
-  for (const text of ["半程马拉松", "200元", "需抽签", "2027", "报名截止日期待确认", "官网链接待补充"]) expect(html).toContain(text);
+  for (const text of ["半程马拉松", "200元", "需抽签", "2027", "报名截止日期待确认", "赛事相关网站与报名通道均待补充"]) expect(html).toContain(text);
   expect(html).not.toContain("报名时间暂未公布");
 });
 it("空列表不创建空栏目，多于三场提供手机展开入口", () => {
