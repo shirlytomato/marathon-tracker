@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { collectSourceHints, isCalendarDate, isHttpUrl, validChannels, validSources } from "./evidence";
+import { collectSourceHints, isCalendarDate, isHttpUrl, siteAsSource, validChannels, validSources } from "./evidence";
 import { deriveStatus, withGeneralRegistration } from "./status";
 import { schemaIssues, loadSchema } from "../../scripts/lib/schema";
 import type { Race, RegistrationChannel } from "@/types/race";
@@ -76,5 +76,24 @@ describe("来源与报名通道契约", () => {
   it("截止次日零点即关闭，不多开放一毫秒", () => {
     expect(deriveStatus(race, new Date("2026-10-30T23:59:59.999+08:00"))).toBe("open");
     expect(deriveStatus(race, new Date("2026-10-31T00:00:00+08:00"))).toBe("closed");
+  });
+});
+
+// 卡片面板与邮件简报共用的站点口径：officialSite 只作「来源」一条，重复 URL 不出现两次
+describe("siteAsSource：官网并入来源、不单独成行", () => {
+  const site = "https://example.org/site";
+  const wechat: RegistrationChannel = { name: "普通报名", kind: "general", entranceType: "wechat_official", entranceHint: "微信搜索'测试赛事'公众号→菜单栏报名", sourceUrl: "https://example.org/notice", verifiedAt: now.toISOString(), status: "open" };
+
+  it("有可用网址且未被通道或来源占用 -> 作为来源展示", () => {
+    expect(siteAsSource({ ...race, officialSite: site })).toBe(site);
+    expect(siteAsSource({ ...race, officialSite: site, registrationChannels: [wechat] })).toBe(site);
+  });
+  it("同一 URL 已由通道或来源展示 -> null，不重复出现", () => {
+    expect(siteAsSource({ ...race, officialSite: channel.url!, registrationChannels: [channel] })).toBeNull();
+    expect(siteAsSource({ ...race, officialSite: site, sources: [{ url: site, observedAt: now.toISOString(), scope: "general" }] })).toBeNull();
+  });
+  it("缺链接或非法链接 -> null，不生成假链接", () => {
+    expect(siteAsSource(race)).toBeNull();
+    expect(siteAsSource({ ...race, officialSite: "javascript:alert(1)" })).toBeNull();
   });
 });

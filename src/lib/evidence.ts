@@ -1,4 +1,4 @@
-import type { RaceSource, RegistrationChannel } from "@/types/race";
+import type { Race, RaceSource, RegistrationChannel } from "@/types/race";
 
 export function isHttpUrl(value: unknown): value is string {
   if (typeof value !== "string") return false;
@@ -52,4 +52,18 @@ export function collectSourceHints(previous: RaceSource[] = [], urls: unknown, o
   const hints = Array.isArray(urls) ? [...new Set(urls.filter(isHttpUrl))].slice(0, 5) : [];
   return [...previous, ...hints.filter(url => !previous.some(source => source.url === url))
     .map(url => ({ url, observedAt, scope: "general" as const }))];
+}
+
+/**
+ * officialSite 作为「来源」列表里的一条，页面面板与邮件简报共用（Issue #11 结论）。
+ *
+ * 存量里官网首页与报名页混杂，未逐场核验前不能叫「官方报名」，也不再单独成链接行。
+ * 同一 URL 已由报名通道或来源公告展示过时返回 null，避免出现两条相同链接。
+ */
+export function siteAsSource(race: Race): string | null {
+  const url = race.officialSite;
+  if (!isHttpUrl(url)) return null;
+  const shown = [...(race.registrationChannels ?? []).map(channel => channel.url),
+    ...(race.sources ?? []).map(source => source.url)];
+  return shown.includes(url) ? null : url;
 }
