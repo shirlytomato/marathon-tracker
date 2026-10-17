@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { collectSourceHints, isCalendarDate, isHttpUrl, siteLink, validChannels, validSources } from "./evidence";
+import { collectSourceHints, isCalendarDate, isHttpUrl, siteAsSource, validChannels, validSources } from "./evidence";
 import { deriveStatus, withGeneralRegistration } from "./status";
 import { schemaIssues, loadSchema } from "../../scripts/lib/schema";
 import type { Race, RegistrationChannel } from "@/types/race";
@@ -79,28 +79,21 @@ describe("来源与报名通道契约", () => {
   });
 });
 
-// Issue #11 的结论：officialSite 存量混着官网首页和报名页，未逐场核验前不能叫「官方报名」；
-// 有已核验普通通道时它确定不是报名入口，降为次级信息入口。页面与邮件共用 siteLink 保证措辞一致。
-describe("siteLink：官网链接的主次与措辞", () => {
+// 卡片面板与邮件简报共用的站点口径：officialSite 只作「来源」一条，重复 URL 不出现两次
+describe("siteAsSource：官网并入来源、不单独成行", () => {
   const site = "https://example.org/site";
   const wechat: RegistrationChannel = { name: "普通报名", kind: "general", entranceType: "wechat_official", entranceHint: "微信搜索'测试赛事'公众号→菜单栏报名", sourceUrl: "https://example.org/notice", verifiedAt: now.toISOString(), status: "open" };
-  const charity: RegistrationChannel = { ...channel, kind: "charity", name: "慈善名额", url: "https://example.org/charity", status: "open" };
 
-  it("仅旧网站、无通道 -> 兜底留在主信息行，叫「赛事相关网站」", () => {
-    expect(siteLink({ ...race, officialSite: site })).toEqual({ url: site, label: "赛事相关网站", primary: true });
+  it("有可用网址且未被通道或来源占用 -> 作为来源展示", () => {
+    expect(siteAsSource({ ...race, officialSite: site })).toBe(site);
+    expect(siteAsSource({ ...race, officialSite: site, registrationChannels: [wechat] })).toBe(site);
   });
-  it("有已核验普通通道（有网址 / 无网址指引）-> 降为次级，叫「赛事官网」", () => {
-    for (const ch of [channel, wechat])
-      expect(siteLink({ ...race, officialSite: site, registrationChannels: [ch] })).toEqual({ url: site, label: "赛事官网", primary: false });
+  it("同一 URL 已由通道或来源展示 -> null，不重复出现", () => {
+    expect(siteAsSource({ ...race, officialSite: channel.url!, registrationChannels: [channel] })).toBeNull();
+    expect(siteAsSource({ ...race, officialSite: site, sources: [{ url: site, observedAt: now.toISOString(), scope: "general" }] })).toBeNull();
   });
-  it("只有慈善/旅行通道 -> 普通报名仍待核验，网站继续兜底", () => {
-    expect(siteLink({ ...race, officialSite: site, registrationChannels: [charity] })).toEqual({ url: site, label: "赛事相关网站", primary: true });
-  });
-  it("主次链接相同 -> 不再单独展示网站，避免同一 URL 出现两次", () => {
-    expect(siteLink({ ...race, officialSite: channel.url, registrationChannels: [channel] })).toBeNull();
-  });
-  it("完全缺链接 -> null，不生成假链接", () => {
-    expect(siteLink(race)).toBeNull();
-    expect(siteLink({ ...race, officialSite: "javascript:alert(1)" })).toBeNull();
+  it("缺链接或非法链接 -> null，不生成假链接", () => {
+    expect(siteAsSource(race)).toBeNull();
+    expect(siteAsSource({ ...race, officialSite: "javascript:alert(1)" })).toBeNull();
   });
 });

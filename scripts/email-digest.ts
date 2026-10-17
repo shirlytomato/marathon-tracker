@@ -12,7 +12,7 @@ import { readFileSync, writeFileSync, existsSync } from "fs";
 import type { Race, DisplayStatus } from "../src/types/race";
 import { deriveStatus, daysLeftUntil } from "../src/lib/status";
 import { checkInterval } from "../src/lib/schedule";
-import { siteLink } from "../src/lib/evidence";
+import { isHttpUrl, siteAsSource } from "../src/lib/evidence";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 function argOf(flag: string): string | undefined {
@@ -120,13 +120,20 @@ function statusCell(r: Race, reason?: string): string {
   return bits.join(" ｜ ");
 }
 
-// 措辞与页面共用 siteLink：officialSite 存量混着官网首页和报名页，逐场核验前不能一律叫「官方报名」
-const siteCell = (r: Race) => {
-  const site = siteLink(r);
-  return site
-    ? `<a href="${site.url}" style="color:#2563eb;text-decoration:underline">${site.label} ↗</a>`
-    : "暂未公布（见组委会公告）";
-};
+// 来源一栏与页面面板同一口径：officialSite 只作为一条来源，报名操作交给报名通道
+function sourceCell(r: Race): string {
+  const link = (url: string, label: string) =>
+    `<a href="${url}" style="color:#2563eb;text-decoration:underline">${label}</a>`;
+  const bits: string[] = [];
+  const site = siteAsSource(r);
+  if (site) bits.push(link(site, "赛事相关网站"));
+  for (const source of r.sources ?? []) {
+    if (!isHttpUrl(source.url)) continue;
+    const host = new URL(source.url).hostname;
+    bits.push(link(source.url, source.verifiedAt ? `${host}（已核验）` : `${host}（待核验线索）`));
+  }
+  return bits.length ? bits.join(" ｜ ") : `<span style="color:#94a3b8">待补充</span>`;
+}
 
 function row(r: Race, reason?: string): string {
   return `<tr>
@@ -136,7 +143,7 @@ function row(r: Race, reason?: string): string {
   </td>
   <td style="padding:10px 8px;border-bottom:1px solid #eee;color:#444;white-space:nowrap">${r.raceDate}</td>
   <td style="padding:10px 8px;border-bottom:1px solid #eee;color:#444;font-size:13px">${statusCell(r, reason)}</td>
-  <td style="padding:10px 8px;border-bottom:1px solid #eee;white-space:nowrap">${siteCell(r)}</td>
+  <td style="padding:10px 8px;border-bottom:1px solid #eee;font-size:12px">${sourceCell(r)}</td>
 </tr>`;
 }
 
@@ -147,7 +154,7 @@ function section(title: string, emoji: string, rows: string[], emptyNote?: strin
         <th align="left" style="padding:8px">赛事</th>
         <th align="left" style="padding:8px">比赛日期</th>
         <th align="left" style="padding:8px">报名截止或状态</th>
-        <th align="left" style="padding:8px">赛事相关网站</th>
+        <th align="left" style="padding:8px">来源</th>
       </tr>
       ${rows.join("\n      ")}
     </table>`

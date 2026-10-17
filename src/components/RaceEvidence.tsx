@@ -1,7 +1,7 @@
 import pendingJson from "../../data/pending-reviews.json";
 import type { Race } from "@/types/race";
 import { deriveStatus } from "@/lib/status";
-import { isHttpUrl, siteLink } from "@/lib/evidence";
+import { isHttpUrl, siteAsSource } from "@/lib/evidence";
 
 const kinds = { general: "普通报名", charity: "慈善名额", tour: "旅行套餐" };
 const entrances = { website: "官网", wechat_official: "微信公众号", wechat_miniprogram: "微信小程序", app: "APP", platform: "第三方平台" };
@@ -11,13 +11,14 @@ export default function RaceEvidence({ race, now }: { race: Race; now: Date }) {
   const awaitingDateReview = pending.some(item => item.raceId === race.id && item.from === race.raceDate);
   const sources = (race.sources ?? []).filter(source => isHttpUrl(source.url));
   const channels = (race.registrationChannels ?? []).filter(channel => isHttpUrl(channel.url) || (typeof channel.entranceHint === "string" && !!channel.entranceHint.trim()));
-  const site = siteLink(race);
+  // officialSite 不单独成链接行，只作「来源」一条；去重口径与邮件简报共用 siteAsSource
+  const site = siteAsSource(race);
   return (
     <details className="mt-3 border-t border-orange-100 pt-1 text-sm text-slate-600">
       <summary className="min-h-11 cursor-pointer py-3 font-medium text-orange-800">来源与报名通道</summary>
       {awaitingDateReview && <p className="mb-2 rounded-xl bg-amber-50 p-3 text-xs text-amber-900">有赛期变更线索待复核，当前仍显示原赛期。</p>}
       {!channels.length && <p className="mb-2 text-xs leading-5">
-        {site ? "报名方式待核验，可先查看赛事相关网站。" : "暂无已核验的直接报名通道，请以组委会公告为准。"}
+        {site ? "报名方式待核验，可先查看下方来源里的赛事相关网站。" : "暂无已核验的直接报名通道，请以组委会公告为准。"}
       </p>}
       {channels.map(channel => {
         const status = deriveStatus({ ...race, registrationChannels: undefined, needLottery: channel.kind === "general" && race.needLottery, regStatus: channel.status, regStart: channel.regStart, regEnd: channel.regEnd }, now);
@@ -40,12 +41,11 @@ export default function RaceEvidence({ race, now }: { race: Race; now: Date }) {
           )}
         </div>;
       })}
-      {/* 有已核验普通通道时，赛事网站降为次级信息入口：看规程、领物、交通，不再和报名操作抢位置 */}
-      {site && !site.primary && <p className="mb-2 text-xs leading-5">
-        <a href={site.url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center underline">{site.label} ↗</a>
-        <span className="text-slate-500">（规程、领物、交通等信息）</span>
+      {!site && !sources.length && <p className="text-xs leading-5">来源公告待补充，现有记录尚无可展示的核验证据。</p>}
+      {site && <p className="break-words text-xs leading-6">
+        <a href={site} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center underline">赛事相关网站 ↗</a>
+        <span className="text-slate-500"> · 组委会站点（规程、领物、交通等信息）</span>
       </p>}
-      {!sources.length && <p className="text-xs leading-5">来源公告待补充，现有记录尚无可展示的核验证据。</p>}
       {sources.map(source => <p key={`${source.scope}:${source.url}`} className="break-words text-xs leading-6">
         <a href={source.url} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center underline">{new URL(source.url).hostname} ↗</a>
         {source.verifiedAt ? ` · ${source.scope === "raceDate" ? "赛期" : source.scope === "category" ? "认证" : source.scope === "registration" ? "报名" : "信息"}核验于 ${source.verifiedAt.slice(0, 10)}` : " · 模型提供的线索，待人工核验"}
