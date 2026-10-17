@@ -12,7 +12,6 @@ import { readFileSync, writeFileSync, existsSync } from "fs";
 import type { Race, DisplayStatus } from "../src/types/race";
 import { deriveStatus, daysLeftUntil } from "../src/lib/status";
 import { checkInterval } from "../src/lib/schedule";
-import { siteLink } from "../src/lib/evidence";
 
 const DRY_RUN = process.argv.includes("--dry-run");
 function argOf(flag: string): string | undefined {
@@ -120,14 +119,7 @@ function statusCell(r: Race, reason?: string): string {
   return bits.join(" ｜ ");
 }
 
-// 措辞与页面共用 siteLink：officialSite 存量混着官网首页和报名页，逐场核验前不能一律叫「官方报名」
-const siteCell = (r: Race) => {
-  const site = siteLink(r);
-  return site
-    ? `<a href="${site.url}" style="color:#2563eb;text-decoration:underline">${site.label} ↗</a>`
-    : "暂未公布（见组委会公告）";
-};
-
+// officialSite 不再单独展示：邮件与页面一致，报名入口只认报名通道，站点仅作数据兜底
 function row(r: Race, reason?: string): string {
   return `<tr>
   <td style="padding:10px 8px;border-bottom:1px solid #eee;vertical-align:top">
@@ -136,7 +128,6 @@ function row(r: Race, reason?: string): string {
   </td>
   <td style="padding:10px 8px;border-bottom:1px solid #eee;color:#444;white-space:nowrap">${r.raceDate}</td>
   <td style="padding:10px 8px;border-bottom:1px solid #eee;color:#444;font-size:13px">${statusCell(r, reason)}</td>
-  <td style="padding:10px 8px;border-bottom:1px solid #eee;white-space:nowrap">${siteCell(r)}</td>
 </tr>`;
 }
 
@@ -147,7 +138,6 @@ function section(title: string, emoji: string, rows: string[], emptyNote?: strin
         <th align="left" style="padding:8px">赛事</th>
         <th align="left" style="padding:8px">比赛日期</th>
         <th align="left" style="padding:8px">报名截止或状态</th>
-        <th align="left" style="padding:8px">赛事相关网站</th>
       </tr>
       ${rows.join("\n      ")}
     </table>`

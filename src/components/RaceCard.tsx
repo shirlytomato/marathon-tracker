@@ -3,7 +3,6 @@ import RaceEvidence from "./RaceEvidence";
 import type { Race, DisplayStatus } from "@/types/race";
 import { formatCheckedAt } from "@/lib/freshness";
 import { deriveStatus, daysLeftUntil } from "@/lib/status";
-import { siteLink } from "@/lib/evidence";
 
 const STATUS_STYLE: Record<DisplayStatus, { label: string; cls: string }> = {
   open: { label: "报名中", cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
@@ -28,7 +27,6 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
   const status = deriveStatus(race, now);
   const st = STATUS_STYLE[status];
   const cat = CATEGORY_STYLE[race.category];
-  const site = siteLink(race);
 
   // 倒计时按自然日算：今天截止 = 0
   const daysLeft = race.regEnd ? daysLeftUntil(race.regEnd, now) : null;
@@ -64,15 +62,9 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
         )}
       </div>
 
-      {/* 主信息行：赛事名 + 兜底网站链接（有已核验普通通道时该链接降到详情里，见 RaceEvidence） */}
+      {/* 主信息行：赛事名。officialSite 不再单独成链接行，仅作信息来源并入「来源与报名通道」面板 */}
       <div className="mt-2 flex flex-wrap items-start gap-x-3 gap-y-1">
         <h3 className="min-w-0 break-words text-xl font-bold tracking-tight text-slate-900 lg:text-2xl">{race.name}</h3>
-        {site?.primary && (
-          <a href={site.url} target="_blank" rel="noreferrer"
-             className="inline-flex min-h-11 shrink-0 items-center text-sm font-medium text-orange-500 hover:text-orange-600 lg:text-base">
-            {site.label} ↗
-          </a>
-        )}
       </div>
 
       {/* 关键行：比赛日期 · 地点 · 报名截止（跑者最关心的三件事） */}

@@ -28,33 +28,37 @@ it("公众号报名无网址时显示报名指引而非入口链接，且不显�
   expect(html).not.toContain("暂无已核验");
 });
 
-// Issue #11：官网链接与报名通道不再同屏争抢，措辞按是否已有已核验普通通道分开
-describe("官网链接的主次与措辞", () => {
+// Issue #11 定论后的口径：officialSite 不再单独成链接行（卡片主行、面板次级行均删），
+// 仅作为无已核验通道赛事的信息来源内联在「来源与报名通道」面板里。
+describe("officialSite 仅作信息来源，不单独展示", () => {
   const site = "https://example.org/site";
   const general = { name: "普通报名", kind: "general" as const, status: "open" as const, url: "https://example.org/entry", sourceUrl: "https://example.org/notice", verifiedAt: now.toISOString() };
 
-  it("仅旧网站：主信息行兜底叫「赛事相关网站」，面板提示报名方式待核验", () => {
+  it("仅旧网站：主信息行不再单列网站，面板内联提示可先查看赛事相关网站", () => {
     const html = renderToStaticMarkup(createElement(RaceCard, { race: { ...race, officialSite: site }, now }));
+    expect(html).toContain("报名方式待核验，可先查看");
     expect(html).toContain("赛事相关网站 ↗");
-    expect(html).toContain("报名方式待核验，可先查看赛事相关网站");
+    expect(html.split(site).length - 1).toBe(1); // 链接只出现在面板的信息来源处
     expect(html).not.toContain("赛事官网");
     expect(html).not.toContain("官方报名");
   });
-  it("有已核验普通通道：官网移到详情里作次级入口，主信息行不再出现", () => {
-    const item: Race = { ...race, officialSite: site, registrationChannels: [general] };
-    const card = renderToStaticMarkup(createElement(RaceCard, { race: item, now }));
-    const panel = renderToStaticMarkup(createElement(RaceEvidence, { race: item, now }));
-    expect(panel).toContain("赛事官网 ↗");
-    expect(panel).toContain("规程、领物、交通等信息");
-    expect(card.split("赛事相关网站").length - 1).toBe(0);
-    expect(card.split(site).length - 1).toBe(1); // 只在详情里出现一次
+  it("有已核验普通通道：网站不再展示，通道的核验公告即信息来源", () => {
+    const html = renderToStaticMarkup(createElement(RaceCard, { race: { ...race, officialSite: site, registrationChannels: [general] }, now }));
+    expect(html).not.toContain("赛事官网");
+    expect(html).not.toContain("赛事相关网站");
+    expect(html.split(site).length - 1).toBe(0);
+    expect(html).toContain("核验公告");
   });
-  it("主次链接相同：同一 URL 全卡片只出现一次", () => {
-    const item: Race = { ...race, officialSite: general.url, registrationChannels: [general] };
-    const html = renderToStaticMarkup(createElement(RaceCard, { race: item, now }));
-    expect(html.split(general.url).length - 1).toBe(1);
+  it("无网址普通通道与仅慈善通道：通道正常展示，网站不单独出现", () => {
+    const wechat = { name: "普通报名", kind: "general" as const, status: "open" as const, entranceType: "wechat_official" as const, entranceHint: "微信搜索'测试赛事'公众号→菜单栏报名", sourceUrl: "https://example.org/notice", verifiedAt: now.toISOString() };
+    const charity = { name: "慈善名额", kind: "charity" as const, status: "open" as const, url: "https://example.org/charity", sourceUrl: "https://example.org/notice", verifiedAt: now.toISOString() };
+    for (const channels of [[wechat], [charity]]) {
+      const html = renderToStaticMarkup(createElement(RaceCard, { race: { ...race, officialSite: site, registrationChannels: channels }, now }));
+      expect(html).not.toContain("赛事相关网站");
+      expect(html).not.toContain("赛事官网");
+    }
   });
-  it("完全缺链接：不生成假链接，明确提示以组委会公告为准", () => {
+  it("无通道且无网站：不生成假链接，明确提示以组委会公告为准", () => {
     const html = renderToStaticMarkup(createElement(RaceEvidence, { race, now }));
     expect(html).toContain("暂无已核验的直接报名通道，请以组委会公告为准");
     expect(html).not.toContain("赛事相关网站");
