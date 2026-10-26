@@ -1209,7 +1209,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T03:39:05.562Z"
+    "updatedAt": "2026-10-26T14:51:07.865Z"
   },
   {
     "id": "北京大兴半程马拉松",
@@ -2312,7 +2312,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-10-17T03:45:06.926Z",
+    "updatedAt": "2026-10-26T14:52:03.623Z",
     "regStart": "2026-07-23"
   },
   {
@@ -2972,13 +2972,14 @@
     "country": "中国",
     "province": "江西",
     "raceDate": "2026-11-22",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松",
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-09-09T01:24:57.528Z"
+    "updatedAt": "2026-10-26T14:52:44.957Z",
+    "regEnd": "2026-10-25"
   },
   {
     "id": "佛山市环两江稻田马拉松",
@@ -3023,7 +3024,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-10-17T03:49:44.786Z",
+    "updatedAt": "2026-10-26T14:56:57.185Z",
     "officialSite": "https://fuchuan.sport-china.cn"
   },
   {
@@ -3046,13 +3047,14 @@
     "country": "中国",
     "province": "广东",
     "raceDate": "2026-12-27",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "全程马拉松",
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-10-05T23:35:42.072Z"
+    "updatedAt": "2026-10-26T14:57:06.901Z",
+    "regStart": "2026-10-26"
   },
   {
     "id": "tokyo-marathon",
@@ -3609,7 +3611,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T03:53:18.409Z"
+    "updatedAt": "2026-10-26T14:57:38.230Z"
   },
   {
     "id": "烟台马拉松",
@@ -3622,7 +3624,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T03:55:09.658Z",
+    "updatedAt": "2026-10-26T14:57:52.770Z",
     "officialSite": "https://m.irunner.mobi/mix-race-apply/index.html?match_eng=6a0519d3eab65#/grid",
     "regStart": "2026-05-20"
   },
@@ -3688,7 +3690,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T03:55:40.938Z"
+    "updatedAt": "2026-10-26T14:58:18.916Z"
   },
   {
     "id": "常州西太湖半程马拉松",
@@ -3758,12 +3760,15 @@
     "country": "中国",
     "province": "安徽",
     "raceDate": "2026-11-01",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:01:49.972Z"
+    "updatedAt": "2026-10-26T14:58:41.562Z",
+    "regStart": "2026-07-15",
+    "regEnd": "2026-08-15",
+    "lotteryDate": "2026-08-25"
   },
   {
     "id": "马鞍山采石矶半程马拉松",
@@ -3787,12 +3792,14 @@
     "country": "中国",
     "province": "四川",
     "raceDate": "2026-11-01",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:02:05.757Z"
+    "updatedAt": "2026-10-26T14:59:48.776Z",
+    "regStart": "2026-07-22",
+    "regEnd": "2026-08-21"
   },
   {
     "id": "涪陵白鹤梁半程马拉松",
@@ -3830,12 +3837,12 @@
     "country": "中国",
     "province": "湖南",
     "raceDate": "2026-11-01",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:02:49.817Z"
+    "updatedAt": "2026-10-26T15:00:21.603Z"
   },
   {
     "id": "西昌马拉松",
@@ -4010,7 +4017,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:06:25.370Z",
+    "updatedAt": "2026-10-26T15:00:41.315Z",
     "officialSite": "https://chenzhou.sport-china.cn/"
   },
   {
@@ -4024,7 +4031,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:07:58.480Z"
+    "updatedAt": "2026-10-26T15:02:04.276Z"
   },
   {
     "id": "崇左马拉松",
@@ -4037,7 +4044,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:08:18.573Z"
+    "updatedAt": "2026-10-26T15:02:22.298Z"
   },
   {
     "id": "罗城半程马拉松",
@@ -4050,7 +4057,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:08:33.817Z"
+    "updatedAt": "2026-10-26T15:02:47.062Z"
   },
   {
     "id": "武汉光谷马拉松",
@@ -4141,12 +4148,12 @@
     "country": "中国",
     "province": "浙江",
     "raceDate": "2026-11-15",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-07T02:56:59.178Z",
+    "updatedAt": "2026-10-26T15:03:04.162Z",
     "regStart": "2026-09-23"
   },
   {
@@ -4155,12 +4162,14 @@
     "country": "中国",
     "province": "浙江",
     "raceDate": "2026-11-15",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:09:18.522Z"
+    "updatedAt": "2026-10-26T15:03:44.346Z",
+    "regStart": "2026-08-12",
+    "regEnd": "2026-10-08"
   },
   {
     "id": "璧山马拉松",
@@ -4174,8 +4183,8 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-10-16T14:56:24.885Z",
-    "regStart": "2026-09-29",
+    "updatedAt": "2026-10-26T15:04:34.305Z",
+    "regStart": "2026-10-01",
     "scale": "10000人",
     "fee": "马拉松180元/半程150元",
     "location": "璧山区人民广场",
@@ -4245,7 +4254,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-09T01:27:58.787Z",
+    "updatedAt": "2026-10-26T15:05:02.033Z",
     "officialSite": "http://www.exprun.com/"
   },
   {
@@ -4269,12 +4278,15 @@
     "country": "中国",
     "province": "广西",
     "raceDate": "2026-11-22",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-09T01:28:05.321Z"
+    "updatedAt": "2026-10-26T15:05:59.072Z",
+    "regStart": "2026-09-14",
+    "regEnd": "2026-10-14",
+    "lotteryDate": "2026-10-20"
   },
   {
     "id": "六安马拉松",
@@ -4317,7 +4329,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-10-17T04:13:47.184Z",
+    "updatedAt": "2026-10-26T15:10:20.635Z",
     "officialSite": "https://yongding.sport-china.cn",
     "regStart": "2026-09-10",
     "regEnd": "2026-10-31",
@@ -4404,13 +4416,14 @@
     "country": "中国",
     "province": "安徽",
     "raceDate": "2026-11-29",
-    "regStatus": "open",
+    "regStatus": "closed",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:14:51.519Z",
-    "regStart": "2026-08-27"
+    "updatedAt": "2026-10-26T15:10:42.780Z",
+    "regStart": "2026-08-27",
+    "regEnd": "2026-09-10"
   },
   {
     "id": "惠州马拉松",
@@ -4464,7 +4477,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-17T04:32:36.326Z",
+    "updatedAt": "2026-10-26T15:11:26.216Z",
     "sources": [
       {
         "url": "https://www.yjrb.com.cn/content/c352492.html",
@@ -4591,7 +4604,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-10-17T04:16:25.878Z",
+    "updatedAt": "2026-10-26T15:14:42.984Z",
     "regStart": "2026-10-15",
     "scale": "8000人",
     "fee": "马拉松150元/半程120元",
@@ -4644,7 +4657,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-10-17T04:16:57.273Z",
+    "updatedAt": "2026-10-26T15:15:20.556Z",
     "regStart": "2026-09-30",
     "regEnd": "2026-11-20",
     "scale": "12000人",
@@ -4771,7 +4784,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-05T23:59:45.201Z",
+    "updatedAt": "2026-10-26T15:15:41.227Z",
     "officialSite": "https://sanya-marathon.irunner.mobi/"
   },
   {
@@ -4815,7 +4828,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-10-17T04:17:25.471Z",
+    "updatedAt": "2026-10-26T15:16:14.357Z",
     "regEnd": "2026-11-26",
     "scale": "12000人",
     "location": "梅县人民广场（起点）",
@@ -4840,7 +4853,8 @@
         "regEnd": "2026-11-26",
         "requirements": "官方须知：即日起至 11 月 26 日 18:00（公告 2026-10-01 发布，原文未给起始日期）；大众参赛资格采用抽签确定，先缴费后抽签，中签结果12月初公布"
       }
-    ]
+    ],
+    "regStart": "2026-10-01"
   },
   {
     "id": "雅安雨城半程马拉松",
@@ -4890,13 +4904,13 @@
     "city": "首尔",
     "raceDate": "2026-11-01",
     "location": "桑格姆世界杯公园（起点）",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松"
     ],
     "scale": "30000人",
     "category": "B",
-    "updatedAt": "2026-10-17T04:18:17.912Z"
+    "updatedAt": "2026-10-26T15:19:29.478Z"
   },
   {
     "id": "bangkok-marathon",
