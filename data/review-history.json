@@ -42,5 +42,19 @@
     "note": "据赛事组委会信息及海陵融媒公告，2026阳江海陵岛马拉松12月20日开跑，报名已启动且截止2026年11月20日18:00，不抽签。",
     "sourceUrl": "https://www.yjrb.com.cn/content/c352492.html",
     "reviewedAt": "2026-10-17T04:32:02.178Z"
+  },
+  {
+    "id": "jtbc-seoul-marathon:2026-11-01:2026-03-15",
+    "raceId": "jtbc-seoul-marathon",
+    "from": "2026-11-01",
+    "to": "2026-03-15",
+    "proposedAt": "2026-10-16T14:36:06.433Z",
+    "sourceUrls": [],
+    "note": "知识库中无",
+    "sourceUrl": "https://zuicool.com/event/60243",
+    "decision": "rejected",
+    "reviewedAt": "2026-10-29T11:13:46.343Z",
+    "decisionNote": "驳回：库里 2026-11-01 正确。四家独立来源（最趣跑赛事页、搜狐报名稿、NAVER 韩文博客、IG 参赛团帖）一致记 2026 年 JTBC 首尔马拉松为 11 月 1 日（周日）、起点桑格姆世界杯公园；JTBC 主场在 11 月首个周日（2025 为 11-02）。候选提的 2026-03-15 是同市另一场 3 月首尔马拉松的赛期，属串场，且原 note 只有「知识库中无」、sourceUrls 为空。",
+    "evidenceTier": "二手转述：官网 https://marathon.jtbc.com 实测 HTTP 200 可达，但为纯 JS 渲染页、本次未能机读正文，故未直引官方原文"
   }
 ]
