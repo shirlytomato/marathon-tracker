@@ -2985,7 +2985,7 @@
     "id": "佛山市环两江稻田马拉松",
     "name": "佛山市环两江稻田马拉松",
     "country": "中国",
-    "province": "重庆",
+    "province": "广东",
     "raceDate": "2026-11-22",
     "regStatus": "pending",
     "events": [
@@ -4303,20 +4303,6 @@
     "officialSite": "http://anhuijingti.saihuitong.com/",
     "regStart": "2026-09-07",
     "regEnd": "2026-09-27"
-  },
-  {
-    "id": "东方半程马拉松",
-    "name": "东方半程马拉松",
-    "country": "中国",
-    "province": "海南",
-    "raceDate": "2026-11-22",
-    "regStatus": "pending",
-    "events": [
-      "半程马拉松"
-    ],
-    "category": "A",
-    "updatedAt": "2026-09-09T01:28:08.251Z",
-    "officialSite": "https://dongfang.jinshensports.com"
   },
   {
     "id": "永定土楼半程马拉松",
