@@ -4033,13 +4033,28 @@
     "name": "自贡市荣县大佛半程马拉松",
     "country": "中国",
     "province": "四川",
-    "raceDate": "2026-11-08",
-    "regStatus": "pending",
+    "raceDate": "2026-11-15",
+    "regStatus": "open",
     "events": [
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-29T11:33:14.246Z"
+    "updatedAt": "2026-10-29T12:00:51.053Z",
+    "sources": [
+      {
+        "url": "http://www.zgm.cn/content/6ad1d60e85fc2",
+        "scope": "raceDate",
+        "observedAt": "2026-10-29T12:01:01.863Z",
+        "verifiedAt": "2026-10-29T12:01:01.863Z"
+      },
+      {
+        "url": "http://m.cd.bendibao.com/xiuxian/214983.shtm",
+        "scope": "registration",
+        "observedAt": "2026-10-29T12:01:01.863Z",
+        "verifiedAt": "2026-10-29T12:01:01.863Z"
+      }
+    ],
+    "regStart": "2026-10-10"
   },
   {
     "id": "崇左马拉松",
