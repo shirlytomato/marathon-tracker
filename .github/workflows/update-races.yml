@@ -38,8 +38,9 @@ jobs:
       - name: 提交数据更新
         run: |
           git add data/pending-reviews.json
-          git config user.name "marathon-bot"
-          git config user.email "marathon-bot@users.noreply.github.com"
+          # 别改回 marathon-bot：那个 login 是 2017 年注册的他人账号，提交会被误挂到它名下
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/races.json data/todaySites.json data/update-health.json
           git diff --cached --quiet || git commit -m "chore: 更新赛事数据 $(date -u +%F)"
           git push
@@ -56,8 +57,8 @@ jobs:
       # 上一日的 regStart/regEnd/lotteryDate 快照），不提交则每天重复报同一批
       - name: 提交简报快照（knownIds + 字段基线）
         run: |
-          git config user.name "marathon-bot"
-          git config user.email "marathon-bot@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # 先暂存再 pull：pull --rebase 遇到未暂存改动会直接拒绝退出（2026-09-28 事故，
           # knownIds.json 刚被 email-digest 覆盖，正是这一步唯一的未暂存改动）
           git add data/knownIds.json data/digestBaseline.json
