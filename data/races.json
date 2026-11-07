@@ -4531,13 +4531,13 @@
     "country": "中国",
     "province": "广东",
     "raceDate": "2026-12-27",
-    "regStatus": "open",
+    "regStatus": "closed",
     "events": [
       "全程马拉松",
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-16T15:40:34.158Z",
+    "updatedAt": "2026-11-07T16:19:51.000Z",
     "officialSite": "http://huizhou-marathon.com/",
     "regStart": "2026-10-15",
     "regEnd": "2026-11-02",
