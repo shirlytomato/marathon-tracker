@@ -20,7 +20,7 @@ data/races.json（唯一事实源，约 150 场）
   │    → 简报默认不跑，加 --with-digest 才接 scripts/draft-digest-mac.sh（当日简报→Mail 草稿→人工按发送）
   │    日志：~/Library/Logs/pbrun-daily-update.log；plist 备份在 scripts/run.pbrun.daily-update.plist
   ├─ 每日 08:30（北京时间）watch-freshness.yml → scripts/check-freshness.py（仍在启用，不调 AI、不要密钥）
-  │    只看 main 上最近一次数据提交是否超 36 小时，超了就红 + 开/追加告警 Issue（本机没开机/没网也能报）
+  │    检查 main 上 data/update-health.json 的 lastSuccessfulRun 是否超 36 小时，超了就红 + 开/追加告警 Issue（本机没开机/没网也能报）
   ├─ 每周一/三/六 06:30 discover-races.yml → scripts/discover-races.ts（同样已停用，需要时在本机跑）
   └─ 前端 src/（Next.js）直接读 races.json 渲染
 停用中的 workflow：update-races.yml、discover-races.yml（GitHub Settings → Actions → Workflows 可重新启用，
