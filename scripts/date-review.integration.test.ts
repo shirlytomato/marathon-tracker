@@ -45,6 +45,14 @@ it("采集 dry-run 不写队列；审批预览不写库，apply 才写入证据�
   expect(read(root, "pending-reviews")).toEqual([]); expect(read(root, "review-history")).toHaveLength(1);
   expect(invoke("review-date.ts", [...args, "--apply"]).status).not.toBe(0);
 }));
+it("已驳回的候选不再重复入队，日志改口为已人工定案", () => fixture((root, invoke) => {
+  writeFileSync(join(root, "data/review-history.json"), JSON.stringify([{ id: "demo:2099-11-01:2099-11-08", raceId: "demo", from: "2099-11-01", to: "2099-11-08", proposedAt: "2099-10-01T00:00:00Z", sourceUrls: [], note: "旧候选", decision: "rejected", reviewedAt: "2099-10-02T00:00:00Z", decisionNote: "驳回：原值正确" }]));
+  const run = invoke("update-status.ts");
+  expect(run.status, String(run.stderr)).toBe(0);
+  expect(String(run.stdout)).toContain("已人工定案，不再入队");
+  expect(read(root, "pending-reviews")).toEqual([]);
+  expect(read(root, "races")[0].raceDate).toBe(race.raceDate);
+}));
 it("旧值已变化时审批拒绝写入任何文件", () => fixture((root, invoke) => {
   expect(invoke("update-status.ts").status).toBe(0);
   const [proposal] = read(root, "pending-reviews");

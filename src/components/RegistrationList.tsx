@@ -18,9 +18,6 @@ export default function RegistrationList({ races, now }: { races: Race[]; now: D
         {races.map((race, index) => (
           <div key={race.id} className={index >= 3 && !expanded ? "hidden sm:block" : ""}>
             <RaceCard race={race} now={now} />
-            {!race.officialSite && <p className="mt-1 px-2 text-xs leading-5 text-slate-600">
-              官网链接待补充，请以组委会公告为准。
-            </p>}
           </div>
         ))}
       </div>

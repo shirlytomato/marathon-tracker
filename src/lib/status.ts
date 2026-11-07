@@ -22,8 +22,13 @@ export function withGeneralRegistration(race: Race): Race {
   return race.registrationChannels?.length ? { ...race, regStart: undefined, regEnd: undefined, regStatus: "pending" } : race;
 }
 
+/** 报名截止之后：抽签结果还没出且离截止不远算「抽签中」，否则「已截止」 */
+function pastDeadline(race: Race, t: number): DisplayStatus {
+  return race.needLottery && race.lotteryDate && toDate(race.lotteryDate) >= t - 3 * day ? "drawing" : "closed";
+}
+
 /**
- * 根据日期字段推导展示状态（数据管道的 regStatus 仅作为无日期字段时的兜底）。
+ * 根据日期字段推导展示状态（数据管道的 regStatus 仅在日期推不出结论时兜底）。
  * 比赛日当天不算已结束：按自然日比较，当天是「today」，次日零点起才是「finished」。
  */
 export function deriveStatus(race: Race, now: Date): DisplayStatus {
@@ -32,17 +37,24 @@ export function deriveStatus(race: Race, now: Date): DisplayStatus {
   const dayGap = beijingDayIndex(toDate(race.raceDate)) - beijingDayIndex(t);
   if (dayGap < 0) return "finished";
   if (dayGap === 0) return "today";
-  // 窗口不完整时只能用 regStatus 兜底：写死 pending 会把人工/AI 已确认的状态顶掉
-  // （实测 2026-10-06 泰宁半程马拉松只有报名开始日、没有截止日，页面被强制显示"待开放"）。
+  const start = race.regStart ? toDate(race.regStart) : null;
+  const end = race.regEnd ? toDate(race.regEnd) : null;
+  if (start !== null && end !== null) {
+    if (t < start) return "pending";
+    if (t < end + day) return "open";
+    return pastDeadline(race, t);
+  }
+  // 窗口只填一半（官方只公布一端，或「额满即止」压根没有截止日）时，
+  // 已公布的那一端照样能证伪库里状态，必须先用它；剩下证不出的部分才交给 regStatus。
+  // 原先整段兜底会让状态永不自愈：实测 2026-10-17 有 10 场「报名早已开始、页面仍显示筹备中」，
+  // 其中清迈马拉松截止日过了一个多月还停在 pending。
+  if (start !== null && t < start) return "pending";
+  if (end !== null && t >= end + day) return pastDeadline(race, t);
+  // 报名已开始、截止未知：库里标了截止/抽签就采信（额满即止只有人工知道），否则就是报名中
+  if (start !== null && race.regStatus !== "closed" && race.regStatus !== "drawing") return "open";
   // finished 不参与兜底：赛期未到的 finished 是管道里的陈旧标记，
   // 是否已结束一律由上面的日期比较说了算，否则会把还没跑的赛事显示成已结束。
-  if (!race.regStart || !race.regEnd) return race.regStatus === "finished" ? "pending" : race.regStatus;
-  const s = toDate(race.regStart), e = toDate(race.regEnd);
-  if (t < s) return "pending";
-  if (t < e + day) return "open";
-  // 报名已截止
-  if (race.needLottery && race.lotteryDate && toDate(race.lotteryDate) >= t - 3 * day) return "drawing";
-  return "closed";
+  return race.regStatus === "finished" ? "pending" : race.regStatus;
 }
 
 const order: Record<DisplayStatus, number> = { open: 0, today: 1, pending: 2, drawing: 3, closed: 4, finished: 5 };

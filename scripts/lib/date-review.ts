@@ -12,9 +12,18 @@ export interface DateProposal {
   sourceUrls: string[];
   note: string;
 }
-export function proposeDate(race: Race, value: unknown, sourceUrls: unknown, note: string, now: string): DateProposal | null {
+export function proposalId(raceId: string, from: string, to: string): string {
+  return `${raceId}:${from}:${to}`;
+}
+
+// rejectedIds 是人工已驳回过的候选 id。驳回只把条目移出队列、不改库里的 raceDate，
+// 所以下一轮模型照样会提同一个日期，同一条候选会反复入队（2026-10-31 伦敦 2027 实测长回来了）。
+// 命中即视为已定案；原值或候选日期一变就是新候选，照常排队等复核。
+export function proposeDate(race: Race, value: unknown, sourceUrls: unknown, note: string, now: string, rejectedIds: ReadonlySet<string> = new Set()): DateProposal | null {
   if (!isCalendarDate(value) || value === race.raceDate || value.slice(0, 4) !== race.raceDate.slice(0, 4)) return null;
-  return { id: `${race.id}:${race.raceDate}:${value}`, raceId: race.id, from: race.raceDate, to: value, proposedAt: now,
+  const id = proposalId(race.id, race.raceDate, value);
+  if (rejectedIds.has(id)) return null;
+  return { id, raceId: race.id, from: race.raceDate, to: value, proposedAt: now,
     sourceUrls: Array.isArray(sourceUrls) ? [...new Set(sourceUrls.filter(isHttpUrl))].slice(0, 5) : [], note };
 }
 

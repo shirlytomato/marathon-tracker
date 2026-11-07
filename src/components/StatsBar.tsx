@@ -23,7 +23,7 @@ export default function StatsBar({ open, drawing, races, now, deployedAt }: {
       </div>
       <details className="mt-3 text-xs leading-6 text-slate-600">
         <summary className="min-h-11 cursor-pointer py-2">本分区记录最近更新：{formatCheckedAt(freshness.latestRecordAt)}（北京时间）</summary>
-        <p>最近完整更新任务：{formatCheckedAt(health.lastSuccessfulRun)}</p>
+        <p>最近正常完成任务：{formatCheckedAt(health.lastSuccessfulRun)}</p>
         {health.lastRun && <p>最近发布批次：{formatCheckedAt(health.lastRun.completedAt)} · 成功 {health.lastRun.succeeded} 场 / 失败 {health.lastRun.failed} 场</p>}
         <p>页面构建：{formatCheckedAt(deployedAt)}，不代表赛事信息已重新核验。</p>
       </details>
@@ -32,7 +32,11 @@ export default function StatsBar({ open, drawing, races, now, deployedAt }: {
           {freshness.staleDaily} 场需每日检查的赛事已超过 36 小时未更新或更新时间异常，报名信息待复核，请以官方公告为准。
         </p>
       )}
-      {!!health.lastRun?.failed && <p className="mt-2 text-sm text-amber-900">最近发布批次有 {health.lastRun.failed} 场更新失败，已保留原记录。</p>}
+      {/* failedNames 是本次新增字段，已发布的历史 update-health.json 里没有，缺省时只报数量 */}
+      {!!health.lastRun?.failed && <p className="mt-2 text-sm text-amber-900">
+        最近发布批次有 {health.lastRun.failed} 场复查未成功，仍显示上次数据
+        {health.lastRun.failedNames?.length ? `：${health.lastRun.failedNames.join("、")}` : "。"}
+      </p>}
     </div>
   );
 }

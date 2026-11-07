@@ -18,8 +18,12 @@ describe("checkInterval：已尘埃落定的赛事永不再查", () => {
     expect(checkInterval({ ...base, raceDate: "2026-03-15", regStatus: "pending" }, now)).toBeNull();
     expect(checkInterval({ ...base, raceDate: inDays(-1), regStatus: "open" }, now)).toBeNull();
   });
-  it("已完赛 -> null", () => {
-    expect(checkInterval({ ...base, regStatus: "finished" }, now)).toBeNull();
+  it("已完赛（赛期已过）-> null", () => {
+    expect(checkInterval({ ...base, raceDate: inDays(-1), regStatus: "finished" }, now)).toBeNull();
+  });
+  it("赛期未到的 finished 是陈旧标记 -> 仍要复查，否则自愈分支永远跑不到", () => {
+    // base.raceDate 在 60 天后且无报名窗口 -> 周检。实测这类脏数据曾冻结近两个月无人纠正
+    expect(checkInterval({ ...base, regStatus: "finished" }, now)).toBe(7);
   });
   it("报名已截止且临近开赛 -> null（此时延期已无意义）", () => {
     expect(checkInterval({ ...base, raceDate: inDays(10), regStart: inDays(-20), regEnd: inDays(-5) }, now)).toBeNull();

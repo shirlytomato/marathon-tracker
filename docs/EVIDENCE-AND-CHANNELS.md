@@ -1,4 +1,6 @@
-# 来源证据、赛期复核与报名通道（schema v2）
+# 来源证据、赛期复核与报名通道（schema v3）
+
+v3 记录报名通道从必填 url 扩展为“网址或人工报名指引”的契约：url 可选，新增可选 entranceType、entranceHint，url 与非空 entranceHint 至少填写一个。entranceType 若填写，必须是下列枚举中的字符串，数组、对象等类型不能通过字符串转换入库。无通道的旧赛事和已有网址通道仍兼容，无需批量迁移 races.json；sourceUrl、verifiedAt 的人工核验要求保持不变。嵌套通道校验由 src/lib/evidence.ts 的 validChannels 执行，并由 scripts/lib/schema.ts 调用。
 
 ## 来源的含义
 
@@ -27,9 +29,15 @@ npx tsx scripts/review-date.ts --id='赛事ID:原日期:目标日期' --source='
 
 ## 人工维护报名通道
 
-registrationChannels 为可选数组。每个通道必须包含 name、kind（general 普通 / charity 慈善 / tour 旅行）、url（直接入口）、sourceUrl（核验公告）、verifiedAt（人工核验时间）、status。regStart、regEnd、requirements 可选，未知日期省略。最多一个普通通道，同一入口不可重复，截止不能晚于或等于比赛日。
+registrationChannels 为可选数组。每个通道必须包含 name、kind（general 普通 / charity 慈善 / tour 旅行）、sourceUrl（核验公告）、verifiedAt（人工核验时间）、status。regStart、regEnd、requirements 可选，未知日期省略。最多一个普通通道，同一入口不可重复，截止不能晚于或等于比赛日。
 
-这些字段不由模型自动写入。人工读过赛事当届公告、确认名额类型和资格要求后，才可将通道写入赛事并通过 schema 校验。慈善筹款、旅行套餐等要求应写入 requirements，页面单独展示；官网首页仍只叫“赛事官网”。不要仅凭首页可访问就填成直接报名入口。
+报名入口支持两种形态，二者至少其一（中国大量赛事只在微信公众号/小程序/第三方平台报名，没有独立官网网址）：
+- url：直接报名入口的 http(s) 网址；填写时不得用官网首页冒充报名页。
+- entranceType + entranceHint：无网址时用报名指引代替。entranceType 取 website / wechat_official / wechat_miniprogram / app / platform；entranceHint 是一句可操作的指引，如“微信搜索‘肇庆马拉松’公众号→菜单栏报名”。既无 url 又无 entranceHint 的通道不通过校验。无 url 通道按 name+entranceHint 去重。
+
+这些字段不由模型自动写入。人工读过赛事当届公告、确认名额类型和资格要求后，才可将通道写入赛事并通过 schema 校验。慈善筹款、旅行套餐等要求应写入 requirements，页面单独展示。不要仅凭首页可访问就填成直接报名入口。
+
+officialSite 的展示口径：**字段保留**作数据兜底与可达性门禁对象（见 `scripts/verify-data.ts`），但页面与邮件都不再单独展示「赛事相关网站 / 赛事官网」链接行（曾由 `src/lib/evidence.ts` 的 `siteLink` 实现，已随 2026-10-17 的 UI 调整删除，改为同文件的 `siteAsSource`）。officialSite 统一并入「来源」，无论该赛事是否已有报名通道：页面卡片里是「来源与报名通道」面板来源列表的一条（“赛事相关网站 · 组委会站点”），邮件简报里是「来源」列的链接。同一 URL 已由报名通道或来源公告展示时不重复出现。没有已核验通道的赛事仍会提示“报名方式待核验”。官方报名页逐场核验后迁入 registrationChannels。
 
 已有普通通道时，汇总状态、排序、复查计划和主卡片按普通通道计算，其他通道独立展示。若只维护慈善/旅行通道，普通报名显示待核验；不会因慈善名额开放把普通报名标为开放。没有新字段的旧数据继续按原逻辑运行。
 

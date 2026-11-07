@@ -13,7 +13,8 @@ const CLOSED_GRACE_DAYS = 21;
  * 复查间隔（天）。返回 null 表示该赛事已尘埃落定，永不再查、永不消耗 token。
  *
  * 判据只有一个：这条记录还可能出现变化吗？
- *   null —— 赛期已过（含已过月份，页面状态由日期自动推导）／已完赛／报名截止且临近开赛
+ *   null —— 赛期已过（含已过月份，页面状态由日期自动推导；已完赛的赛事赛期必然已过）
+ *           ／坏日期／报名截止且临近开赛
  *   1    —— 报名中（盯截止与延期）；30 天内开赛却仍未公布报名时间（窗口随时可能开）
  *   7    —— 报名时间未公布且赛期 1~3 个月（等竞赛规程）；已公布但未开放（盯改期）
  *   30   —— 赛期 3 个月以上的远场；报名已截止但赛期尚远（盯延期与补报）
@@ -23,7 +24,11 @@ const CLOSED_GRACE_DAYS = 21;
  */
 export function checkInterval(race: Race, now: Date): number | null {
   race = withGeneralRegistration(race);
-  if (race.regStatus === "finished") return null;
+  // 不能在这里按 regStatus === "finished" 短路：赛期未到的 finished 是 AI 写脏的陈旧标记
+  // （status.ts 同口径，页面也不采信它）。一旦信了就永不复查，update-status.ts 里
+  // 专治这种情况的自愈分支（else if (r.regStatus === "finished")）永远跑不到。
+  // 实测 2026-10-17：6 场赛期在未来的赛事 regStatus 停在 finished、updatedAt 冻结在 2026-08-21，
+  // 其中郑州马拉松次日开跑，页面却长期显示「待开放」。真完赛的赛事赛期必然已过，由下一行挡住。
   const raceT = cst(race.raceDate);
   if (Number.isNaN(raceT) || raceT < now.getTime()) return null; // 坏日期不重试，避免天天白烧
   const daysToRace = (raceT - now.getTime()) / DAY;

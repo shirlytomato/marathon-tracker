@@ -34,10 +34,15 @@ export interface RaceSource {
   verifiedAt?: string; // 仅人工核验后填写；缺失时只是模型提供的线索
 }
 
+/** 报名通道入口形式：中国大量赛事只在公众号/小程序/第三方平台报名，没有独立官网网址 */
+export type EntranceType = "website" | "wechat_official" | "wechat_miniprogram" | "app" | "platform";
+
 export interface RegistrationChannel {
   name: string;
   kind: "general" | "charity" | "tour";
-  url: string;
+  url?: string;            // 直接报名入口网址；与 entranceHint 二选一，公众号/小程序报名可无网址
+  entranceType?: EntranceType; // 入口形式，无 url 时用于告知跑者去哪儿报名
+  entranceHint?: string;   // 报名指引，如"微信搜索'肇庆马拉松'公众号→菜单栏报名"；无 url 时必填
   sourceUrl: string;
   verifiedAt: string; // 通道必须人工核验后入库，不由 AI 直接写入
   status: RegStatus;

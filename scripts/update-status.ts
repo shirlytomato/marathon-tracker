@@ -10,7 +10,7 @@ import { isDue, summarizePlan } from "../src/lib/schedule";
 import { qwenSearch, logUsage } from "./lib/qwen";
 import { siteReachable } from "./lib/site-reach";
 import { collectSourceHints } from "../src/lib/evidence";
-import { proposeDate, type DateProposal } from "./lib/date-review";
+import { proposeDate, proposalId, type DateProposal } from "./lib/date-review";
 import { dateConflict, validYear } from "./lib/validation";
 
 const DRY = process.argv.includes("--dry-run");
@@ -38,12 +38,18 @@ async function main() {
   const path = "data/races.json";
   const races = JSON.parse(readFileSync(path, "utf8")) as Race[];
   const pending: DateProposal[] = existsSync("data/pending-reviews.json") ? JSON.parse(readFileSync("data/pending-reviews.json", "utf8")) : [];
+  // 人工驳回过的候选不再重复入队：驳回只清队列、不改库里的 raceDate，下一轮模型必再提同一个日期
+  // （2026-10-31 实测，伦敦 2027 那条 10-30 驳回、10-31 原样长回队列）。
+  // 历史里没有 decision 字段的条目都是「已采纳」，不参与跳过判断。
+  const rejectedIds = new Set<string>(((existsSync("data/review-history.json") ? JSON.parse(readFileSync("data/review-history.json", "utf8")) : []) as { id?: string; decision?: string }[])
+    .filter(item => item.decision === "rejected" && item.id).map(item => item.id!));
   const due = races.filter(r => isDue(r, now));
   const targets = LIMIT > 0 ? due.slice(0, LIMIT) : due;
   const buckets = summarizePlan(races, now);
   console.log(`待更新 ${due.length}/${races.length} 场${LIMIT > 0 ? `（本次限制只查前 ${targets.length} 场）` : ""}${DRY ? "（dry-run，不写文件）" : ""}`);
   console.log(`  分级：每天盯 ${buckets.daily} 场｜周检 ${buckets.weekly} 场｜月检 ${buckets.monthly} 场｜已尘埃落定不再查 ${buckets.never} 场`);
   let ok = 0, fail = 0;
+  const failedNames: string[] = [];
   const aiSites = new Set<string>(); // 本次由 AI 新写入/替换的官网，发布前检测对其严格把关
   for (const r of targets) {
     try {
@@ -52,10 +58,12 @@ async function main() {
       const note = typeof parsed.note === "string" ? parsed.note : "";
       const sources = collectSourceHints(r.sources, parsed.sourceUrls, now.toISOString());
       if (sources.length) r.sources = sources;
-      const proposal = proposeDate(r, parsed.raceDate, parsed.sourceUrls, note, now.toISOString());
+      const proposal = proposeDate(r, parsed.raceDate, parsed.sourceUrls, note, now.toISOString(), rejectedIds);
       if (proposal && !pending.some(item => item.id === proposal.id)) pending.push(proposal);
       const datePending = typeof parsed.raceDate === "string" && !!parsed.raceDate && parsed.raceDate !== oldDate;
-      if (datePending) console.log(`  ⚠ 赛期候选待复核：${r.name} ${oldDate} → ${parsed.raceDate}（未应用）`);
+      if (datePending) console.log(rejectedIds.has(proposalId(r.id, oldDate, String(parsed.raceDate)))
+        ? `  ⚠ 赛期候选已人工定案，不再入队：${r.name} ${oldDate} → ${parsed.raceDate}`
+        : `  ⚠ 赛期候选待复核：${r.name} ${oldDate} → ${parsed.raceDate}（未应用）`);
       let discarded = datePending; // 本场是否丢弃过 AI 的日期字段
       // 改期待复核时不接收基于新赛期的报名日期/状态；其余仍逐字段校验：
       // 实测 2026-10-06 AI 把泰宁半程马拉松的报名截止填成比赛日，一条口误就让整批
@@ -90,16 +98,17 @@ async function main() {
       }
       // regStatus 以日期推导为准：AI 报的状态可能与它自己刚给出的日期矛盾
       // （实测 qwen3.7-plus：福州马拉松 regEnd 2026-09-19 未到，AI 却报 closed）
-      // 仅在缺报名日期时保留 AI 的判断（如“抽签中”无法从日期推导）；
-      // 且赛期未到的赛事禁止被标为 finished——否则会被分级调度永久排除、再也不会复查
-      const derived = toStoredStatus(deriveStatus(r, now));
-      if (r.regStart && r.regEnd) r.regStatus = derived;
-      else if (r.regStatus === "finished") r.regStatus = derived;
+      // 且赛期未到的赛事禁止被标为 finished——否则会被分级调度永久排除、再也不会复查。
+      // 窗口只填一半时同样要写回：deriveStatus 内部已保证「日期证不出的部分才采信库里值」，
+      // 原先加了 r.regStart && r.regEnd 的前置条件，等于让「有开始日、无截止日」的赛事
+      // （官方写「额满即止」的常见形态）永远拿不到纠正，AI 天天复查也修不动一行。
+      r.regStatus = toStoredStatus(deriveStatus(r, now));
       r.updatedAt = new Date().toISOString();
       ok++;
       console.log(`✓ ${r.name}`);
     } catch (e) {
       fail++;
+      failedNames.push(r.name);
       console.error(`✗ ${r.name}: ${(e as Error).message}`); // 单场失败保留旧数据
     }
   }
@@ -110,7 +119,7 @@ async function main() {
     if (!LIMIT) {
       const healthPath = "data/update-health.json";
       const previous = JSON.parse(readFileSync(healthPath, "utf8")) as UpdateHealth;
-      writeFileSync(healthPath, JSON.stringify(recordRun(previous, ok, fail, new Date().toISOString()), null, 2) + "\n");
+      writeFileSync(healthPath, JSON.stringify(recordRun(previous, ok, fail, new Date().toISOString(), failedNames), null, 2) + "\n");
     }
     if (ok > 0) writeFileSync(path, JSON.stringify(races, null, 2));
     // 告知发布前检测：哪些官网是本次 AI 新写入的（需严格把关），其余为历史已核实官网（故障仅警告）

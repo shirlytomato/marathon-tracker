@@ -15,11 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          # 要翻提交历史找最近一次数据提交，浅克隆会看不到
-          fetch-depth: 0
 
-      - name: 检查数据新鲜度（超 36 小时未更新则变红）
+      - name: 检查数据新鲜度（超 36 小时无正常复查则变红）
         run: python3 scripts/check-freshness.py
 
       # 这一步只负责"告诉你该去开电脑"，不重复解释 API 病因
@@ -29,7 +26,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ALERT_HINT: |
-            这条任务不调 AI，它只盯"main 上最近一次数据提交距今多久"。
-            每日更新由本机 Mac 的 07:30 定时任务产生（套餐端点境外不可达，所以没放在 Actions）。
-            变红大概率是那台电脑没开机/没网，或脚本自身失败——本机日志在 ~/Library/Logs/pbrun-daily-update.log。
-            补救：在仓库目录执行 bash scripts/daily-update-mac.sh
+            心跳检查 main 上最近一次正常完成的全量复查。手工补录赛事不会刷新这个时间。
+            请检查 data/update-health.json 和更新机器的运行日志。
+            本机更新日志：~/Library/Logs/pbrun-daily-update.log。

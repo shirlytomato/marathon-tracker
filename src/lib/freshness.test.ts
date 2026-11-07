@@ -24,12 +24,24 @@ describe("data freshness", () => {
     expect(formatCheckedAt(null)).toBe("暂无记录");
     expect(formatCheckedAt("bad")).toBe("暂无记录");
   });
-  it("部分/全部失败保留上次完整成功时间，零待查也记录任务运行", () => {
+  // 用例取自日志里 7 次真实运行：正常批次失败率 6.7%~17.2%，端点不可达的真故障 79%~92%
+  it("失败率不超过 20% 视为跑通并推进时间，超过则保留上次", () => {
     const previous = { lastSuccessfulRun: "2026-10-10T00:00:00Z", lastRun: null };
     const stamp = now.toISOString();
-    expect(recordRun(previous, 2, 1, stamp).lastSuccessfulRun).toBe(previous.lastSuccessfulRun);
-    expect(recordRun(previous, 0, 3, stamp).lastSuccessfulRun).toBe(previous.lastSuccessfulRun);
-    expect(recordRun(previous, 3, 0, stamp).lastSuccessfulRun).toBe(stamp);
-    expect(recordRun(previous, 0, 0, stamp).lastRun).toEqual({ completedAt: stamp, succeeded: 0, failed: 0 });
+    expect(recordRun(previous, 39, 0, stamp).lastSuccessfulRun).toBe(stamp);    // 10-11：0%
+    expect(recordRun(previous, 43, 1, stamp).lastSuccessfulRun).toBe(stamp);    // 10-16：2.3%
+    expect(recordRun(previous, 28, 2, stamp).lastSuccessfulRun).toBe(stamp);    // 10-06：6.7%
+    expect(recordRun(previous, 24, 5, stamp).lastSuccessfulRun).toBe(stamp);    // 10-07：17.2%
+    expect(recordRun(previous, 4, 1, stamp).lastSuccessfulRun).toBe(stamp);     // 20%，边界内
+    expect(recordRun(previous, 2, 1, stamp).lastSuccessfulRun).toBe(previous.lastSuccessfulRun);   // 33%
+    expect(recordRun(previous, 10, 37, stamp).lastSuccessfulRun).toBe(previous.lastSuccessfulRun); // 10-09：79%
+    expect(recordRun(previous, 3, 35, stamp).lastSuccessfulRun).toBe(previous.lastSuccessfulRun);  // 10-08：92%
+  });
+  it("零待查也算一次完整运行，失败场次名随批次入库", () => {
+    const previous = { lastSuccessfulRun: null, lastRun: null };
+    const stamp = now.toISOString();
+    expect(recordRun(previous, 0, 0, stamp).lastSuccessfulRun).toBe(stamp);
+    expect(recordRun(previous, 0, 0, stamp).lastRun).toEqual({ completedAt: stamp, succeeded: 0, failed: 0, failedNames: [] });
+    expect(recordRun(previous, 1, 1, stamp, ["神奇泰国曼谷马拉松"]).lastRun?.failedNames).toEqual(["神奇泰国曼谷马拉松"]);
   });
 });

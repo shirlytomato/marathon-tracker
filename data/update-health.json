@@ -1,8 +1,9 @@
 {
-  "lastSuccessfulRun": null,
+  "lastSuccessfulRun": "2026-11-07T15:42:38.793Z",
   "lastRun": {
-    "completedAt": "2026-10-16T15:16:25.388Z",
-    "succeeded": 43,
-    "failed": 1
+    "completedAt": "2026-11-07T15:42:38.793Z",
+    "succeeded": 25,
+    "failed": 0,
+    "failedNames": []
   }
 }

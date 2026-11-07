@@ -34,12 +34,10 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
   // 报名中且 7 天内截止 → 红色高亮
   const urgent = status === "open" && daysLeft !== null && daysLeft <= 7;
 
-  // 次要信息：只展示有值的字段，一行带过
+  // 规模与报名费刻意不上卡片：全站仅 47/331 与 10/331 有值，逐场显示会让卡片长短不齐；数据字段保留
   const details = [
     race.events.join(" / "),
-    race.scale && `规模 ${race.scale}`,
     race.lotteryDate && `抽签 ${race.lotteryDate.slice(5)}`,
-    race.fee,
     `记录更新 ${formatCheckedAt(race.updatedAt)}（北京时间）`,
   ].filter(Boolean);
 
@@ -62,15 +60,9 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
         )}
       </div>
 
-      {/* 主信息行：赛事名 + 官网 */}
+      {/* 主信息行：赛事名。officialSite 不再单独成链接行，仅作信息来源并入「来源与报名通道」面板 */}
       <div className="mt-2 flex flex-wrap items-start gap-x-3 gap-y-1">
         <h3 className="min-w-0 break-words text-xl font-bold tracking-tight text-slate-900 lg:text-2xl">{race.name}</h3>
-        {race.officialSite && (
-          <a href={race.officialSite} target="_blank" rel="noreferrer"
-             className="inline-flex min-h-11 shrink-0 items-center text-sm font-medium text-orange-500 hover:text-orange-600 lg:text-base">
-            赛事官网 ↗
-          </a>
-        )}
       </div>
 
       {/* 关键行：比赛日期 · 地点 · 报名截止（跑者最关心的三件事） */}
@@ -85,12 +77,10 @@ export default function RaceCard({ race, now }: { race: Race; now: Date }) {
           <span className={urgent ? "font-bold text-red-600" : "font-semibold text-emerald-600"}>
             报名 {daysLeft === 0 ? "今天截止" : `还剩 ${daysLeft} 天`}
           </span>
-        ) : status === "open" ? (
-          <span>报名截止日期待确认</span>
         ) : race.regStart && race.regEnd ? (
           <span>报名 {race.regStart.slice(5)} 至 {race.regEnd.slice(5)}</span>
         ) : status !== "finished" ? (
-          <span>报名日期待确认</span>
+          <span>报名日期未收录</span>
         ) : null}
       </div>
 

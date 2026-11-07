@@ -11,6 +11,13 @@ describe("赛期人工复核", () => {
     expect(race.raceDate).toBe("2026-11-01");
     for (const value of ["2026-11-01", "2026-02-30", "2027-11-01", undefined]) expect(proposeDate(race, value, [], "官方确认", now)).toBeNull();
   });
+  it("人工驳回过的同一候选不再入队，但换日期或原值变了仍算新候选", () => {
+    const rejected = new Set([proposal.id]);
+    expect(proposeDate(race, "2026-11-08", ["https://example.org/notice"], "模型再提同一天", now, rejected)).toBeNull();
+    expect(proposeDate(race, "2026-11-15", [], "改口提另一天", now, rejected)?.to).toBe("2026-11-15");
+    expect(proposeDate({ ...race, raceDate: "2026-11-02" }, "2026-11-08", [], "库里日期已变", now, rejected)?.id).toBe("demo:2026-11-02:2026-11-08");
+    expect(proposeDate(race, "2026-11-08", [], "不传历史照旧入队", now)?.id).toBe(proposal.id);
+  });
   it("批准保存对应赛期证据和时间，不原地修改输入", () => {
     const [next] = approveDate([race], proposal, "https://example.org/notice", now);
     expect(next.raceDate).toBe("2026-11-08");
