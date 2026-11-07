@@ -3042,7 +3042,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-11-02T06:30:27.083Z",
+    "updatedAt": "2026-11-07T15:26:39.476Z",
     "officialSite": "https://fuchuan.sport-china.cn"
   },
   {
@@ -3057,7 +3057,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-10-29T11:25:00.217Z"
+    "updatedAt": "2026-11-07T15:26:53.499Z"
   },
   {
     "id": "河源万绿湖马拉松",
@@ -3071,7 +3071,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-11-02T06:31:27.732Z",
+    "updatedAt": "2026-11-07T15:27:48.760Z",
     "regStart": "2026-10-26",
     "regEnd": "2026-11-15",
     "needLottery": true,
@@ -3270,7 +3270,7 @@
     ],
     "category": "platinum",
     "officialSite": "https://www.valenciaciudaddelrunning.com/",
-    "updatedAt": "2026-10-29T11:28:43.036Z"
+    "updatedAt": "2026-11-07T15:28:04.153Z"
   },
   {
     "id": "dubai-marathon",
@@ -3285,7 +3285,7 @@
     ],
     "category": "platinum",
     "officialSite": "https://www.dubaimarathon.org/",
-    "updatedAt": "2026-10-31T06:52:53.769Z"
+    "updatedAt": "2026-11-07T15:28:14.678Z"
   },
   {
     "id": "rotterdam-marathon",
@@ -4065,7 +4065,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:31:45.161Z",
+    "updatedAt": "2026-11-07T15:28:26.265Z",
     "officialSite": "https://chenzhou.sport-china.cn/"
   },
   {
@@ -4079,7 +4079,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:32:07.122Z",
+    "updatedAt": "2026-11-07T15:28:58.704Z",
     "sources": [
       {
         "url": "http://www.zgm.cn/content/6ad1d60e85fc2",
@@ -4100,7 +4100,7 @@
         "verifiedAt": "2026-11-07T01:43:52.858+08:00"
       }
     ],
-    "regStart": "2026-10-13"
+    "regStart": "2026-10-10"
   },
   {
     "id": "崇左马拉松",
@@ -4113,7 +4113,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:32:46.371Z"
+    "updatedAt": "2026-11-07T15:29:38.184Z"
   },
   {
     "id": "罗城半程马拉松",
@@ -4126,7 +4126,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:33:18.364Z"
+    "updatedAt": "2026-11-07T15:29:55.439Z"
   },
   {
     "id": "武汉光谷马拉松",
@@ -4365,7 +4365,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:35:31.471Z",
+    "updatedAt": "2026-11-07T15:30:11.966Z",
     "officialSite": "http://www.exprun.com/"
   },
   {
@@ -4550,8 +4550,9 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:37:51.209Z",
-    "lotteryDate": "2026-10-15"
+    "updatedAt": "2026-11-07T15:31:01.373Z",
+    "lotteryDate": "2026-10-15",
+    "regEnd": "2026-10-08"
   },
   {
     "id": "婺源马拉松",
@@ -4564,7 +4565,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:38:03.412Z"
+    "updatedAt": "2026-11-07T15:31:11.815Z"
   },
   {
     "id": "阳江海陵岛马拉松",
@@ -4578,7 +4579,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:38:21.310Z",
+    "updatedAt": "2026-11-07T15:31:50.055Z",
     "sources": [
       {
         "url": "https://www.yjrb.com.cn/content/c352492.html",
@@ -4619,7 +4620,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-09T01:28:20.457Z",
+    "updatedAt": "2026-11-07T15:32:30.700Z",
     "officialSite": "https://yuhuan.zjim.org/"
   },
   {
@@ -4633,7 +4634,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-16T15:02:34.016Z",
+    "updatedAt": "2026-11-07T15:33:07.849Z",
     "officialSite": "http://www.sco-marathon.com/"
   },
   {
@@ -4658,12 +4659,13 @@
     "country": "中国",
     "province": "江西",
     "raceDate": "2026-12-06",
-    "regStatus": "pending",
+    "regStatus": "drawing",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-10-16T15:02:58.017Z"
+    "updatedAt": "2026-11-07T15:33:37.004Z",
+    "lotteryDate": "2026-11-01"
   },
   {
     "id": "厦门海沧半程马拉松",
@@ -4676,7 +4678,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-08T01:24:25.456Z",
+    "updatedAt": "2026-11-07T15:33:53.680Z",
     "officialSite": "https://www.xmhaicangmarathon.com/"
   },
   {
@@ -4690,7 +4692,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-09T01:28:27.840Z"
+    "updatedAt": "2026-11-07T15:34:00.514Z"
   },
   {
     "id": "澄迈半程马拉松",
@@ -4742,7 +4744,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-11-02T06:39:02.731Z",
+    "updatedAt": "2026-11-07T15:34:28.975Z",
     "regStart": "2026-10-15",
     "scale": "8000人",
     "fee": "马拉松150元/半程120元",
@@ -4797,7 +4799,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-11-02T06:41:45.970Z",
+    "updatedAt": "2026-11-07T15:34:51.399Z",
     "regStart": "2026-09-30",
     "regEnd": "2026-11-20",
     "scale": "12000人",
@@ -4925,7 +4927,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T14:55:00.000Z",
+    "updatedAt": "2026-11-07T15:35:24.535Z",
     "officialSite": "http://danma.cn/",
     "regStart": "2026-09-16",
     "regEnd": "2026-11-12",
@@ -5055,7 +5057,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-11-02T06:44:51.026Z",
+    "updatedAt": "2026-11-07T15:38:42.556Z",
     "regEnd": "2026-11-26",
     "scale": "12000人",
     "location": "梅县人民广场（起点）",
@@ -5080,7 +5082,8 @@
         "requirements": "预报名与缴费于 11 月 26 日 18:00 截止，先缴费后抽签，12 月初公布结果；也可通过「梅州马拉松赛」公众号或「第一赛道」APP。",
         "url": "https://reg.zuicool.com/en/12088"
       }
-    ]
+    ],
+    "regStart": "2026-10-01"
   },
   {
     "id": "雅安雨城半程马拉松",
@@ -5093,7 +5096,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T14:55:00.000Z",
+    "updatedAt": "2026-11-07T15:39:00.434Z",
     "sources": [
       {
         "url": "https://www.zhaobiao.cn/",
@@ -5175,7 +5178,7 @@
     "scale": "48000人",
     "category": "B",
     "officialSite": "https://www.atmbkk.com",
-    "updatedAt": "2026-09-09T01:28:34.304Z",
+    "updatedAt": "2026-11-07T15:39:19.156Z",
     "registrationChannels": [
       {
         "name": "泰国铁人三项联盟报名",
@@ -5187,7 +5190,8 @@
         "url": "https://thailandtrileagueonline.com/atmb26/registrations",
         "requirements": "赛事报名系统显示各距离均已售罄。"
       }
-    ]
+    ],
+    "regStart": "2026-07-01"
   },
   {
     "id": "chiangmai-marathon",
@@ -5468,7 +5472,7 @@
       "10公里"
     ],
     "category": "B",
-    "updatedAt": "2026-10-16T15:16:25.386Z",
+    "updatedAt": "2026-11-07T15:42:38.790Z",
     "regEnd": "2026-11-30",
     "registrationChannels": [
       {
