@@ -1,9 +1,14 @@
 {
-  "lastSuccessfulRun": "2026-11-07T15:42:38.793Z",
+  "lastSuccessfulRun": "2026-11-13T11:49:52.882Z",
   "lastRun": {
-    "completedAt": "2026-11-07T15:42:38.793Z",
-    "succeeded": 25,
-    "failed": 0,
-    "failedNames": []
+    "completedAt": "2026-11-13T11:49:52.882Z",
+    "succeeded": 16,
+    "failed": 4,
+    "failedNames": [
+      "深圳南山半程马拉松",
+      "梅州马拉松",
+      "神奇泰国曼谷马拉松",
+      "首尔马拉松"
+    ]
   }
 }

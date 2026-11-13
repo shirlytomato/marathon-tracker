@@ -3057,7 +3057,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-11-07T15:26:53.499Z"
+    "updatedAt": "2026-11-13T11:08:16.440Z"
   },
   {
     "id": "河源万绿湖马拉松",
@@ -3071,7 +3071,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-11-07T15:27:48.760Z",
+    "updatedAt": "2026-11-13T11:09:46.467Z",
     "regStart": "2026-10-26",
     "regEnd": "2026-11-15",
     "needLottery": true,
@@ -3270,7 +3270,7 @@
     ],
     "category": "platinum",
     "officialSite": "https://www.valenciaciudaddelrunning.com/",
-    "updatedAt": "2026-11-07T15:28:04.153Z"
+    "updatedAt": "2026-11-13T11:10:19.875Z"
   },
   {
     "id": "dubai-marathon",
@@ -4079,7 +4079,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:28:58.704Z",
+    "updatedAt": "2026-11-13T11:10:38.155Z",
     "sources": [
       {
         "url": "http://www.zgm.cn/content/6ad1d60e85fc2",
@@ -4365,7 +4365,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:30:11.966Z",
+    "updatedAt": "2026-11-13T11:10:53.281Z",
     "officialSite": "http://www.exprun.com/"
   },
   {
@@ -4579,7 +4579,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:31:11.815Z"
+    "updatedAt": "2026-11-13T11:11:39.258Z"
   },
   {
     "id": "阳江海陵岛马拉松",
@@ -4593,7 +4593,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:31:50.055Z",
+    "updatedAt": "2026-11-13T11:12:15.461Z",
     "sources": [
       {
         "url": "https://www.yjrb.com.cn/content/c352492.html",
@@ -4634,7 +4634,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:32:30.700Z",
+    "updatedAt": "2026-11-13T11:12:26.082Z",
     "officialSite": "https://yuhuan.zjim.org/"
   },
   {
@@ -4648,7 +4648,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:33:07.849Z",
+    "updatedAt": "2026-11-13T11:12:49.087Z",
     "officialSite": "http://www.sco-marathon.com/"
   },
   {
@@ -4673,12 +4673,12 @@
     "country": "中国",
     "province": "江西",
     "raceDate": "2026-12-06",
-    "regStatus": "drawing",
+    "regStatus": "pending",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:33:37.004Z",
+    "updatedAt": "2026-11-13T11:13:33.929Z",
     "lotteryDate": "2026-11-01"
   },
   {
@@ -4687,13 +4687,15 @@
     "country": "中国",
     "province": "福建",
     "raceDate": "2026-12-06",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:33:53.680Z",
-    "officialSite": "https://www.xmhaicangmarathon.com/"
+    "updatedAt": "2026-11-13T11:15:43.940Z",
+    "officialSite": "https://www.xmhaicangmarathon.com/",
+    "regStart": "2026-09-17",
+    "regEnd": "2026-10-08"
   },
   {
     "id": "云浮新兴半程马拉松",
@@ -4706,7 +4708,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:34:00.514Z"
+    "updatedAt": "2026-11-13T11:16:12.750Z"
   },
   {
     "id": "澄迈半程马拉松",
@@ -4758,7 +4760,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-11-07T15:34:28.975Z",
+    "updatedAt": "2026-11-13T11:17:01.948Z",
     "regStart": "2026-10-15",
     "scale": "8000人",
     "fee": "马拉松150元/半程120元",
@@ -4799,7 +4801,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-03T01:24:56.803Z"
+    "updatedAt": "2026-11-13T11:17:32.599Z"
   },
   {
     "id": "宁德马拉松",
@@ -4813,7 +4815,7 @@
       "半程马拉松"
     ],
     "category": "unknown",
-    "updatedAt": "2026-11-07T15:34:51.399Z",
+    "updatedAt": "2026-11-13T11:17:59.470Z",
     "regStart": "2026-09-30",
     "regEnd": "2026-11-20",
     "scale": "12000人",
@@ -5110,7 +5112,7 @@
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-07T15:39:00.434Z",
+    "updatedAt": "2026-11-13T11:34:33.733Z",
     "sources": [
       {
         "url": "https://www.zhaobiao.cn/",
