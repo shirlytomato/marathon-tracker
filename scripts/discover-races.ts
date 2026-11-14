@@ -13,6 +13,7 @@ import type { Race } from "../src/types/race";
 import { deriveStatus, toStoredStatus } from "../src/lib/status";
 import { qwenSearch, logUsage } from "./lib/qwen";
 import { collectSourceHints } from "../src/lib/evidence";
+import { inIntlScope } from "../src/lib/intl-scope";
 import { siteReachable } from "./lib/site-reach";
 import { buildWindow, cleanEvents, cleanRegion, cleanText, findDuplicate, screenRace } from "./lib/validation";
 
@@ -110,6 +111,12 @@ async function main() {
   const shortlist: Candidate[] = [];
   for (const c of candidates) {
     if (!c.name || !c.raceDate) { console.log(`  丢弃（缺名称或日期）: ${c.name ?? "?"}`); continue; }
+    // 国际赛事只收大满贯/白金标/金标/日本（src/lib/intl-scope.ts）。巡检拿不到认证级别，
+    // 候选一律按 unknown 判，等于不再自动收录非中国、非日本的赛事，免得删掉后又被捞回来。
+    if (!inIntlScope({ country: c.country || "中国", category: "unknown" })) {
+      console.log(`  不收（国际赛事仅收大满贯/白金标/金标/日本）: ${c.name}（${c.country ?? "?"}）`);
+      continue;
+    }
     const dupEarly = findDuplicate(c, known());
     if (dupEarly) { console.log(`  跳过（与库内「${dupEarly.name}」为同一场）: ${c.name}`); continue; }
     const why = screenRace(c.raceDate);
