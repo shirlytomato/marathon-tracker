@@ -5173,67 +5173,6 @@
     "updatedAt": "2026-08-24T10:30:00+08:00"
   },
   {
-    "id": "jtbc-seoul-marathon",
-    "name": "JTBC首尔马拉松",
-    "country": "韩国",
-    "city": "首尔",
-    "raceDate": "2026-11-01",
-    "location": "桑格姆世界杯公园（起点）",
-    "regStatus": "pending",
-    "events": [
-      "全程马拉松"
-    ],
-    "scale": "30000人",
-    "category": "B",
-    "updatedAt": "2026-10-29T11:51:45.568Z"
-  },
-  {
-    "id": "bangkok-marathon",
-    "name": "神奇泰国曼谷马拉松",
-    "country": "泰国",
-    "city": "曼谷",
-    "raceDate": "2026-11-29",
-    "location": "皇家田广场",
-    "regStatus": "closed",
-    "events": [
-      "全程马拉松",
-      "半程马拉松"
-    ],
-    "scale": "48000人",
-    "category": "B",
-    "officialSite": "https://www.atmbkk.com",
-    "updatedAt": "2026-11-14T11:37:23.736Z",
-    "registrationChannels": [
-      {
-        "name": "泰国铁人三项联盟报名",
-        "kind": "general",
-        "entranceType": "platform",
-        "sourceUrl": "https://thailandtrileagueonline.com/atmb26/registrations",
-        "verifiedAt": "2026-11-07T01:43:52.858+08:00",
-        "status": "closed",
-        "url": "https://thailandtrileagueonline.com/atmb26/registrations",
-        "requirements": "赛事报名系统显示各距离均已售罄。"
-      }
-    ],
-    "regStart": "2026-07-01"
-  },
-  {
-    "id": "chiangmai-marathon",
-    "name": "清迈马拉松",
-    "country": "泰国",
-    "city": "清迈",
-    "raceDate": "2026-12-20",
-    "location": "塔佩门",
-    "regEnd": "2026-08-31",
-    "regStatus": "pending",
-    "events": [
-      "全程马拉松",
-      "半程马拉松"
-    ],
-    "category": "B",
-    "updatedAt": "2026-09-03T01:25:37.646Z"
-  },
-  {
     "id": "singapore-marathon",
     "name": "新加坡马拉松",
     "country": "新加坡",
@@ -5249,24 +5188,6 @@
     "category": "gold",
     "officialSite": "https://singaporeinternationalmarathon.com",
     "updatedAt": "2026-10-11T13:34:14.313Z"
-  },
-  {
-    "id": "kuala-lumpur-marathon",
-    "name": "渣打吉隆坡马拉松",
-    "country": "马来西亚",
-    "city": "吉隆坡",
-    "raceDate": "2026-10-04",
-    "location": "拉惹劳特路（起点）",
-    "regEnd": "2026-05-30",
-    "regStatus": "pending",
-    "events": [
-      "全程马拉松",
-      "半程马拉松"
-    ],
-    "scale": "40000人",
-    "category": "B",
-    "updatedAt": "2026-09-08T01:24:49.078Z",
-    "officialSite": "https://www.klmarathon.com"
   },
   {
     "id": "dunhuang-half-marathon",
@@ -5495,7 +5416,7 @@
       "全程马拉松",
       "10公里"
     ],
-    "category": "B",
+    "category": "platinum",
     "updatedAt": "2026-11-14T11:38:49.282Z",
     "regEnd": "2026-11-30",
     "registrationChannels": [

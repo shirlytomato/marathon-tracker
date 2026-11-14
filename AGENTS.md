@@ -114,6 +114,10 @@ launchctl bootout gui/$(id -u)/run.pbrun.update-3day         # 停用
    原先按 `norm(name)` 精确比对拦不住改名变体，2026-09-28 页面上已出现 9 组重复卡片。
    三条规则（同名/同赛期互为包含/同赛期同城且一方是城市主赛事）均**要求同年**，
    否则伦敦马拉松这类每年一届的同名赛事会被误拦、真赛事永久漏收。
+8. **国际赛事收录范围（2026-11-14 定）**：只收大满贯、白金标、金标和日本赛事，其余不收录。
+   判据唯一实现在 `src/lib/intl-scope.ts`（带单元测试），discover-races.ts 在花钱核实前拦掉范围外候选；
+   巡检拿不到认证级别（一律 unknown），实际效果是非中国、非日本赛事不再自动入库，
+   大满贯/金标/白金标需人工核验后手动添加。删除赛事时同步清 `data/knownIds.json`。
 
 ## GitHub Secrets（仓库 Settings → Secrets and variables → Actions）
 
