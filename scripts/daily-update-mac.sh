@@ -7,7 +7,7 @@
 # 要加就带 --with-digest / --with-discover。
 #
 # --scheduled 供 LaunchAgent 使用（scripts/run.pbrun.update-3day.plist）：
-# 每天 20:00 触发 + 每次登录补跑；距上次成功不满 72 小时就秒退，不花 token。
+# 每天 10:00 触发 + 每次登录补跑；距上次成功不满 68 小时就秒退，不花 token。
 # 手动触发不带这个参数，永远立刻跑。
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -46,9 +46,11 @@ fail() {
 }
 
 # ── 定时模式（--scheduled）的几个保护 ───────────────────────────
-# 3 天节奏：以 update-status.ts 写入的 lastSuccessfulRun 为准，不满 72 小时就跳过；
+# 3 天节奏：以 update-status.ts 写入的 lastSuccessfulRun 为准，不满 68 小时就跳过；
 # 这样每天触发一次只是"检查"，真正花钱的那轮平均每 3 天才跑一次。
-MIN_INTERVAL_H=72
+# 不卡 72：一轮要跑约 40 分钟，lastSuccessfulRun 记的是"跑完"的时刻，
+# 三天后同一时刻只过了 71 小时多，按 72 卡会一路漂到第 4 天。
+MIN_INTERVAL_H=68
 
 # 手动与定时共用一把目录锁：两轮同时写 races.json 会互相覆盖（2026-10 踩过）。
 acquire_lock() {

@@ -5,17 +5,17 @@
 `bash scripts/daily-update-mac.sh --scheduled`；也可随时手动执行不带参数的同一条脚本）+ 阿里云百炼千问 API 维护，前端部署在 Vercel。
 （GitHub Actions 那两个**调 AI** 的 workflow 已停用：套餐专属端点只有境内网络可达，境外 runner 连它一律超时；
 只保留一个不调 AI 的数据新鲜度心跳。旧 07:30 LaunchAgent 曾在 2026-10-11 卸载——合盖休眠时系统只给约 40 秒
-DarkWake，Wi-Fi/DNS 还没挂上就睡回去，连挂 4 天；新方案改成每天 20:00 检查 + 每次登录补跑 + 开跑前等网络就绪，
+DarkWake，Wi-Fi/DNS 还没挂上就睡回去，连挂 4 天；新方案改成每天 10:00 检查 + 每次登录补跑 + 开跑前等网络就绪，
 触发失败也能在下次登录自动补上，不再是一次错过多天全灭。）
 
 ## 数据流（改任何一环前先读这段）
 
 ```
 data/races.json（唯一事实源，331 场）
-  ├─ 自动触发（LaunchAgent run.pbrun.update-3day）：每天 20:00 + 每次登录补跑
+  ├─ 自动触发（LaunchAgent run.pbrun.update-3day）：每天 10:00 + 每次登录补跑
   │    cd ~/pbrun/marathon-tracker && bash scripts/daily-update-mac.sh --scheduled
   │    （在运行副本里跑；脚本第一步自己 git pull，副本代码隔久了会在下一次触发时自动跟上）
-  │    距 data/update-health.json 的 lastSuccessfulRun 不满 72 小时 → 秒退，不花 token
+  │    距 data/update-health.json 的 lastSuccessfulRun 不满 68 小时 → 秒退，不花 token
   │    开跑前先探测百炼端点与 github.com，最多等 5 分钟；失败交给下一次触发（登录时必补）
   │    →（可选）加 --with-discover 先跑 scripts/discover-races.ts 巡检新官宣赛事（约 10 次调用、6~10 万 token，
   │      Actions 那条每周一/三/六的巡检 workflow 已停用且没并回本机链路，最后入库是 2026-09-30，隔久了页面就没有新赛事）
@@ -54,8 +54,8 @@ npx tsx scripts/dedupe-races.ts              # 存量清洗+重复合并（默�
 npm run dev                                   # 本地预览前端
 ```
 
-定时任务（**当前启用**：`run.pbrun.update-3day`，每天 20:00 + 每次登录补跑。
-脚本内部按 `lastSuccessfulRun` 判断满不满 72 小时，不满就秒退，所以真正花钱的复查平均 3 天一轮；
+定时任务（**当前启用**：`run.pbrun.update-3day`，每天 10:00 + 每次登录补跑。
+脚本内部按 `lastSuccessfulRun` 判断满不满 68 小时，不满就秒退，所以真正花钱的复查平均 3 天一轮；
 开跑前最多等 5 分钟网络就绪，失败会在下一次登录时自动补上。旧 `run.pbrun.daily-update`
 已于 2026-10-11 停用，plist 备份仍在 `scripts/run.pbrun.daily-update.plist`，不要重新启用）：
 
@@ -70,8 +70,8 @@ npm run dev                                   # 本地预览前端
 ```bash
 cp scripts/run.pbrun.update-3day.plist ~/Library/LaunchAgents/
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/run.pbrun.update-3day.plist
-launchctl print gui/$(id -u)/run.pbrun.update-3day | head    # 确认已挂上（20:00 + RunAtLoad）
-launchctl kickstart -k gui/$(id -u)/run.pbrun.update-3day    # 立刻试跑一次（不满 72 小时只会秒退）
+launchctl print gui/$(id -u)/run.pbrun.update-3day | head    # 确认已挂上（10:00 + RunAtLoad）
+launchctl kickstart -k gui/$(id -u)/run.pbrun.update-3day    # 立刻试跑一次（不满 68 小时只会秒退）
 launchctl bootout gui/$(id -u)/run.pbrun.update-3day         # 停用
 ```
 
