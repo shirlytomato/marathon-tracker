@@ -4628,14 +4628,22 @@
     "name": "玉环半程马拉松",
     "country": "中国",
     "province": "浙江",
-    "raceDate": "2026-12-05",
+    "raceDate": "2026-12-06",
     "regStatus": "pending",
     "events": [
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-13T11:12:26.082Z",
-    "officialSite": "https://yuhuan.zjim.org/"
+    "updatedAt": "2026-11-14T10:59:07.449Z",
+    "officialSite": "https://yuhuan.zjim.org/",
+    "sources": [
+      {
+        "url": "https://yuhuan.zjim.org/sb/articleview.jsf?code=756457407&article=761497634",
+        "scope": "raceDate",
+        "observedAt": "2026-11-14T10:59:07.449Z",
+        "verifiedAt": "2026-11-14T10:59:07.449Z"
+      }
+    ]
   },
   {
     "id": "上合昆明马拉松",
