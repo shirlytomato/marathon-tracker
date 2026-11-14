@@ -8,7 +8,7 @@ const STATUS_STYLE: Record<DisplayStatus, { label: string; cls: string }> = {
   open: { label: "报名中", cls: "bg-emerald-50 text-emerald-700 border-emerald-200" },
   today: { label: "今日开跑", cls: "bg-orange-500 text-white border-orange-500" },
   drawing: { label: "抽签中", cls: "bg-amber-50 text-amber-700 border-amber-200" },
-  pending: { label: "筹备中", cls: "bg-violet-50 text-violet-700 border-violet-200" },
+  pending: { label: "待开放", cls: "bg-violet-50 text-violet-700 border-violet-200" },
   closed: { label: "报名已截止", cls: "bg-slate-100 text-slate-600 border-slate-200" },
   finished: { label: "已结束", cls: "bg-slate-50 text-slate-400 border-slate-100" },
 };
