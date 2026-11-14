@@ -57,7 +57,7 @@ export function deriveStatus(race: Race, now: Date): DisplayStatus {
   return race.regStatus === "finished" ? "pending" : race.regStatus;
 }
 
-const order: Record<DisplayStatus, number> = { open: 0, today: 1, pending: 2, drawing: 3, closed: 4, finished: 5 };
+const order: Record<DisplayStatus, number> = { pending: 0, open: 1, drawing: 2, closed: 3, today: 4, finished: 5 };
 
 /**
  * 写回数据文件时用："today" 只是展示层的状态，数据契约的 regStatus 仍只认 5 个值，

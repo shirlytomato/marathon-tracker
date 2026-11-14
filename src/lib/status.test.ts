@@ -96,18 +96,15 @@ describe("daysLeftUntil", () => {
 });
 
 describe("sortRaces", () => {
-  it("open 优先于 pending，pending 优先于 finished", () => {
-    const open: Race = { ...base, id: "open", regStart: "2026-08-01", regEnd: "2026-09-01", regStatus: "open" };
+  it("按状态的时间顺序：待开放 → 报名中 → 抽签中 → 已截止 → 今日开跑 → 已结束", () => {
     const pending: Race = { ...base, id: "pending" };
-    const finished: Race = { ...base, id: "finished", raceDate: "2026-01-01", regStatus: "finished" };
-    const sorted = sortRaces([finished, pending, open], now).map(r => r.id);
-    expect(sorted).toEqual(["open", "pending", "finished"]);
-  });
-  it("today 排在 open 之后、pending 之前", () => {
     const open: Race = { ...base, id: "open", regStart: "2026-08-01", regEnd: "2026-09-01", regStatus: "open" };
+    const drawing: Race = { ...base, id: "drawing", regStart: "2026-06-01", regEnd: "2026-08-10", needLottery: true, lotteryDate: "2026-08-25", regStatus: "open" };
+    const closed: Race = { ...base, id: "closed", regStart: "2026-06-01", regEnd: "2026-08-01", regStatus: "closed" };
     const today: Race = { ...base, id: "today", raceDate: "2026-08-21" };
-    const pending: Race = { ...base, id: "pending" };
-    expect(sortRaces([pending, today, open], now).map(r => r.id)).toEqual(["open", "today", "pending"]);
+    const finished: Race = { ...base, id: "finished", raceDate: "2026-01-01", regStatus: "finished" };
+    const sorted = sortRaces([finished, today, closed, drawing, open, pending], now).map(r => r.id);
+    expect(sorted).toEqual(["pending", "open", "drawing", "closed", "today", "finished"]);
   });
 });
 

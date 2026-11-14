@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Filters } from "@/lib/filters";
 
 const controlCls = "min-h-11 w-full rounded-xl border border-orange-100 bg-white px-3 text-sm text-slate-700 shadow-sm focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-200";
-const statusLabels: Record<string, string> = { open: "报名中", today: "今日开跑", drawing: "抽签中", pending: "待开放", closed: "已截止", finished: "已结束" };
+const statusLabels: Record<string, string> = { pending: "待开放", open: "报名中", drawing: "抽签中", closed: "已截止", today: "今日开跑", finished: "已结束" };
 
 export default function FilterBar({ filters, regions, events, months, onChange, onReset }: {
   filters: Filters; regions: string[]; events: string[]; months: string[];
