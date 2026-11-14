@@ -1,17 +1,20 @@
 # 🏃 Marathon Tracker — 全国+国际马拉松赛事追踪
 
-覆盖**中国田协认证赛事（A 类 + B 类）**与**世界马拉松大满贯、世界田联白金标赛事**的赛事追踪网站。集中查看比赛时间、报名窗口、竞赛项目和官方报名入口。数据由本机 Mac 手动触发 + 阿里云百炼千问 API 复查维护；AI 产出只作线索，赛期变更与报名通道经人工核验审批后入库。
+覆盖**中国田协认证赛事（A 类 + B 类）**与**世界马拉松大满贯、世界田联白金标赛事**的赛事追踪网站。集中查看比赛时间、报名窗口、竞赛项目和官方报名入口。数据由本机 Mac 每 3 天自动更新（也可随时手动触发）+ 阿里云百炼千问 API 复查维护；AI 产出只作线索，赛期变更与报名通道经人工核验审批后入库。
 
 ## 架构
 
 ```
 data/races.json（唯一事实源，331 场，无数据库）
-  ├─ 本机手动触发：bash scripts/daily-update-mac.sh
+  ├─ LaunchAgent run.pbrun.update-3day：每天 20:00 + 每次登录补跑
+  │    bash scripts/daily-update-mac.sh --scheduled
+  │    距上次成功不满 72 小时 → 秒退不花 token；满了才跑下面这条链路
   │    →（可选 --with-discover）discover-races.ts 巡检新官宣赛事
   │    → update-status.ts 分级复查：只查还可能发生变化的赛事
   │    → verify-data.ts 发布前检测（不过则不提交）→ 提交并 push 到 main
+  ├─ 手动触发（随时）：bash scripts/daily-update-mac.sh（不受 3 天判断限制）
   ├─ 每日 08:30（北京时间）watch-freshness.yml → check-freshness.py
-  │    数据超 36 小时未成功更新 → 流水线变红 + 告警 Issue（不调 AI、无需密钥）
+  │    数据超 96 小时未成功更新 → 流水线变红 + 告警 Issue（不调 AI、无需密钥）
   └─ 前端 src/（Next.js）直接读 races.json 渲染 → Vercel 自动部署
 ```
 
@@ -20,7 +23,7 @@ data/races.json（唯一事实源，331 场，无数据库）
 - **新赛事**：`scripts/discover-races.ts` 两段式巡检——先联网粗筛未来半年内即将举办的赛事（只要名称/地区/日期，去重在本地做），再对通过去重与日期校验的候选逐场核实组委会官方公告，核实不过直接丢弃。AI 新赛事认证级别只给 `unknown`，待人工核验
 - **复查**：`scripts/update-status.ts` 调用千问 API（联网搜索），复查范围由 `src/lib/schedule.ts` 分级调度：当前 19 场每天盯、11 场周检、18 场月检、283 场不再查（赛期已过或报名尘埃落定）；每次跑完打印 token 账单，可用 `--limit=N` 小量试跑
 - **人工审批**：AI 发现的赛期变更先进 `data/pending-reviews.json`，人工读取官方公告后用 `scripts/review-date.ts` 审批；报名通道只接受人工核验记录
-- **成本**：代码托管/部署使用免费额度；千问 API 只花在"还可能变化"的赛事上。实测一轮复查 25 场合计约 16.5 万 token（单场均值约 6600，qwen3.8-flash）；巡检一轮约 10 次调用、6~10 万 token
+- **成本**：代码托管/部署使用免费额度；千问 API 只花在"还可能变化"的赛事上。实测一轮复查 25 场合计约 16.5 万 token（单场均值约 6600，qwen3.8-flash）；巡检一轮约 10 次调用、6~10 万 token。当前平均 3 天一轮，约每月 10 轮
 
 ## 端点纪律（两次停摆的病根，改配置前必读）
 
@@ -42,13 +45,14 @@ npm run update:dry     # 复查试运行（不写文件）
 npx tsx scripts/verify-data.ts   # 发布前检测（字段契约 + 日期一致性 + 官网 HTTP 实测）
 ```
 
-日常数据更新固定在运行副本 `~/pbrun/marathon-tracker` 里手动触发（macOS 隐私限制与完整运维纪律见 `AGENTS.md`）：
+日常数据更新固定在运行副本 `~/pbrun/marathon-tracker` 里执行（macOS 隐私限制与完整运维纪律见 `AGENTS.md`）。默认由 LaunchAgent 每 3 天自动跑一轮，也可以随时手动触发：
 
 ```bash
-bash scripts/daily-update-mac.sh                     # 拉 main → 复查 → 检测 → 提交并 push
+bash scripts/daily-update-mac.sh                     # 手动立即更新（不做 3 天判断）
 bash scripts/daily-update-mac.sh --with-discover     # 顺带巡检新赛事
 bash scripts/daily-update-mac.sh --with-digest       # 顺带生成当日简报 Mail 草稿（发送由人按）
 # 日志：~/Library/Logs/pbrun-daily-update.log
+# 自动更新：scripts/run.pbrun.update-3day.plist（每天 20:00 + 登录补跑，满 72 小时才真正复查）
 ```
 
 ## 部署指南（从零开始）
@@ -95,7 +99,10 @@ git push -u origin main
 
 1. 本机执行 `bash scripts/daily-update-mac.sh`，日志在 `~/Library/Logs/pbrun-daily-update.log`
 2. 成功后 main 出现 `chore: 本机更新赛事数据` 提交，网站几分钟内自动展示最新数据
-3. GitHub Actions 里唯一活跃的定时任务是 `watch-freshness`（每日 08:30 心跳）：数据超 36 小时未成功更新会自动变红并开/追加告警 Issue，本机没开机也能报
+3. 自动更新（可选但推荐）：把 `scripts/run.pbrun.update-3day.plist` 复制到 `~/Library/LaunchAgents/` 后执行
+   `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/run.pbrun.update-3day.plist`。
+   它每天 20:00 触发、每次登录补跑，距上次成功满 72 小时才真正复查；停用用 `launchctl bootout`。
+4. GitHub Actions 里唯一活跃的定时任务是 `watch-freshness`（每日 08:30 心跳）：数据超 96 小时未成功更新会自动变红并开/追加告警 Issue，本机没开机也能报
 
 ## 目录结构
 
@@ -116,7 +123,8 @@ src/
   lib/races.ts             # 数据加载
   components/              # StatsBar / FilterBar / RaceCard / Tracker
 scripts/
-  daily-update-mac.sh      # 本机更新全流程（日常唯一触发入口）
+  daily-update-mac.sh      # 本机更新全流程（手动随时可跑；--scheduled 给 LaunchAgent 用）
+  run.pbrun.update-3day.plist  # 3 天节奏的 LaunchAgent 配置（每天 20:00 + 登录补跑）
   update-status.ts         # 分级复查脚本
   discover-races.ts        # 新赛事巡检脚本
   verify-data.ts           # 发布前检测关卡

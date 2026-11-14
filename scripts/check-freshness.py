@@ -6,7 +6,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-THRESHOLD_H = float(os.environ.get("STALE_HOURS", "36"))
+THRESHOLD_H = float(os.environ.get("STALE_HOURS", "96"))
 HEALTH_PATH = Path("data/update-health.json")
 
 try:
