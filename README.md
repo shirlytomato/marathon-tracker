@@ -6,7 +6,7 @@
 
 ```
 data/races.json（唯一事实源，331 场，无数据库）
-  ├─ LaunchAgent run.pbrun.update-3day：每天 20:00 + 每次登录补跑
+  ├─ LaunchAgent run.pbrun.update-3day：每天 10:00 + 每次登录补跑
   │    bash scripts/daily-update-mac.sh --scheduled
   │    距上次成功不满 72 小时 → 秒退不花 token；满了才跑下面这条链路
   │    →（可选 --with-discover）discover-races.ts 巡检新官宣赛事
@@ -52,7 +52,7 @@ bash scripts/daily-update-mac.sh                     # 手动立即更新（不�
 bash scripts/daily-update-mac.sh --with-discover     # 顺带巡检新赛事
 bash scripts/daily-update-mac.sh --with-digest       # 顺带生成当日简报 Mail 草稿（发送由人按）
 # 日志：~/Library/Logs/pbrun-daily-update.log
-# 自动更新：scripts/run.pbrun.update-3day.plist（每天 20:00 + 登录补跑，满 72 小时才真正复查）
+# 自动更新：scripts/run.pbrun.update-3day.plist（每天 10:00 + 登录补跑，满 72 小时才真正复查）
 ```
 
 ## 部署指南（从零开始）
@@ -101,7 +101,7 @@ git push -u origin main
 2. 成功后 main 出现 `chore: 本机更新赛事数据` 提交，网站几分钟内自动展示最新数据
 3. 自动更新（可选但推荐）：把 `scripts/run.pbrun.update-3day.plist` 复制到 `~/Library/LaunchAgents/` 后执行
    `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/run.pbrun.update-3day.plist`。
-   它每天 20:00 触发、每次登录补跑，距上次成功满 72 小时才真正复查；停用用 `launchctl bootout`。
+   它每天 10:00 触发、每次登录补跑，距上次成功满 72 小时才真正复查；停用用 `launchctl bootout`。
 4. GitHub Actions 里唯一活跃的定时任务是 `watch-freshness`（每日 08:30 心跳）：数据超 96 小时未成功更新会自动变红并开/追加告警 Issue，本机没开机也能报
 
 ## 目录结构
@@ -124,7 +124,7 @@ src/
   components/              # StatsBar / FilterBar / RaceCard / Tracker
 scripts/
   daily-update-mac.sh      # 本机更新全流程（手动随时可跑；--scheduled 给 LaunchAgent 用）
-  run.pbrun.update-3day.plist  # 3 天节奏的 LaunchAgent 配置（每天 20:00 + 登录补跑）
+  run.pbrun.update-3day.plist  # 3 天节奏的 LaunchAgent 配置（每天 10:00 + 登录补跑）
   update-status.ts         # 分级复查脚本
   discover-races.ts        # 新赛事巡检脚本
   verify-data.ts           # 发布前检测关卡

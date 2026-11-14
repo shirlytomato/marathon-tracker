@@ -13,12 +13,12 @@
   <!-- 路径指向 ~/pbrun 而不是 ~/Documents：macOS 隐私保护禁止 launchd 起的 /bin/bash 读
        "文稿"目录（实测静默拒绝、无授权弹窗，ls/head/git 一律 Operation not permitted）。
        运行副本每次开跑先 git pull，与 ~/Documents/marathon-tracker 共用远端 main。 -->
-  <!-- 每天 20:00 触发 + 每次登录/开机补跑（RunAtLoad）。脚本自己判断距上次成功是否满 72 小时，
+  <!-- 每天 10:00 触发 + 每次登录/开机补跑（RunAtLoad）。脚本自己判断距上次成功是否满 72 小时，
        不满就秒退；所以真正花钱的复查平均 3 天一次，而错过的触发会在下次登录时自动补上。 -->
   <key>StartCalendarInterval</key>
   <dict>
     <key>Hour</key>
-    <integer>20</integer>
+    <integer>10</integer>
     <key>Minute</key>
     <integer>0</integer>
   </dict>

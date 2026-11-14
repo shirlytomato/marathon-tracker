@@ -7,7 +7,7 @@
 # 要加就带 --with-digest / --with-discover。
 #
 # --scheduled 供 LaunchAgent 使用（scripts/run.pbrun.update-3day.plist）：
-# 每天 20:00 触发 + 每次登录补跑；距上次成功不满 72 小时就秒退，不花 token。
+# 每天 10:00 触发 + 每次登录补跑；距上次成功不满 72 小时就秒退，不花 token。
 # 手动触发不带这个参数，永远立刻跑。
 set -euo pipefail
 cd "$(dirname "$0")/.."
