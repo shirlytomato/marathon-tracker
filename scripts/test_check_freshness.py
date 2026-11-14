@@ -11,7 +11,10 @@ SCRIPT = Path(__file__).resolve().with_name("check-freshness.py")
 
 
 class CheckFreshnessTest(unittest.TestCase):
-    def run_check(self, health, stale_hours="36"):
+    def run_check(self, health, stale_hours=None):
+        env = {key: value for key, value in os.environ.items() if key != "STALE_HOURS"}
+        if stale_hours is not None:
+            env["STALE_HOURS"] = stale_hours
         with tempfile.TemporaryDirectory() as directory:
             data = Path(directory) / "data"
             data.mkdir()
@@ -22,7 +25,7 @@ class CheckFreshnessTest(unittest.TestCase):
             return subprocess.run(
                 [sys.executable, str(SCRIPT)],
                 cwd=directory,
-                env={**os.environ, "STALE_HOURS": stale_hours},
+                env=env,
                 capture_output=True,
                 text=True,
             )
@@ -35,11 +38,11 @@ class CheckFreshnessTest(unittest.TestCase):
     def test_manual_edit_and_recent_failed_run_do_not_reset_stale_success(self):
         now = datetime.now(timezone.utc)
         result = self.run_check(json.dumps({
-            "lastSuccessfulRun": (now - timedelta(hours=37)).isoformat(),
+            "lastSuccessfulRun": (now - timedelta(hours=97)).isoformat(),
             "lastRun": {"completedAt": now.isoformat(), "succeeded": 0, "failed": 4},
         }))
         self.assertEqual(result.returncode, 1)
-        self.assertIn("超过 36 小时", result.stderr)
+        self.assertIn("超过 96 小时", result.stderr)
 
     def test_configured_threshold(self):
         stamp = (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()

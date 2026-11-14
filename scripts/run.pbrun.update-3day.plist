@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>run.pbrun.update-3day</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/shirly/pbrun/marathon-tracker/scripts/daily-update-mac.sh</string>
+    <string>--scheduled</string>
+  </array>
+  <!-- 路径指向 ~/pbrun 而不是 ~/Documents：macOS 隐私保护禁止 launchd 起的 /bin/bash 读
+       "文稿"目录（实测静默拒绝、无授权弹窗，ls/head/git 一律 Operation not permitted）。
+       运行副本每次开跑先 git pull，与 ~/Documents/marathon-tracker 共用远端 main。 -->
+  <!-- 每天 20:00 触发 + 每次登录/开机补跑（RunAtLoad）。脚本自己判断距上次成功是否满 72 小时，
+       不满就秒退；所以真正花钱的复查平均 3 天一次，而错过的触发会在下次登录时自动补上。 -->
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>20</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>WorkingDirectory</key>
+  <string>/Users/shirly/pbrun/marathon-tracker</string>
+  <key>StandardOutPath</key>
+  <string>/Users/shirly/Library/Logs/pbrun-update-3day-launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/shirly/Library/Logs/pbrun-update-3day-launchd.log</string>
+</dict>
+</plist>
