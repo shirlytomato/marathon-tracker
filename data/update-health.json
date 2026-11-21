@@ -1,9 +1,16 @@
 {
   "lastSuccessfulRun": "2026-11-13T11:49:52.882Z",
   "lastRun": {
-    "completedAt": "2026-11-14T11:38:49.282Z",
-    "succeeded": 4,
-    "failed": 0,
-    "failedNames": []
+    "completedAt": "2026-11-21T05:52:36.843Z",
+    "succeeded": 9,
+    "failed": 6,
+    "failedNames": [
+      "瓦伦西亚马拉松",
+      "上合昆明马拉松",
+      "云浮新兴半程马拉松",
+      "南宁马拉松",
+      "深圳南山半程马拉松",
+      "梅州马拉松"
+    ]
   }
 }
