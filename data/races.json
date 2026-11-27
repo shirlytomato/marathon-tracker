@@ -3057,7 +3057,7 @@
       "半程马拉松"
     ],
     "category": "B",
-    "updatedAt": "2026-11-22T02:00:52.502Z"
+    "updatedAt": "2026-11-27T03:13:16.496Z"
   },
   {
     "id": "河源万绿湖马拉松",
@@ -3264,13 +3264,26 @@
     "city": "瓦伦西亚",
     "raceDate": "2026-12-06",
     "location": "艺术科学城（终点）",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "全程马拉松"
     ],
     "category": "platinum",
-    "officialSite": "https://www.valenciaciudaddelrunning.com/",
-    "updatedAt": "2026-11-22T02:02:26.032Z"
+    "officialSite": "https://tickets.valenciaciudaddelrunning.com/",
+    "updatedAt": "2026-11-27T03:14:27.172Z",
+    "sources": [
+      {
+        "url": "https://tickets.valenciaciudaddelrunning.com/",
+        "observedAt": "2026-11-27T03:12:37.246Z",
+        "scope": "general"
+      },
+      {
+        "url": "https://tickets.valenciaciudaddelrunning.com/#/EN/tienda",
+        "observedAt": "2026-11-27T03:12:37.246Z",
+        "scope": "general"
+      }
+    ],
+    "lotteryDate": "2026-01-12"
   },
   {
     "id": "dubai-marathon",
@@ -3285,14 +3298,30 @@
     ],
     "category": "platinum",
     "officialSite": "https://www.dubaimarathon.org/",
-    "updatedAt": "2026-11-22T02:03:09.502Z",
+    "updatedAt": "2026-11-27T03:15:38.653Z",
     "sources": [
       {
         "url": "https://dubaimarathon.ae/",
         "observedAt": "2026-11-22T02:00:31.569Z",
         "scope": "general"
+      },
+      {
+        "url": "https://www.dubaimarathon.org/",
+        "observedAt": "2026-11-27T03:12:37.246Z",
+        "scope": "general"
+      },
+      {
+        "url": "https://www.dubaimarathon.org/how-to-register/",
+        "observedAt": "2026-11-27T03:12:37.246Z",
+        "scope": "general"
+      },
+      {
+        "url": "https://www.dubaimarathon.org/faqs/",
+        "observedAt": "2026-11-27T03:12:37.246Z",
+        "scope": "general"
       }
-    ]
+    ],
+    "regEnd": "2027-01-16"
   },
   {
     "id": "rotterdam-marathon",
@@ -4586,7 +4615,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-22T02:04:46.851Z"
+    "updatedAt": "2026-11-27T03:15:54.493Z"
   },
   {
     "id": "阳江海陵岛马拉松",
@@ -4731,12 +4760,13 @@
     "country": "中国",
     "province": "广东",
     "raceDate": "2026-12-06",
-    "regStatus": "pending",
+    "regStatus": "closed",
     "events": [
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-22T02:06:57.851Z"
+    "updatedAt": "2026-11-27T03:16:53.007Z",
+    "regStart": "2026-08-03"
   },
   {
     "id": "澄迈半程马拉松",
@@ -4829,7 +4859,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-22T02:07:33.188Z"
+    "updatedAt": "2026-11-27T03:17:18.261Z"
   },
   {
     "id": "宁德马拉松",
@@ -4940,12 +4970,12 @@
     "country": "中国",
     "province": "广东",
     "raceDate": "2026-12-20",
-    "regStatus": "pending",
+    "regStatus": "open",
     "events": [
       "半程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-22T02:09:43.962Z",
+    "updatedAt": "2026-11-27T03:18:24.035Z",
     "officialSite": "https://www.szns-marathon.com/"
   },
   {
@@ -5063,7 +5093,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-02T06:43:08.716Z",
+    "updatedAt": "2026-11-27T03:19:18.822Z",
     "officialSite": "https://sanya-marathon.irunner.mobi/"
   },
   {
@@ -5077,7 +5107,7 @@
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-09-03T01:25:22.240Z"
+    "updatedAt": "2026-11-27T03:19:42.517Z"
   },
   {
     "id": "横琴马拉松",
@@ -5443,7 +5473,7 @@
       "10公里"
     ],
     "category": "platinum",
-    "updatedAt": "2026-11-22T02:10:52.249Z",
+    "updatedAt": "2026-11-27T03:21:07.594Z",
     "regEnd": "2026-11-30",
     "registrationChannels": [
       {
