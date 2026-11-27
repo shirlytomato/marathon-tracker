@@ -5101,13 +5101,21 @@
     "name": "莆田马拉松",
     "country": "中国",
     "province": "福建",
-    "raceDate": "2026-12-27",
+    "raceDate": "2026-12-20",
     "regStatus": "pending",
     "events": [
       "全程马拉松"
     ],
     "category": "A",
-    "updatedAt": "2026-11-27T03:19:42.517Z"
+    "updatedAt": "2026-11-27T03:37:43.759Z",
+    "sources": [
+      {
+        "url": "https://view.inews.qq.com/a/LNK2026110636849600/",
+        "scope": "raceDate",
+        "observedAt": "2026-11-27T03:37:43.759Z",
+        "verifiedAt": "2026-11-27T03:37:43.759Z"
+      }
+    ]
   },
   {
     "id": "横琴马拉松",
